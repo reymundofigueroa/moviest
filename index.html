@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moviest</title>
+  <link rel="stylesheet" href="./public/css/main.css">
+</head>
+<body>
+
+  <header>
+    <img src="./public/assets/images/logo.png" alt="logo de Moviest">
+  </header>
+
+  <section class="main-section">
+   
+    <div class="eslogan">
+      <h2>¡Miles de películas a tu alcance!</h2>
+    </div>
+
+    <article class="login-container">
+      <h3>Iniciar sesión</h3>
+  
+      <form action="/login" method="POST">
+        <fieldset>
+
+          <div>
+            <label for="email">Usuario</label>
+            <input id="email" name="email" type="email" placeholder="Ingresa tu correo" required>
+          </div>
+          
+          <div>
+            <label for="password">Contraseña</label>
+            <input id="password" name="password" type="password" placeholder="Ingresa tu contraseña" required>
+          </div>
+          
+          <a href="/forgot-password" class="forgot-link">¿Olvidaste tu contraseña?</a>
+
+        </fieldset>
+  
+        <button type="submit">Ingresar</button>
+      </form>
+  
+      <div class="alternative">
+        <p>O</p>
+        <a href="/register">Crear una cuenta</a>
+      </div>
+    </article>
+  </section>
+  
+  <script src="./public/js/main.js"></script>
+</body>
+</html>
