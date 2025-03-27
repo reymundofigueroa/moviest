@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault(); // Prevenir el envío del formulario
 
       // Redirigir a la página home.html en la nueva ubicación
-      window.location.href = "../../public/pages/home.html";
+      window.location.href = "./public/pages/home.html";
     });
   }
 });
