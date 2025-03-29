@@ -1,0 +1,54 @@
+@import url('../css/variables.css');
+
+/*  ESTILOS DEL NAV  */
+nav{
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--section-padding);
+}
+nav .logo-img{
+  width: 22rem;
+}
+nav .nav-right{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: auto;
+}
+.nav-right img{
+  width: 32px;
+  margin: 0 12px;
+}
+.nav-right p{
+  font-size: var(--text-size);
+}
+
+/*  ESTILOS DE LA BARRA DE BÚSQUEDA   */
+
+.search-container{
+  display: flex;
+  position: absolute;
+  width: 100%;
+  padding: var(--section-padding);
+  margin-top: 250px;
+}
+
+.search-container input{
+  width: 80%;
+  height: 60px;
+  border-radius: 90px 0 0 90px;
+  background-color: rgba(43, 41, 41, 0.3); /* Fondo blanco semi-transparente */
+  backdrop-filter: blur(4px);
+  border-right: none;
+}
+.search-container button{
+  width: 20%;
+  height: 60px;
+  background-color: rgba(245, 245, 245, 0.3); /* Fondo blanco semi-transparente */
+  backdrop-filter: blur(4px);
+  border-radius: 0 90px 90px 0;
+  border: solid 1px white;
+  border-left: none;
+}
