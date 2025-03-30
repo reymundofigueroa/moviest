@@ -7,6 +7,7 @@ nav{
   justify-content: space-between;
   width: 100%;
   padding: var(--section-padding);
+  z-index: 1000;
 }
 nav .logo-img{
   width: 22rem;
@@ -29,18 +30,20 @@ nav .nav-right{
 
 .search-container{
   display: flex;
-  position: absolute;
+  position: relative;
   width: 100%;
   padding: var(--section-padding);
-  margin-top: 250px;
+  padding-top: 120px;
 }
 
 .search-container input{
+  padding-left: 20px;
   width: 80%;
   height: 60px;
   border-radius: 90px 0 0 90px;
   background-color: rgba(43, 41, 41, 0.3); /* Fondo blanco semi-transparente */
   backdrop-filter: blur(4px);
+  color: white;
   border-right: none;
 }
 .search-container button{
@@ -51,4 +54,38 @@ nav .nav-right{
   border-radius: 0 90px 90px 0;
   border: solid 1px white;
   border-left: none;
+}
+
+/*  ESTILOS DEL MENU  */
+.menu-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 160px;
+  width: 100%;
+  height: 35px;
+}
+.icons-container{
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+  max-width: 600px;
+}
+.icon-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+}
+.icon-container button{
+  background-color: rgba(250, 244, 244, 0.3); /* Fondo blanco semi-transparente */
+  backdrop-filter: blur(4px);
+}
+.icon-container img{
+  width: 100%;
+  object-fit: contain;
+}
+.icon-container p{
+  margin-top: 8px;
+  font-size: var(--text-size);
 }
