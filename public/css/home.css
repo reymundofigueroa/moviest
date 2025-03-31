@@ -89,3 +89,14 @@ nav .nav-right{
   margin-top: 8px;
   font-size: var(--text-size);
 }
+
+/*  ESTILOS DE LA LISTA DE PELÍCULAS  */
+
+.movies-section{
+  padding: var(--section-padding);
+  width: 100%;
+  height: auto;
+}
+.cards-container{
+  display: flex;
+}
