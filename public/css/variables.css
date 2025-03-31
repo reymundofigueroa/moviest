@@ -15,7 +15,7 @@
   --section-padding: 0.8rem 8.2rem;       /* Relleno general */
   --element-gap: 1.5rem;         /* Separación entre elementos */
   --border-radius: 12px;         /* Esquinas redondeadas */
-  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  --box-shadow: 0 4px 8px rgba(255, 255, 255, 0.4); /* Sombra ligera */
 }
 /*  ESTILOS GENERALES  */
 *{
