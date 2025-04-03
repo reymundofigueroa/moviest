@@ -1,4 +1,5 @@
 const moviesListContainer = document.getElementById('moviesContainer')
+const moviesListTitleContainer = document.getElementById('title-movies-container-section')
 const homeBtn = document.getElementById('home-btn')
 const favoritesBtn = document.getElementById('favorites-btn')
 const moviesBtn = document.getElementById('movie-btn')
@@ -10,8 +11,9 @@ const homeCategories = ['movies', 'series']
 
 async function getMovieList(){
   try{
-    moviesContainer.innerHTML = ''
-    renderMovieList(data.movies, moviesContainer, 'Películas')
+    moviesListTitleContainer.innerHTML = ''
+    moviesListContainer.innerHTML = ''
+    renderMovieList(data.movies, moviesListTitleContainer, moviesListContainer, 'Películas')
     console.log(data)
   }
   catch(error){
@@ -21,24 +23,28 @@ async function getMovieList(){
 
 async function getSeriesList(){
   try{
-    moviesContainer.innerHTML = ''
-    renderMovieList(data.series, moviesContainer, 'Series')
+    moviesListTitleContainer.innerHTML = ''
+    moviesListContainer.innerHTML = ''
+    renderMovieList(data.series, moviesListTitleContainer, moviesListContainer,  'Series')
     console.log(data)
   }
   catch(error){
     console.log(error)
   }
 }
-
-
 function getMoviesAndSeriesByCategory(array) {
-    return function(){
-      moviesContainer.innerHTML = '';
-      for (let content of array) {
-        renderMovieList(data[content], moviesContainer, content);
-      }
-    } 
+  return function () {
+    moviesListContainer.innerHTML = '';
+    
+    for (let content of array) {
+      console.log(data[content]);
+      
+      // Convertimos la cadena en un elemento HTML antes de añadirla
+      const categoryElement = renderCategoryMoviesContainer(data[content], content);
+      moviesListContainer.appendChild(categoryElement);
+    }
   };
+}
 
 
 homeLoader = getMoviesAndSeriesByCategory(homeCategories)

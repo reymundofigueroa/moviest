@@ -1,12 +1,10 @@
 
-function renderMovieList(data, container, category){
-  container.innerHTML += `
-  <div>
-  <h2>${category}</h2>
-  </div>`
+function renderMovieList(data) {
+  let content = ''; // Inicializar correctamente la variable
+
   data.forEach(movie => {
-    container.innerHTML += `
-    <div class="card">
+    content += `
+      <div class="card">
         <div class="top_icons-card-container">
           <img src="../assets/svg/hide.svg" alt="Ocultar">
           <img src="../assets/svg/heart.svg" alt="Me gusta">
@@ -18,9 +16,26 @@ function renderMovieList(data, container, category){
           <h4 class="title">${movie.title}</h4>
         </div>
       </div>
-    `
+    `;
   });
-  
+
+  return content;
+}
+
+function renderCategoryMoviesContainer(data, category) {
+  // Crear un contenedor en el DOM en lugar de devolver una cadena
+  const categoryContainer = document.createElement('article');
+
+  categoryContainer.innerHTML = `
+    <div>
+      <h2>${category}</h2>
+    </div>
+    <div class="cards-container">
+      ${renderMovieList(data)}
+    </div>
+  `;
+
+  return categoryContainer;
 }
 
 let data = {
