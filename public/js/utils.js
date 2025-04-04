@@ -1,6 +1,6 @@
 
 function renderMovieList(data) {
-  let content = ''; // Inicializar correctamente la variable
+  let content = '';
 
   data.forEach(movie => {
     content += `
@@ -23,7 +23,6 @@ function renderMovieList(data) {
 }
 
 function renderCategoryMoviesContainer(data, category) {
-  // Crear un contenedor en el DOM en lugar de devolver una cadena
   const categoryContainer = document.createElement('article');
 
   categoryContainer.innerHTML = `
@@ -44,7 +43,7 @@ let data = {
       "id": "m1",
       "title": "La Gran Aventura",
       "description": "Una emocionante aventura llena de acción.",
-      "genre": ["Acción", "Aventura"],
+      "genre": "Acción",
       "year": 2022,
       "rating": 8.5,
       "duration": 120,
@@ -55,7 +54,7 @@ let data = {
       "id": "m2",
       "title": "El Misterio",
       "description": "Un intrigante misterio que te mantendrá en vilo.",
-      "genre": ["Misterio", "Thriller"],
+      "genre": "Misterio",
       "year": 2021,
       "rating": 7.8,
       "duration": 110,
@@ -66,7 +65,7 @@ let data = {
       "id": "m3",
       "title": "Risas Sin Fin",
       "description": "Una comedia para toda la familia.",
-      "genre": ["Comedia", "Familiar"],
+      "genre": "Comedia",
       "year": 2023,
       "rating": 7.0,
       "duration": 95,
@@ -77,7 +76,7 @@ let data = {
       "id": "m4",
       "title": "El Último Viaje",
       "description": "Una historia de despedida y redención.",
-      "genre": ["Drama", "Aventura"],
+      "genre": "Drama",
       "year": 2019,
       "rating": 8.2,
       "duration": 130,
@@ -88,34 +87,12 @@ let data = {
       "id": "m5",
       "title": "Terror Nocturno",
       "description": "Una película de terror que te dejará sin dormir.",
-      "genre": ["Terror", "Suspenso"],
+      "genre": "Terror",
       "year": 2020,
       "rating": 6.9,
       "duration": 105,
       "coverImage": "ruta/a/imagen5.jpg",
       "videoUrl": "ruta/a/video5.mp4"
-    },
-    {
-      "id": "m6",
-      "title": "Amor Inesperado",
-      "description": "Dos almas encuentran el amor en los momentos menos esperados.",
-      "genre": ["Romance", "Drama"],
-      "year": 2022,
-      "rating": 7.5,
-      "duration": 115,
-      "coverImage": "ruta/a/imagen6.jpg",
-      "videoUrl": "ruta/a/video6.mp4"
-    },
-    {
-      "id": "m7",
-      "title": "Futuro Distópico",
-      "description": "Un mundo donde la tecnología ha tomado el control.",
-      "genre": ["Ciencia Ficción", "Acción"],
-      "year": 2024,
-      "rating": 8.7,
-      "duration": 140,
-      "coverImage": "ruta/a/imagen7.jpg",
-      "videoUrl": "ruta/a/video7.mp4"
     }
   ],
   series: [
@@ -123,7 +100,7 @@ let data = {
       "id": "s1",
       "title": "Drama Urbano",
       "description": "Historias de la vida real en la ciudad.",
-      "genre": ["Drama", "Suspenso"],
+      "genre": "Drama",
       "year": 2020,
       "rating": 8.9,
       "coverImage": "ruta/a/serie1.jpg",
@@ -136,12 +113,6 @@ let data = {
               "title": "Comienzos difíciles",
               "duration": 42,
               "videoUrl": "ruta/a/serie1_s1_e1.mp4"
-            },
-            {
-              "episodeNumber": 2,
-              "title": "Lazos rotos",
-              "duration": 45,
-              "videoUrl": "ruta/a/serie1_s1_e2.mp4"
             }
           ]
         }
@@ -151,7 +122,7 @@ let data = {
       "id": "s2",
       "title": "Ciencia Oculta",
       "description": "Explorando los misterios del universo y más allá.",
-      "genre": ["Ciencia Ficción", "Documental"],
+      "genre": "Ciencia Ficción",
       "year": 2021,
       "rating": 9.1,
       "coverImage": "ruta/a/serie2.jpg",
@@ -164,12 +135,6 @@ let data = {
               "title": "El origen del cosmos",
               "duration": 50,
               "videoUrl": "ruta/a/serie2_s1_e1.mp4"
-            },
-            {
-              "episodeNumber": 2,
-              "title": "El tiempo y el espacio",
-              "duration": 48,
-              "videoUrl": "ruta/a/serie2_s1_e2.mp4"
             }
           ]
         }
@@ -179,7 +144,7 @@ let data = {
       "id": "s3",
       "title": "Mundos Paralelos",
       "description": "Un thriller de ciencia ficción sobre realidades alternativas.",
-      "genre": ["Ciencia Ficción", "Suspenso"],
+      "genre": "Suspenso",
       "year": 2023,
       "rating": 8.8,
       "coverImage": "ruta/a/serie3.jpg",
@@ -201,7 +166,7 @@ let data = {
       "id": "s4",
       "title": "Reinos Perdidos",
       "description": "Un épico viaje por tierras inexploradas.",
-      "genre": ["Fantasía", "Aventura"],
+      "genre": "Fantasía",
       "year": 2020,
       "rating": 9.0,
       "coverImage": "ruta/a/serie4.jpg",
