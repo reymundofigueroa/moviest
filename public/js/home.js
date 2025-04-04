@@ -13,6 +13,7 @@ por categoría
 let homeLoader
 let seriesLoader
 let moviesLoader
+let favoritesLoader
 
 // Funciones para cargar contenido
 /*
@@ -69,10 +70,32 @@ function getContentByGenre() {
   }
 }
 
+function findMovieByTitle(title) {
+  const movie = data.movies.find(m => m.title === title)
+  if (movie) return movie
+
+  const series = data.series.find(s => s.title === title)
+  return series || null
+}
+
+function saveToFavorites(movie) {
+  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  if (!favorites.some(fav => fav.id === movie.id)) {
+    favorites.push(movie)
+    localStorage.setItem("favorites", JSON.stringify(favorites))
+    console.log("Película guardada en favoritos:", movie)
+  } else {
+    console.log("La película ya está en favoritos.")
+  }
+}
+console.log(JSON.parse(localStorage.getItem("favorites")));
+
 // Closures
 homeLoader = getMoviesAndSeries(['movies', 'series'])
 moviesLoader = getMovieList(data.movies, 'Películas')
 seriesLoader = getMovieList(data.series, 'Series')
+favoritesLoader = getMovieList(JSON.parse(localStorage.getItem("favorites")))
 
 // Escuchadores de eventos
 window.addEventListener('DOMContentLoaded', homeLoader)
@@ -80,3 +103,20 @@ homeBtn.addEventListener('click', homeLoader)
 moviesBtn.addEventListener('click', moviesLoader)
 seriesBtn.addEventListener('click', seriesLoader)
 categoriesBtn.addEventListener('click', getContentByGenre)
+favoritesBtn.addEventListener('click', favoritesLoader)
+
+document.addEventListener("click", function(event) {
+  if (event.target.matches(".heart-icon")) {
+    const movieCard = event.target.closest(".card")
+    
+    if (movieCard) {
+      const movieTitle = movieCard.querySelector(".title").textContent
+
+      const movie = findMovieByTitle(movieTitle)
+
+      if (movie) {
+        saveToFavorites(movie)
+      }
+    }
+  }
+})

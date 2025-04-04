@@ -7,7 +7,7 @@ function renderMovieList(data) {
       <div class="card">
         <div class="top_icons-card-container">
           <img src="../assets/svg/hide.svg" alt="Ocultar">
-          <img src="../assets/svg/heart.svg" alt="Me gusta">
+          <img class="heart-icon" src="../assets/svg/heart.svg" alt="Me gusta">
         </div>
         <div class="play_button-card-container">
           <img class="play-button" src="../assets/svg/play.svg" alt="Play">
