@@ -27,6 +27,48 @@ function renderMovieList(data) {
   return content;
 }
 
+function renderMovieDetails(data){
+  let content = ''
+  content = `
+    <div class="card detailsCard-container">
+      <div class="top_icons-card-container">
+        <img class="heart-icon" src="../assets/svg/heart.svg" alt="Me gusta">
+      </div>
+      <div class="play_button-card-container">
+        <img id="play-movie" class="play-button" src="../assets/svg/play.svg" alt="Play">
+      </div>
+      <div class="bottom_tittle-card-container">
+        <h4 class="title" >${data.title}</h4>
+      </div>
+    </div>
+    <div class="details-container">
+      <div class="detailsTitle-container">
+        <h2>${data.title}</h2>
+      </div>
+      <div class="detailsDescription-container">
+      <p>${data.description}</p>
+      </div>
+    </div>
+  `
+  return content
+}
+
+
+function renderMovieDetailsContainer(data, category) {
+  const categoryContainer = document.createElement('article')
+
+  categoryContainer.innerHTML = `
+    <div>
+      <h2>${category}</h2>
+    </div>
+    <div class="card-container">
+      ${renderMovieDetails(data)}
+    </div>
+  `
+
+  return categoryContainer
+}
+
 /*
 Esta función toma como argumento un string que será interpretado 
 como nodo de html, ademas de el nombre del contenedor. Esto retornara 

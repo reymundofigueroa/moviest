@@ -103,8 +103,31 @@ function favoritesHandler(event) {
     const favoritesLoader = getMovieList(updatedFavorites, 'Favoritos')
   favoritesLoader()
   }
-
 }
+
+function playHandler(event){
+  const isPlayIcon = event.target.matches('.play-button')
+  console.log('click en play')
+  if (!isPlayIcon) return
+
+   // Obtenemos la tarjeta contenedora de la película
+  const movieCard = event.target.closest('.card')
+  if (!movieCard) return
+
+   // Extraemos el título para identificar la película
+  const movieTitle = movieCard.querySelector('.title')?.textContent
+  if (!movieTitle) return
+  
+
+   // Buscamos la película en nuestros datos
+  const movie = findMovieDataByTitle(movieTitle)
+  if (!movie) return
+  console.log(movie)
+  moviesListContainer.innerHTML = ''
+const detailsElement = renderMovieDetailsContainer(movie, 'Detalles')
+moviesListContainer.appendChild(detailsElement)
+}
+
 
 // Closures de las funciones
 homeLoader = getMoviesAndSeries(['movies', 'series'])
@@ -114,6 +137,7 @@ seriesLoader = getMovieList(data.series, 'Series')
 // Escuchadores de eventos
 window.addEventListener('DOMContentLoaded', homeLoader)
 document.addEventListener('click', favoritesHandler)
+document.addEventListener('click', playHandler)
 homeBtn.addEventListener('click', homeLoader)
 moviesBtn.addEventListener('click', moviesLoader)
 seriesBtn.addEventListener('click', seriesLoader)
