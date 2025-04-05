@@ -1,3 +1,8 @@
+/*
+Esta función renderiza una lista de películas en base a una sección de
+un JSON y retorna un string que será usado por otra función que
+interpretará el string como nodo de html y lo insertará en un contenedor
+*/
 
 function renderMovieList(data) {
   let content = '';
@@ -6,14 +11,14 @@ function renderMovieList(data) {
     content += `
       <div class="card">
         <div class="top_icons-card-container">
-          <img src="../assets/svg/hide.svg" alt="Ocultar">
+          <img class="hide-icon" src="../assets/svg/hide.svg" alt="Ocultar">
           <img class="heart-icon" src="../assets/svg/heart.svg" alt="Me gusta">
         </div>
         <div class="play_button-card-container">
           <img class="play-button" src="../assets/svg/play.svg" alt="Play">
         </div>
         <div class="bottom_tittle-card-container">
-          <h4 class="title">${movie.title}</h4>
+          <h4 class="title" >${movie.title}</h4>
         </div>
       </div>
     `;
@@ -22,8 +27,14 @@ function renderMovieList(data) {
   return content;
 }
 
+/*
+Esta función toma como argumento un string que será interpretado 
+como nodo de html, ademas de el nombre del contenedor. Esto retornara 
+un contenedor de una lista de películas 
+*/
+
 function renderCategoryMoviesContainer(data, category) {
-  const categoryContainer = document.createElement('article');
+  const categoryContainer = document.createElement('article')
 
   categoryContainer.innerHTML = `
     <div>
@@ -32,11 +43,66 @@ function renderCategoryMoviesContainer(data, category) {
     <div class="cards-container">
       ${renderMovieList(data)}
     </div>
-  `;
+  `
 
-  return categoryContainer;
+  return categoryContainer
 }
 
+/*
+  Esta función permite la búsqueda de una película o serie por su título, 
+  primero en el array de películas y luego en el de series, de manera eficiente.
+  Se hace de esta forma para evitar redundancia al usar un solo criterio de búsqueda
+  (título) para ambos tipos de contenido.
+*/
+
+function findMovieDataByTitle(title) {
+  const movie = data.movies.find(m => m.title === title)
+  if (movie) return movie
+
+  const series = data.series.find(s => s.title === title)
+  return series || null
+}
+
+/* 
+  Se usa un check para evitar que una película o serie se guarde dos veces en los favoritos,
+  lo cual mejora la experiencia del usuario al no permitir duplicados.
+  Al guardar directamente en `localStorage` estamos persistiéndolo entre sesiones.
+*/
+
+function saveToFavorites(movie) {
+  let favorites = JSON.parse(localStorage.getItem("favorites")) || []
+
+  // Evitamos duplicados comprobando si ya existe en favoritos
+  if (!favorites.some(fav => fav.id === movie.id)) {
+    favorites.push(movie)
+    localStorage.setItem("favorites", JSON.stringify(favorites))
+    console.log("Película guardada en favoritos:", movie)
+  } else {
+    console.log("La película ya está en favoritos.")
+  }
+}
+
+/* 
+  Esta función filtra los favoritos y elimina la película especificada,
+  asegurándose de que los cambios sean persistidos en `localStorage`.
+  Se hace de esta manera para actualizar la lista de favoritos de forma eficiente
+  sin alterar el estado de otras películas o series.
+*/
+  
+function deleteToFavorites(movie){
+  let favorites = JSON.parse(localStorage.getItem("favorites")) || []
+
+  // Creamos una nueva lista sin la película eliminada
+  const updatedFavorites = favorites.filter(fav => fav.id !== movie.id)
+  localStorage.setItem("favorites", JSON.stringify(updatedFavorites))
+  console.log("Película eliminada de favoritos:", movie)
+}
+
+/* 
+Los datos se movieron a este archivo porque si se clona el repositorio 
+y se abre desde el archivo index.html sin iniciar un servidor local 
+estos no funcionarán debido a temas de "CORS"
+*/
 let data = {
   movies: [
     {

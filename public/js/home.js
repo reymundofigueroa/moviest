@@ -13,41 +13,44 @@ por categoría
 let homeLoader
 let seriesLoader
 let moviesLoader
-let favoritesLoader
 
-// Funciones para cargar contenido
 /*
-Se opto por usar "closures" en las funciones debido 
-a que requieren argumentos, y con el uso
-de estos se logra poner los argumentos y que no se
-llame al principio del addEventListener
+  Se utiliza un closure para crear una función que renderiza una lista de películas por categoría,
+  evitando que se ejecute al instante y permitiendo su reutilización en diferentes eventos.
 */
+
 function getMovieList(data, category){
   return function(){
-    moviesListContainer.innerHTML = ''
-    const categoryElement = renderCategoryMoviesContainer(data, category);
-    moviesListContainer.appendChild(categoryElement);
+    moviesListContainer.innerHTML = '' // Limpiamos el contenedor antes de renderizar
+    const categoryElement = renderCategoryMoviesContainer(data, category)
+    moviesListContainer.appendChild(categoryElement) // Añadimos el contenido renderizado
   }
 }
 
 function getMoviesAndSeries(categoriesArray) {
   return function () {
-    moviesListContainer.innerHTML = '';
-    
+    moviesListContainer.innerHTML = '' // Limpiamos el contenedor
+
+    // Iteramos sobre las categorías para crear y agregar los elementos correspondientes
     for (let content of categoriesArray) {
-      console.log(data[content]);
-      const categoryElement = renderCategoryMoviesContainer(data[content], content);
-      moviesListContainer.appendChild(categoryElement);
+      const categoryElement = renderCategoryMoviesContainer(data[content], content)
+      moviesListContainer.appendChild(categoryElement)
     }
-  };
+  }
 }
 
+/*
+  Esta función agrupa las películas y series por géneros antes de renderizarlas,
+  permitiendo una visualización más organizada y dinámica. Se hace así para evitar 
+  redundancia y que el código sea fácilmente ampliable en el futuro con nuevos géneros.
+*/
+
 function getContentByGenre() {
-  moviesListContainer.innerHTML = ''
+  moviesListContainer.innerHTML = '' // Limpiamos el contenedor
 
-  const genresList = {}
+  const genresList = {} // Objeto para agrupar por géneros
 
-  // Agrupa series y películas por géneros
+  // Agrupamos las películas por género
   data.movies.forEach(movie => {
     if (!genresList[movie.genre]) {
       genresList[movie.genre] = []
@@ -55,6 +58,7 @@ function getContentByGenre() {
     genresList[movie.genre].push(movie)
   })
 
+  // Agrupamos las series por género
   data.series.forEach(serie => {
     if (!genresList[serie.genre]){
       genresList[serie.genre] = []
@@ -62,7 +66,7 @@ function getContentByGenre() {
     genresList[serie.genre].push(serie)
   })
 
-  // Recorre cada género y lo renderiza
+  // Recorremos los géneros para renderizar las categorías agrupadas
   for (let genre in genresList) {
     const contentByGenre = genresList[genre]
     const categoryElement = renderCategoryMoviesContainer(contentByGenre, genre)
@@ -70,53 +74,52 @@ function getContentByGenre() {
   }
 }
 
-function findMovieByTitle(title) {
-  const movie = data.movies.find(m => m.title === title)
-  if (movie) return movie
+function favoritesHandler(event) {
+  // Primero, verificamos si se hizo clic en un ícono relevante
+  const isHeartIcon = event.target.matches('.heart-icon')
+  const isHideIcon = event.target.matches('.hide-icon')
 
-  const series = data.series.find(s => s.title === title)
-  return series || null
-}
+  // Si el clic no fue en ninguno de los dos, salimos
+  if (!isHeartIcon && !isHideIcon) return
 
-function saveToFavorites(movie) {
-  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  // Obtenemos la tarjeta contenedora de la película
+  const movieCard = event.target.closest('.card')
+  if (!movieCard) return
 
-  if (!favorites.some(fav => fav.id === movie.id)) {
-    favorites.push(movie)
-    localStorage.setItem("favorites", JSON.stringify(favorites))
-    console.log("Película guardada en favoritos:", movie)
-  } else {
-    console.log("La película ya está en favoritos.")
+  // Extraemos el título para identificar la película
+  const movieTitle = movieCard.querySelector('.title')?.textContent
+  if (!movieTitle) return
+
+  // Buscamos la película en nuestros datos
+  const movie = findMovieDataByTitle(movieTitle)
+  if (!movie) return
+
+  if (isHeartIcon) {
+    saveToFavorites(movie)
+  } else if (isHideIcon) {
+    deleteToFavorites(movie)
+    // Actualizamos el contenedor 
+    const updatedFavorites = JSON.parse(localStorage.getItem("favorites")) || []
+    const favoritesLoader = getMovieList(updatedFavorites, 'Favoritos')
+  favoritesLoader()
   }
-}
-console.log(JSON.parse(localStorage.getItem("favorites")));
 
-// Closures
+}
+
+// Closures de las funciones
 homeLoader = getMoviesAndSeries(['movies', 'series'])
 moviesLoader = getMovieList(data.movies, 'Películas')
 seriesLoader = getMovieList(data.series, 'Series')
-favoritesLoader = getMovieList(JSON.parse(localStorage.getItem("favorites")))
 
 // Escuchadores de eventos
 window.addEventListener('DOMContentLoaded', homeLoader)
+document.addEventListener('click', favoritesHandler)
 homeBtn.addEventListener('click', homeLoader)
 moviesBtn.addEventListener('click', moviesLoader)
 seriesBtn.addEventListener('click', seriesLoader)
 categoriesBtn.addEventListener('click', getContentByGenre)
-favoritesBtn.addEventListener('click', favoritesLoader)
-
-document.addEventListener("click", function(event) {
-  if (event.target.matches(".heart-icon")) {
-    const movieCard = event.target.closest(".card")
-    
-    if (movieCard) {
-      const movieTitle = movieCard.querySelector(".title").textContent
-
-      const movie = findMovieByTitle(movieTitle)
-
-      if (movie) {
-        saveToFavorites(movie)
-      }
-    }
-  }
+favoritesBtn.addEventListener('click', function() {
+  const updatedFavorites = JSON.parse(localStorage.getItem("favorites")) || []
+  const favoritesLoader = getMovieList(updatedFavorites, 'Favoritos')
+favoritesLoader()
 })
