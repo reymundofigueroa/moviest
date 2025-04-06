@@ -9,7 +9,7 @@ function renderMovieList(data) {
 
   data.forEach(movie => {
     content += `
-      <div class="card">
+      <div style="background-image: url('../assets/images/${movie.coverImage}')" class="card">
         <div class="top_icons-card-container">
           <img class="hide-icon" src="../assets/svg/hide.svg" alt="Ocultar">
           <img class="heart-icon" src="../assets/svg/heart.svg" alt="Me gusta">
@@ -30,7 +30,7 @@ function renderMovieList(data) {
 function renderMovieDetails(data){
   let content = ''
   content = `
-    <div class="card detailsCard-container">
+    <div style="background-image: url('../assets/images/${data.coverImage}')" id="detailsCard-container" class="card">
       <div class="top_icons-card-container">
         <img class="heart-icon" src="../assets/svg/heart.svg" alt="Me gusta">
       </div>
@@ -46,7 +46,10 @@ function renderMovieDetails(data){
         <h2>${data.title}</h2>
       </div>
       <div class="detailsDescription-container">
-      <p>${data.description}</p>
+        <p>${data.description}</p>
+      </div>
+      <div>
+        <button>¡Ver ahora!</button>
       </div>
     </div>
   `
@@ -56,12 +59,11 @@ function renderMovieDetails(data){
 
 function renderMovieDetailsContainer(data, category) {
   const categoryContainer = document.createElement('article')
-
   categoryContainer.innerHTML = `
     <div>
       <h2>${category}</h2>
     </div>
-    <div class="card-container">
+    <div class="cardAndDetails-container">
       ${renderMovieDetails(data)}
     </div>
   `
@@ -145,73 +147,74 @@ Los datos se movieron a este archivo porque si se clona el repositorio
 y se abre desde el archivo index.html sin iniciar un servidor local 
 estos no funcionarán debido a temas de "CORS"
 */
+
 let data = {
   movies: [
     {
       "id": "m1",
-      "title": "La Gran Aventura",
+      "title": "El señor de los anillos",
       "description": "Una emocionante aventura llena de acción.",
       "genre": "Acción",
       "year": 2022,
       "rating": 8.5,
       "duration": 120,
-      "coverImage": "ruta/a/imagen1.jpg",
+      "coverImage": "El-señor-de-los-anillos.webp",
       "videoUrl": "ruta/a/video1.mp4"
     },
     {
       "id": "m2",
-      "title": "El Misterio",
+      "title": "Monster House",
       "description": "Un intrigante misterio que te mantendrá en vilo.",
       "genre": "Misterio",
       "year": 2021,
       "rating": 7.8,
       "duration": 110,
-      "coverImage": "ruta/a/imagen2.jpg",
+      "coverImage": "monster-house.webp",
       "videoUrl": "ruta/a/video2.mp4"
     },
     {
       "id": "m3",
-      "title": "Risas Sin Fin",
+      "title": "Señor dame paciencia",
       "description": "Una comedia para toda la familia.",
       "genre": "Comedia",
       "year": 2023,
       "rating": 7.0,
       "duration": 95,
-      "coverImage": "ruta/a/imagen3.jpg",
+      "coverImage": "señor-dame-paciencia.webp",
       "videoUrl": "ruta/a/video3.mp4"
     },
     {
       "id": "m4",
-      "title": "El Último Viaje",
+      "title": "Goku",
       "description": "Una historia de despedida y redención.",
       "genre": "Drama",
       "year": 2019,
       "rating": 8.2,
       "duration": 130,
-      "coverImage": "ruta/a/imagen4.jpg",
+      "coverImage": "goku.webp",
       "videoUrl": "ruta/a/video4.mp4"
     },
     {
       "id": "m5",
-      "title": "Terror Nocturno",
-      "description": "Una película de terror que te dejará sin dormir.",
-      "genre": "Terror",
+      "title": "Life of PI",
+      "description": "Una película fascinante de ciencia y matemáticas.",
+      "genre": "Drama",
       "year": 2020,
       "rating": 6.9,
       "duration": 105,
-      "coverImage": "ruta/a/imagen5.jpg",
+      "coverImage": "Life-of-PI.webp",
       "videoUrl": "ruta/a/video5.mp4"
     }
   ],
   series: [
     {
       "id": "s1",
-      "title": "Drama Urbano",
+      "title": "Dark",
       "description": "Historias de la vida real en la ciudad.",
       "genre": "Drama",
       "year": 2020,
       "rating": 8.9,
-      "coverImage": "ruta/a/serie1.jpg",
+      "coverImage": "dark.webp",
       "seasons": [
         {
           "seasonNumber": 1,
@@ -228,12 +231,12 @@ let data = {
     },
     {
       "id": "s2",
-      "title": "Ciencia Oculta",
+      "title": "Phanteon",
       "description": "Explorando los misterios del universo y más allá.",
       "genre": "Ciencia Ficción",
       "year": 2021,
       "rating": 9.1,
-      "coverImage": "ruta/a/serie2.jpg",
+      "coverImage": "phanteon.webp",
       "seasons": [
         {
           "seasonNumber": 1,
@@ -250,12 +253,12 @@ let data = {
     },
     {
       "id": "s3",
-      "title": "Mundos Paralelos",
+      "title": "Breaking bad",
       "description": "Un thriller de ciencia ficción sobre realidades alternativas.",
       "genre": "Suspenso",
       "year": 2023,
       "rating": 8.8,
-      "coverImage": "ruta/a/serie3.jpg",
+      "coverImage": "breaking-bad.webp",
       "seasons": [
         {
           "seasonNumber": 1,
@@ -272,12 +275,12 @@ let data = {
     },
     {
       "id": "s4",
-      "title": "Reinos Perdidos",
+      "title": "Suits",
       "description": "Un épico viaje por tierras inexploradas.",
-      "genre": "Fantasía",
+      "genre": "Drama",
       "year": 2020,
       "rating": 9.0,
-      "coverImage": "ruta/a/serie4.jpg",
+      "coverImage": "suits.webp",
       "seasons": [
         {
           "seasonNumber": 1,

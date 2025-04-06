@@ -49,7 +49,7 @@ nav .nav-right{
 .search-container button{
   width: 20%;
   height: 6rem;
-  background-color: rgba(245, 245, 245, 0.3); /* Fondo blanco semi-transparente */
+  background-color: #7236c7; /* Fondo blanco semi-transparente */
   backdrop-filter: blur(4px);
   border-radius: 0 90px 90px 0;
   border: solid 1px white;
@@ -76,10 +76,15 @@ nav .nav-right{
   justify-content: center;
   align-items: center;
   width: 5.6rem;
+  transition: transform 0.2s ease-in-out;
 }
 .icon-container button{
-  background-color: rgba(250, 244, 244, 0.3); /* Fondo blanco semi-transparente */
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo blanco semi-transparente */
   backdrop-filter: blur(4px);
+  
+}
+.icon-container:hover{
+  transform: scale(1.12);
 }
 .icon-container img{
   width: 100%;
@@ -111,8 +116,14 @@ nav .nav-right{
   width: 24rem;
   height: 32rem;
   border-radius: var(--border-radius);
-  background-color: aqua;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease-in-out; 
+}
+.card:hover{
+  transform: scale(1.08);
 }
 .card .top_icons-card-container{
   display: flex;
@@ -133,4 +144,36 @@ nav .nav-right{
 .card .bottom_tittle-card-container{
   padding: 1.2rem;
   font-size: var(--subtitle-size);
+}
+
+/* ESTILOS DEL MOVIE DETAILS  */
+
+#detailsCard-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 2rem 0.8rem;
+  width: 36rem;
+  height: 44rem;
+  border-radius: var(--border-radius);
+  background-color: aqua;
+  box-shadow: var(--box-shadow);
+}
+
+.details-container{
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 4rem;
+}
+
+.details-container h2{
+  margin-bottom: 2.6rem;
+  font-size: 4rem;
+}
+.details-container p{
+  margin-bottom: 12rem;
+  font-size: 2.4rem;
+}
+.cardAndDetails-container{
+  display: flex;
 }
