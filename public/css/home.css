@@ -83,7 +83,7 @@ nav .nav-right{
   backdrop-filter: blur(4px);
   
 }
-.icon-container:hover{
+.icon-container button:hover{
   transform: scale(1.12);
 }
 .icon-container img{
