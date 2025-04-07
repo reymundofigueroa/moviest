@@ -6,6 +6,7 @@ const moviesBtn = document.getElementById('movie-btn')
 const seriesBtn = document.getElementById('series-btn')
 const categoriesBtn = document.getElementById('categories-btn')
 
+
 /*
 Guarda el closure de la función que genera listas de películas 
 por categoría 
@@ -129,6 +130,7 @@ moviesListContainer.appendChild(detailsElement)
 }
 
 
+
 // Closures de las funciones
 homeLoader = getMoviesAndSeries(['movies', 'series'])
 moviesLoader = getMovieList(data.movies, 'Películas')
@@ -147,3 +149,4 @@ favoritesBtn.addEventListener('click', function() {
   const favoritesLoader = getMovieList(updatedFavorites, 'Favoritos')
 favoritesLoader()
 })
+

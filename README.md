@@ -98,15 +98,14 @@ Esta sección muestra los detalles de la película seleccionada, para poder acce
 1. La barra de búsqueda no funciona.
 2. No toda la tarjeta de película es clickeable (solo el ícono de play).
 3. No hay indicación visual clara para saber si una película está en favoritos.
-4. No se reproduce ningún video por el momento.
 
 ---
 
 ## 🔁 Sprint Review
 
-| ¿Qué salió bien? | ¿Qué puedo hacer diferente? | ¿Qué no salió bien? |
-|------------------|-----------------------------|----------------------|
-| ✅ Maquetación y estilos rápidos con pocos errores técnicos. | ✅ Crear lista de subrequerimientos para más organización. | ❌ La estructura HTML para imágenes no fue óptima y complicó el CSS. |
-| ✅ División clara entre funciones generales y específicas. | ✅ No hacer refactor antes de terminar requerimientos mínimos. | ❌ Refactor prematuro impidió completar la función de búsqueda. |
-| ✅ Buenas puntuaciones en auditoría de Lighthouse (versión escritorio). | ✅ Usar estructura HTML que facilite manipulación de imágenes con CSS. | |
-| ✅ Comentarios útiles explicando el **por qué** del código. | | |
+| ¿Qué salió bien?                                      | ¿Qué puedo hacer diferente?                                         | ¿Qué no salió bien?                                                                 |
+|--------------------------------------------------------|-----------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| ✅ Maquetación y estilos rápidos con pocos errores técnicos. | ✅ Crear lista de subrequerimientos para más organización.            | ❌ La estructura HTML para imágenes no fue óptima y complicó el CSS en la última etapa. |
+| ✅ División clara entre funciones generales y específicas. | ✅ No hacer refactor antes de terminar requerimientos mínimos.        | ❌ Refactor prematuro impidió completar la función de búsqueda.                     |
+| ✅ Buenas puntuaciones en auditoría de Lighthouse (versión escritorio). | ✅ Usar estructura HTML que facilite manipulación de imágenes con CSS. | ❌ Las funciones que renderizan los detalles de la película no siguen las mejores prácticas. |
+| ✅ Comentarios útiles explicando el **por qué** del código. |                                                                       |                                                                                      |

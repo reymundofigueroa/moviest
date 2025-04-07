@@ -1,7 +1,7 @@
 /*
 Esta función renderiza una lista de películas en base a una sección de
 un JSON y retorna un string que será usado por otra función que
-interpretará el string como nodo de html y lo insertará en un contenedor
+interpretará el string como nodo de html y lo insertará en un videoContainer
 */
 
 function renderMovieList(data) {
@@ -49,9 +49,32 @@ function renderMovieDetails(data){
         <p>${data.description}</p>
       </div>
       <div>
-        <button>¡Ver ahora!</button>
+        <button onclick="showVideo()" >¡Ver ahora!</button>
       </div>
     </div>
+   
+    <div id="video-container" style="display: none;">
+      <video id="miVideo" width="100%" height="100%" controls style="display: block;">
+        <source src="../assets/videos/MR-Robot-Linux.mp4" type="video/mp4">
+        Tu navegador no soporta la etiqueta de video.
+      </video>
+      
+      <button onclick="closeVideo()" style="
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          z-index: 1000;
+          background-color: rgba(0, 0, 0, 0.5);
+          color: #fff;
+          border: none;
+          padding: 8px 12px;
+          cursor: pointer;
+          border-radius: 5px;
+        ">
+        ✖ Cerrar video
+      </button>
+    </div>
+    
   `
   return content
 }
@@ -73,8 +96,8 @@ function renderMovieDetailsContainer(data, category) {
 
 /*
 Esta función toma como argumento un string que será interpretado 
-como nodo de html, ademas de el nombre del contenedor. Esto retornara 
-un contenedor de una lista de películas 
+como nodo de html, ademas de el nombre del videoContainer. Esto retornara 
+un videoContainer de una lista de películas 
 */
 
 function renderCategoryMoviesContainer(data, category) {
@@ -91,7 +114,45 @@ function renderCategoryMoviesContainer(data, category) {
 
   return categoryContainer
 }
+function showVideo() {
+  const videoContainer = document.getElementById("video-container");
+  const video = document.getElementById("miVideo");
 
+  videoContainer.style.display = "block";
+
+  setTimeout(() => {
+    
+    if (videoContainer.requestFullscreen) {
+      videoContainer.requestFullscreen();
+    } else if (videoContainer.webkitRequestFullscreen) {
+      videoContainer.webkitRequestFullscreen();
+    } else if (videoContainer.msRequestFullscreen) {
+      videoContainer.msRequestFullscreen();
+    }
+  
+    video.play();
+  }, 100);
+}
+
+function closeVideo() {
+  const videoContainer = document.getElementById("video-container");
+  const video = document.getElementById("miVideo");
+
+  video.pause();
+  video.currentTime = 0;
+  videoContainer.style.display = "none";
+
+  // Salir de pantalla completa si está activo
+  if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+  }
+}
 /*
   Esta función permite la búsqueda de una película o serie por su título, 
   primero en el array de películas y luego en el de series, de manera eficiente.
