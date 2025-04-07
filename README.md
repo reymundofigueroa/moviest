@@ -32,15 +32,48 @@ También incluye una sección de detalles de cada película.
 
 ## 🎨 Mockup
 
-![Mockup 1](assets/images/mockup1.png)
-![Mockup 2](assets/images/mockup2.png)
-![Mockup 3](assets/images/mockup3.png)
+![Mockup 1](./public/assets/images/mockup1.jpg)
+![Mockup 2](./public/assets/images/mockup2.jpg)
+![Mockup 3](./public/assets/images/mockup3.jpg)
 
 ---
 
 ## 👀 Vista del proyecto
 
-*Insertar tres imágenes aquí*
+- Login
+Una ventana de login sencilla en la que, para entrar, solo hay que hacer click en ingresar. El esquema de estilos esta inspirado en el Glassmorphism.
+
+![Vista previa del Login](./public/assets/images/Captura-login.png)
+
+- Home
+El home consta de las secciones principales:
+  - header que muestra el logo, un icono de buscar y un mensaje de bienvenida al usuario
+  - una barra de búsqueda con alta visibilidad, pues se espera que en futuras iteraciones sea un
+   punto importante para la navegación en la app
+  - menú de navegación, este funciona como sistema de navegación para clasificar el contenido en distintas categorías predefinidas
+  - Sección de películas, esta sección muestra una lista de películas en las cuales puedes ver detalles agregar o quitar de favoritos en base a los iconos    dispuestos en cada tarjeta
+![Vista previa del Home](./public/assets/images/Captura-home.png)
+
+- Favoritos
+se accede dando click en el icono de favoritos en el menu de la web, esta muestra películas o series que el usuario haya agregado previamente dando click en el icono del corazón de su respectiva tarjeta, también es posible eliminarlas dando click en el icono de ocultar en la misma tarjeta
+
+![Vista previa Favoritos](./public/assets/images/Captura-favoritos.png)
+
+- Categorías
+Se accede dando click al icono de categorías y este muestra todas las películas y series según su categoría
+actualmente existen las categorías de
+  - Acción
+  - Misterio
+  - Comedia
+  - Drama
+  - Ciencia Ficción
+  - Suspenso
+
+![Vista previa filtro por categorías](./public/assets/images/Captura-categorias.png)
+
+- Detalles de la película
+Esta sección muestra los detalles de la película seleccionada, para poder acceder a esta sección hay que hacer click en el icono de la película que se desean conocer los detalles
+![Vista previa detalles de la película](./public/assets/images/Captura-detalles-de-pelicula.png)
 
 ---
 
