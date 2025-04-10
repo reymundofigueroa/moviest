@@ -1,0 +1,8 @@
+header{
+  position: fixed;
+  width: 100%;
+  padding: var(--section-padding)
+}
+header .logo-img{
+  width: 22rem;
+}
