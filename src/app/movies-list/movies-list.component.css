@@ -1,0 +1,48 @@
+.movies-section{
+  padding: var(--section-padding);
+  margin-top: 8rem;
+  width: 100%;
+  height: auto;
+}
+
+.cards-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+.card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 2rem 0.8rem;
+  width: 24rem;
+  height: 32rem;
+  border-radius: var(--border-radius);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease-in-out;
+}
+.card:hover{
+  transform: scale(1.08);
+}
+.card .top_icons-card-container{
+  display: flex;
+  justify-content: space-between;
+  padding: 1.2rem;
+}
+.card img{
+  width: 3.2rem;
+
+}
+.card .play_button-card-container{
+  display: flex;
+  justify-content: center;
+}
+.card .play_button-card-container img{
+  width: 4rem;
+}
+.card .bottom_tittle-card-container{
+  padding: 1.2rem;
+  font-size: var(--subtitle-size);
+}

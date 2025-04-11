@@ -1,0 +1,32 @@
+
+.search-container{
+  display: flex;
+  position: relative;
+  width: 100%;
+  padding: var(--section-padding);
+  padding-top: 12rem;
+}
+
+.search-container input{
+  padding-left: 20px;
+  width: 80%;
+  height: 60px;
+  border-radius: 90px 0 0 90px;
+  background-color: rgba(43, 41, 41, 0.3);
+  backdrop-filter: blur(4px);
+  color: var(--text-color);
+  border-right: none;
+  border: solid 1px var(--border-color);
+  font-size: var(--text-size);
+}
+.search-container button{
+  width: 20%;
+  height: 6rem;
+  background-color: #7236c7;
+  backdrop-filter: blur(4px);
+  border-radius: 0 90px 90px 0;
+  border: solid 1px var(--border-color);
+  border-left: none;
+  color: var(--text-color);
+  font-size: var(--text-size);
+}
