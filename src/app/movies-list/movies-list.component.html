@@ -1,22 +1,23 @@
-<Section id="moviesContainer" class="movies-section">
-  <article>
-    <div id="title-movies-container-section">
-      <h2>Titulo de la sección</h2>
-    </div>
-    <div  class="cards-container">
-      <div class="card">
-        <div class="top_icons-card-container">
-          <img src="../assets/svg/hide.svg" alt="Ocultar">
-          <img src="../assets/svg/heart.svg" alt="Me gusta">
-        </div>
-        <div class="play_button-card-container">
-          <img class="play-button" src="../assets/svg/play.svg" alt="Play">
-        </div>
-        <div class="bottom_tittle-card-container">
-          <h4 class="title">Titulo de la película</h4>
+<section class="movies-section">
+  <ng-container *ngFor="let genero of contenido | keyvalue">
+    <article>
+      <div id="title-movies-container-section">
+        <h2>{{ genero.key }}</h2>
+      </div>
+      <div class="cards-container">
+        <div class="card" *ngFor="let item of genero.value">
+          <div class="top_icons-card-container">
+            <img src="../assets/svg/hide.svg" alt="Ocultar" />
+            <img src="../assets/svg/heart.svg" alt="Me gusta" />
+          </div>
+          <div class="play_button-card-container">
+            <img class="play-button" src="../assets/svg/play.svg" alt="Play" />
+          </div>
+          <div class="bottom_tittle-card-container">
+            <h4 class="title">{{ item.title }}</h4>
+          </div>
         </div>
       </div>
-    </div>
-  </article>
-
-</Section>
+    </article>
+  </ng-container>
+</section>

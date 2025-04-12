@@ -12,9 +12,9 @@ import { MoviesListComponent } from '../movies-list/movies-list.component';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  contentTipe = 'peliculas';
+  categoryContent = 'home';
 
-  changeContent(tipe: string) {
-    this.contentTipe = tipe;
+  changeMovieList(category: string) {
+    this.categoryContent = category;
   }
 }

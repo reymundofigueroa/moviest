@@ -1,22 +1,22 @@
 <menu class="menu-container">
   <div class="icons-container">
-    <div (click)="seleccionarTipo('home')" id="home-btn" class="icon-container">
+    <div (click)="selectCategory('home')" id="home-btn" class="icon-container">
       <button><img src="/assets/svg/home.svg" alt="Inicio"></button>
       <p>Inicio</p>
     </div>
-    <div (click)="seleccionarTipo('favoritos')" id="favorites-btn" class="icon-container">
+    <div (click)="selectCategory('favorites')" id="favorites-btn" class="icon-container">
       <button><img src="/assets/svg/favorite.svg" alt="Favoritos"></button>
       <p>Favoritos</p>
     </div>
-    <div (click)="seleccionarTipo('categories')" id="categories-btn" class="icon-container">
+    <div (click)="selectCategory('categories')" id="categories-btn" class="icon-container">
       <button><img src="/assets/svg/category.svg" alt="Categorías"></button>
       <p>Categorías</p>
     </div>
-    <div id="series-btn" class="icon-container">
+    <div (click)="selectCategory('series')" id="series-btn" class="icon-container">
       <button><img src="/assets/svg/series.svg" alt="Series"></button>
       <p>Series</p>
     </div>
-    <div id="movie-btn" class="icon-container">
+    <div (click)="selectCategory('movies')" id="movie-btn" class="icon-container">
       <button><img src="/assets/svg/movie.svg" alt="Películas"></button>
       <p>Películas</p>
     </div>

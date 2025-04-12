@@ -8,9 +8,9 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrl: './nav-descktop-menu.component.css'
 })
 export class NavDescktopMenuComponent {
-  @Output() tipoSeleccionado = new EventEmitter<string>();
+  @Output() categorySelected = new EventEmitter<string>();
 
-  seleccionarTipo(tipo: string) {
-    this.tipoSeleccionado.emit(tipo);
+  selectCategory(category: string) {
+    this.categorySelected.emit(category);
   }
 }
