@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 export class MoviesListComponent implements OnChanges {
   @Input() category: string = '';
   contenido: { [genero: string]: any[] } = {};
+  ContentGroups: any[] = []
 
   constructor(private peliculasService: PeliculasService) {}
 
@@ -20,33 +21,33 @@ ngOnChanges() {
   this.peliculasService.getMovies().subscribe((data) => {
     let items: any[] = [];
 
-    if (this.category === 'movies') items = data.movies;
-    else if (this.category === 'series') items = data.series;
-    else if (this.category === 'categories'){
+    if (this.category === 'movies') {
+      this.ContentGroups = [
+        {type: 'Películas', items: data.movies}
+      ]
+    }
+    else if (this.category === 'series') {
+     this.ContentGroups = [
+      {type: 'Series', items: data.series}
+     ]
+    }
+      else if (this.category === 'categories'){
       items = [...data.movies, ...data.series];
-      this.agruparPorGenero(items);
+      this.groupByGenre(items);
     }else if(this.category === 'home'){
-      items = [...data.movies, ...data.series]
-      this.renderHome(items)
+      this.ContentGroups = [
+        { type: 'Películas', items: data.movies },
+        { type: 'Series', items: data.series }
+      ];
     }
 
 
   });
 }
 
-renderHome(lista: any[]) {
-  this.contenido = {};
-  lista.forEach(item => {
-    const genero = item.genre;
-    if (!this.contenido[genero]) {
-      this.contenido[genero] = [];
-    }
-    this.contenido[genero].push(item);
-  });
-  console.log('Contenido agrupado:', this.contenido);
-}
 
-agruparPorGenero(lista: any[]) {
+
+groupByGenre(lista: any[]) {
   this.contenido = {};
   lista.forEach(item => {
     const genero = item.genre;
