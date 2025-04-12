@@ -1,4 +1,4 @@
-<section class="movies-section">
+<section class="movies-section" *ngIf="category !== 'categories'; else elseBlock" >
     <article *ngFor="let group of ContentGroups">
       <div id="title-movies-container-section">
         <h2>{{ group.type }}</h2>
@@ -19,3 +19,29 @@
       </div>
     </article>
 </section>
+
+<ng-template #elseBlock>
+  <section class="movies-section">
+    <ng-container *ngFor="let genero of contenido | keyvalue">
+      <article>
+        <div id="title-movies-container-section">
+          <h2>{{ genero.key }}</h2>
+        </div>
+        <div class="cards-container">
+          <div class="card" *ngFor="let item of genero.value">
+            <div class="top_icons-card-container">
+              <img src="../assets/svg/hide.svg" alt="Ocultar" />
+              <img src="../assets/svg/heart.svg" alt="Me gusta" />
+            </div>
+            <div class="play_button-card-container">
+              <img class="play-button" src="../assets/svg/play.svg" alt="Play" />
+            </div>
+            <div class="bottom_tittle-card-container">
+              <h4 class="title">{{ item.title }}</h4>
+            </div>
+          </div>
+        </div>
+      </article>
+    </ng-container>
+  </section>
+</ng-template>
