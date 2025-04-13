@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnChanges } from "@angular/core";
 import { PeliculasService } from "../services/peliculas.service";
 import { CommonModule } from "@angular/common";
 
@@ -11,6 +11,7 @@ import { CommonModule } from "@angular/common";
 })
 export class MoviesListComponent implements OnChanges {
   @Input() category: string = "";
+  @Output() movieDetails = new EventEmitter<object>();
   contenido: { [genero: string]: any[] } = {};
   ContentGroups: any[] = [];
 
@@ -91,7 +92,9 @@ export class MoviesListComponent implements OnChanges {
 
     }
   }
-loadMovieDetails(id: string): void {
-  console.log('cargando detalle de la película:', id);
+loadMovieDetails(item: object): void {
+  console.log('cargando detalle de la película:', item);
+  console.log(this.category)
+  this.movieDetails.emit(item);
 }
 }
