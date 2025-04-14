@@ -18,6 +18,7 @@ export class HomeComponent {
   movieToDetails: any = null;
 
   changeMovieList(category: string) {
+    this.movieToDetails = null; // Reset movie details when changing category
     this.categoryContent = category;
   }
   movieDetailsHandler(item: object) {

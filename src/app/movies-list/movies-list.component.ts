@@ -53,10 +53,7 @@ export class MoviesListComponent implements OnChanges {
   }
 
   saveMovieIntoFavorites(item: any): void {
-    // Obtenemos los favoritos actuales (si hay)
     const favorites = JSON.parse(localStorage.getItem('favoritos') || '[]');
-
-    // Verificamos si ya existe para no duplicar
     const alreadyExist = favorites.some((fav: any) => fav.id === item.id);
 
     if (!alreadyExist) {
@@ -81,7 +78,6 @@ export class MoviesListComponent implements OnChanges {
   deleteMovieToFavorites(id: string): void {
     console.log('Eliminando de favoritos:', id);
     const favorites = JSON.parse(localStorage.getItem('favoritos') || '[]');
-
     const newFavoriteList = favorites.filter((item: any) => item.id !== id);
 
     localStorage.setItem('favoritos', JSON.stringify(newFavoriteList));
@@ -89,12 +85,10 @@ export class MoviesListComponent implements OnChanges {
 
     if(this.category === 'favorites'){
     this.loadFavorites();
-
     }
   }
-loadMovieDetails(item: object): void {
-  console.log('cargando detalle de la película:', item);
-  console.log(this.category)
+
+  loadMovieDetails(item: object): void {
   this.movieDetails.emit(item);
 }
 }

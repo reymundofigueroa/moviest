@@ -6,11 +6,11 @@
       <div class="cards-container">
         <div class="card" *ngFor="let item of group.items" [style.backgroundImage]="'url(assets/images/' + item.coverImage + ')'">
           <div class="top_icons-card-container">
-            <img (click)="deleteMovieToFavorites(item.id)"  src="../assets/svg/hide.svg" alt="Ocultar" />
-            <img (click)="saveMovieIntoFavorites(item)" src="../assets/svg/heart.svg" alt="Me gusta" />
+            <img (click)="deleteMovieToFavorites(item.id)"  src="/assets/svg/hide.svg" alt="Ocultar" />
+            <img (click)="saveMovieIntoFavorites(item)" src="/assets/svg/heart.svg" alt="Me gusta" />
           </div>
           <div class="play_button-card-container">
-            <img (click)="loadMovieDetails(item)" class="play-button" src="../assets/svg/play.svg" alt="Play" />
+            <img (click)="loadMovieDetails(item)" class="play-button" src="/assets/svg/play.svg" alt="Play" />
           </div>
           <div class="bottom_tittle-card-container">
             <h4 class="title">{{ item.title }}</h4>
@@ -30,11 +30,11 @@
         <div class="cards-container">
           <div class="card" *ngFor="let item of genero.value" [style.backgroundImage]="'url(assets/images/' + item.coverImage + ')'">
             <div class="top_icons-card-container">
-              <img (click)="deleteMovieToFavorites(item.id)" src="../assets/svg/hide.svg" alt="Ocultar" />
-              <img (click)="saveMovieIntoFavorites(item)" src="../assets/svg/heart.svg" alt="Me gusta" />
+              <img (click)="deleteMovieToFavorites(item.id)" src="/assets/svg/hide.svg" alt="Ocultar" />
+              <img (click)="saveMovieIntoFavorites(item)" src="/assets/svg/heart.svg" alt="Me gusta" />
             </div>
-            <div class="play_button-card-container">
-              <img class="play-button" src="../assets/svg/play.svg" alt="Play" />
+            <div (click)="loadMovieDetails(item)" class="play_button-card-container">
+              <img class="play-button" src="/assets/svg/play.svg" alt="Play" />
             </div>
             <div class="bottom_tittle-card-container">
               <h4 class="title">{{ item.title }}</h4>
