@@ -6,3 +6,24 @@ header{
 header .logo-img{
   width: 22rem;
 }
+
+/* HEADER DEL HOME */
+header{
+  display: flex;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+header .header-right{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: auto;
+}
+.header-right img{
+  width: 3.2rem;
+  margin: 0 1.2rem;
+}
+.header-right p{
+  font-size: var(--text-size);
+}

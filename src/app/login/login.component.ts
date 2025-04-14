@@ -14,6 +14,6 @@ export class LoginComponent {
 
   goHome(event: Event) {
     event.preventDefault();
-    this.router.navigate(['/home'])
+    this.router.navigate(['/home']);
   }
 }
