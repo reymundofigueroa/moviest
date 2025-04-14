@@ -1,10 +1,10 @@
-<section *ngIf="movie">
+<section class="details-section" *ngIf="movie">
   <article >
     <div>
       <h2>{{ movie.title }}</h2>
     </div>
 
-    <div class="cards-container">
+    <div class="cardAndDetails-container">
       <div style="background-image: url('../assets/images/{{movie.coverImage}}')" id="detailsCard-container" class="card">
         <div class="top_icons-card-container">
           <img class="heart-icon" src="../assets/svg/heart.svg" alt="Me gusta">
