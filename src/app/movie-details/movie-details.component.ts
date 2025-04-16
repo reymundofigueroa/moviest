@@ -26,12 +26,15 @@ export class MovieDetailsComponent {
     document.removeEventListener('fullscreenchange', this.handleFullscreenExit.bind(this));
   }
   showVideo(){
-    const videoContainer = this.videoContainerElement.nativeElement;
-    const video = this.videoElement.nativeElement;
-    videoContainer.style.display = 'block';
-    video.play();
+    if (this.videoContainerElement && this.videoElement) {
+      const videoContainer = this.videoContainerElement.nativeElement;
+      const video = this.videoElement.nativeElement;
 
-    video.requestFullscreen();
+      videoContainer.style.display = 'block';
+      video.play();
+
+      video.requestFullscreen();
+    }
   }
 
   handleFullscreenExit(): void {

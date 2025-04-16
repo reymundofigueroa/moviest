@@ -4,7 +4,6 @@
   --primary-hover: #4c098e;      /* Rojo oscuro al pasar el mouse */
   --text-color: #e9e9f3;            /* Color principal del texto */
   --border-color: #ccc;          /* Borde sutil */
-  --background-color: #fff;      /* Fondo principal */
 
   /* Font Sizes */
   --title-size: 3.2rem;          /* Título principal */
@@ -12,7 +11,8 @@
   --text-size: 1.6rem;           /* Texto común */
 
   /* Spacing */
-  --section-padding: 0.8rem 8.2rem;       /* Relleno general */
+  --section-padding: 0.8rem 8.2rem;
+  --mobile-section-padding: 0.4rem 2.8rem;       /* Relleno general */
   --element-gap: 1.5rem;         /* Separación entre elementos */
   --border-radius: 12px;         /* Esquinas redondeadas */
   --box-shadow: 0 4px 8px rgba(255, 255, 255, 0.4); /* Sombra ligera */

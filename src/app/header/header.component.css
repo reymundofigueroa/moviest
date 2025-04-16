@@ -27,3 +27,20 @@ header .header-right{
 .header-right p{
   font-size: var(--text-size);
 }
+
+@media screen and (max-width: 768px) {
+  header {
+    width: 100%;
+    padding: var(--mobile-section-padding);
+  }
+  header .header-right{
+    margin: 0;
+  }
+  header .header-right img{
+    width: 2.4rem;
+  }
+  header .logo-img{
+    width: 15rem;
+  }
+
+}
