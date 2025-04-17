@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnChanges } from "@angular/core";
-import { PeliculasService } from "../services/peliculas.service";
+import { PeliculasService } from "../../../core/services/peliculas.service";
 import { CommonModule } from "@angular/common";
 
 @Component({

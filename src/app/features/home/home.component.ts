@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { NavDescktopMenuComponent } from '../nav-descktop-menu/nav-descktop-menu.component';
-import { MoviesListComponent } from '../movies-list/movies-list.component';
-import { MovieDetailsComponent } from "../movie-details/movie-details.component";
+import { HeaderComponent } from '../../layout/header/header.component';
+import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import { NavDescktopMenuComponent } from '../../layout/nav-descktop-menu/nav-descktop-menu.component';
+import { MoviesListComponent } from '../movie/movies-list/movies-list.component';
+import { MovieDetailsComponent } from "../movie/movie-details/movie-details.component";
 import { CommonModule } from '@angular/common';
 
 @Component({
