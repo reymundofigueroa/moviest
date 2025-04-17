@@ -101,3 +101,27 @@ button {
 button:hover {
   background-color: var(--primary-hover);
 }
+
+@media screen and (max-width: 768px) {
+  .details-section {
+    padding: 2rem;
+  }
+
+  .details-container {
+    padding: 1.6rem;
+  }
+
+  .details-container h2 {
+    font-size: 3rem;
+    margin-bottom: var(--element-gap);
+  }
+
+  .details-container p {
+    font-size: var(--text-size);
+  }
+
+  button {
+    font-size: var(--text-size);
+  }
+
+}

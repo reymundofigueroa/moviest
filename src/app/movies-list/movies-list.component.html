@@ -1,7 +1,7 @@
 <section class="movies-section" *ngIf="category !== 'categories'; else elseBlock" >
     <article *ngFor="let group of ContentGroups">
       <div id="title-movies-container-section">
-        <h2>{{ group.type }}</h2>
+        <h4>{{ group.type }}</h4>
       </div>
       <div class="cards-container">
         <div class="card" *ngFor="let item of group.items" [style.backgroundImage]="'url(assets/images/' + item.coverImage + ')'">
@@ -13,7 +13,7 @@
             <img (click)="loadMovieDetails(item)" class="play-button" src="/assets/svg/play.svg" alt="Play" />
           </div>
           <div class="bottom_tittle-card-container">
-            <h4 class="title">{{ item.title }}</h4>
+            <h2 class="title">{{ item.title }}</h2>
           </div>
         </div>
       </div>
@@ -25,7 +25,7 @@
     <ng-container *ngFor="let genero of contenido | keyvalue">
       <article>
         <div id="title-movies-container-section">
-          <h2>{{ genero.key }}</h2>
+          <h4>{{ genero.key }}</h4>
         </div>
         <div class="cards-container">
           <div class="card" *ngFor="let item of genero.value" [style.backgroundImage]="'url(assets/images/' + item.coverImage + ')'">
@@ -37,7 +37,7 @@
               <img class="play-button" src="/assets/svg/play.svg" alt="Play" />
             </div>
             <div class="bottom_tittle-card-container">
-              <h4 class="title">{{ item.title }}</h4>
+              <h2 class="title">{{ item.title }}</h2>
             </div>
           </div>
         </div>

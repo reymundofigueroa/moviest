@@ -56,3 +56,26 @@
   padding: 1.2rem;
   font-size: var(--subtitle-size);
 }
+
+@media screen and (max-width: 768px) {
+  .movies-section {
+    padding: var(--mobile-section-padding);
+  }
+  .movies-section #title-movies-container-section {
+    font-size: var(--subtitle-size);
+  }
+  .card{
+    width: 32rem;
+    height: 40rem;
+  }
+
+  .card img{
+    width: 4rem;
+  }
+  .card .play_button-card-container img{
+    width: 4.4rem;
+  }
+  .card .title{
+    font-size: var(--title-size);
+  }
+}
