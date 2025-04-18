@@ -52,7 +52,7 @@
 .card .play_button-card-container img{
   width: 4rem;
 }
-.card .bottom_tittle-card-container{
+.card .bottom_tittle-card-container .title{
   padding: 1.2rem;
   font-size: var(--subtitle-size);
 }
