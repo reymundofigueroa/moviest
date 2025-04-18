@@ -1,5 +1,7 @@
-import { Component, Input, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild, ElementRef, OnChanges, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DataMovies } from '../../../shared/models/data-movies';
+
 @Component({
   selector: 'app-movie-details',
   standalone: true,
@@ -7,8 +9,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.css'
 })
-export class MovieDetailsComponent {
-  @Input()movie: any = {};
+export class MovieDetailsComponent implements OnChanges, OnDestroy {
+  @Input() movie: DataMovies = {} as DataMovies;
   @ViewChild('videoPlayer') videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('videoContainer') videoContainerElement!: ElementRef<HTMLDivElement>;
 
@@ -19,13 +21,11 @@ export class MovieDetailsComponent {
     document.addEventListener('fullscreenchange', this.handleFullscreenExit.bind(this));
   }
 
-  ngAfterViewInit() {
-    this.showVideo();
-  }
   ngOnDestroy() {
     document.removeEventListener('fullscreenchange', this.handleFullscreenExit.bind(this));
   }
-  showVideo(){
+
+  showVideo() {
     if (this.videoContainerElement && this.videoElement) {
       const videoContainer = this.videoContainerElement.nativeElement;
       const video = this.videoElement.nativeElement;

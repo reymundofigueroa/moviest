@@ -3,5 +3,5 @@
 <app-search-bar>  </app-search-bar>
 <app-nav-descktop-menu (categorySelected)="changeMovieList($event)"></app-nav-descktop-menu>
 <app-movies-list *ngIf="!movieToDetails" (movieDetails)="movieDetailsHandler($event)" [category]="categoryContent"></app-movies-list>
-<app-movie-details  [movie]="movieToDetails"></app-movie-details>
+<app-movie-details *ngIf="movieToDetails" [movie]="movieToDetails"></app-movie-details>
 

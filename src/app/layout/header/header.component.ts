@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  currentPage: string = '';
+  currentPage = '';
 
   constructor(private router: Router) {
     this.router.events.subscribe(() => {

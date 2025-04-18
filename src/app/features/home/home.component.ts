@@ -5,6 +5,7 @@ import { NavDescktopMenuComponent } from '../../layout/nav-descktop-menu/nav-des
 import { MoviesListComponent } from '../movie/movies-list/movies-list.component';
 import { MovieDetailsComponent } from "../movie/movie-details/movie-details.component";
 import { CommonModule } from '@angular/common';
+import { DataMovies } from '../../shared/models/data-movies';
 
 @Component({
   selector: 'app-home',
@@ -15,14 +16,15 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent {
   categoryContent = 'home';
-  movieToDetails: any = null;
+  movieToDetails: DataMovies | null = null;
 
   changeMovieList(category: string) {
     this.movieToDetails = null; // Reset movie details when changing category
     this.categoryContent = category;
   }
-  movieDetailsHandler(item: object) {
+
+  movieDetailsHandler(item: DataMovies) {
     console.log('HomeComponent recibió:', item);
-    this.movieToDetails = item;
+    this.movieToDetails = item; // Cambia a los detalles de la película
   }
 }

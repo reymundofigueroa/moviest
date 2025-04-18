@@ -1,7 +1,7 @@
 <section class="movies-section" *ngIf="category !== 'categories'; else elseBlock" >
-    <article *ngFor="let group of ContentGroups">
+    <article *ngFor="let group of contentByTypeGroup">
       <div id="title-movies-container-section">
-        <h4>{{ group.type }}</h4>
+        <h2>{{ group.type }}</h2>
       </div>
       <div class="cards-container">
         <div class="card" *ngFor="let item of group.items" [style.backgroundImage]="'url(assets/images/' + item.coverImage + ')'">
@@ -22,7 +22,7 @@
 
 <ng-template #elseBlock>
   <section class="movies-section">
-    <ng-container *ngFor="let genero of contenido | keyvalue">
+    <ng-container *ngFor="let genero of contentByGenreGroup | keyvalue">
       <article>
         <div id="title-movies-container-section">
           <h4>{{ genero.key }}</h4>
@@ -33,8 +33,8 @@
               <img (click)="deleteMovieToFavorites(item.id)" src="/assets/svg/hide.svg" alt="Ocultar" />
               <img (click)="saveMovieIntoFavorites(item)" src="/assets/svg/heart.svg" alt="Me gusta" />
             </div>
-            <div (click)="loadMovieDetails(item)" class="play_button-card-container">
-              <img class="play-button" src="/assets/svg/play.svg" alt="Play" />
+            <div class="play_button-card-container">
+              <img (click)="loadMovieDetails(item)" class="play-button" src="/assets/svg/play.svg" alt="Play" />
             </div>
             <div class="bottom_tittle-card-container">
               <h2 class="title">{{ item.title }}</h2>

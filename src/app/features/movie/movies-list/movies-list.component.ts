@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnChanges } from "@angular/core";
 import { PeliculasService } from "../../../core/services/peliculas.service";
 import { CommonModule } from "@angular/common";
+import { DataMovies, ContentGroup, GroupedContent, MoviesData } from "../../../shared/models/data-movies";
 
 @Component({
   selector: "app-movies-list",
@@ -10,27 +11,27 @@ import { CommonModule } from "@angular/common";
   styleUrl: "./movies-list.component.css",
 })
 export class MoviesListComponent implements OnChanges {
-  @Input() category: string = "";
-  @Output() movieDetails = new EventEmitter<object>();
-  contenido: { [genero: string]: any[] } = {};
-  ContentGroups: any[] = [];
+  @Input() category = "";
+  @Output() movieDetails = new EventEmitter<DataMovies>();
+  contentByGenreGroup: GroupedContent = {}; // Agrupado por género
+  contentByTypeGroup: ContentGroup[] = []; // Agrupado por tipo
 
   constructor(private peliculasService: PeliculasService) {}
 
   ngOnChanges() {
     console.log("tipo recibido", this.category);
-    this.peliculasService.getMovies().subscribe((data) => {
-      let items: any[] = [];
+    this.peliculasService.getMovies().subscribe((data: MoviesData) => {
+      let items: DataMovies[] = [];
 
       if (this.category === "movies") {
-        this.ContentGroups = [{ type: "Películas", items: data.movies }];
+        this.contentByTypeGroup = [{ type: "Películas", items: data.movies }];
       } else if (this.category === "series") {
-        this.ContentGroups = [{ type: "Series", items: data.series }];
+        this.contentByTypeGroup = [{ type: "Series", items: data.series }];
       } else if (this.category === "categories") {
         items = [...data.movies, ...data.series];
         this.groupByGenre(items);
       } else if (this.category === "home") {
-        this.ContentGroups = [
+        this.contentByTypeGroup = [
           { type: "Películas", items: data.movies },
           { type: "Series", items: data.series },
         ];
@@ -40,21 +41,21 @@ export class MoviesListComponent implements OnChanges {
     });
   }
 
-  groupByGenre(lista: any[]) {
-    this.contenido = {};
+  groupByGenre(lista: DataMovies[]) {
+    this.contentByGenreGroup = {};
     lista.forEach((item) => {
       const genero = item.genre;
-      if (!this.contenido[genero]) {
-        this.contenido[genero] = [];
+      if (!this.contentByGenreGroup[genero]) {
+        this.contentByGenreGroup[genero] = [];
       }
-      this.contenido[genero].push(item);
+      this.contentByGenreGroup[genero].push(item);
     });
-    console.log("Contenido agrupado:", this.contenido);
+    console.log("contentByGenreGroup agrupado:", this.contentByGenreGroup);
   }
 
-  saveMovieIntoFavorites(item: any): void {
-    const favorites = JSON.parse(localStorage.getItem('favoritos') || '[]');
-    const alreadyExist = favorites.some((fav: any) => fav.id === item.id);
+  saveMovieIntoFavorites(item: DataMovies): void {
+    const favorites: DataMovies[] = JSON.parse(localStorage.getItem('favoritos') || '[]');
+    const alreadyExist = favorites.some((fav) => fav.id === item.id);
 
     if (!alreadyExist) {
       favorites.push(item); // Agregamos el nuevo favorito
@@ -67,28 +68,28 @@ export class MoviesListComponent implements OnChanges {
   }
 
   loadFavorites(): void {
-    const favorites = JSON.parse(localStorage.getItem('favoritos') || '[]');
+    const favorites: DataMovies[] = JSON.parse(localStorage.getItem('favoritos') || '[]');
 
-    this.ContentGroups = [{
+    this.contentByTypeGroup = [{
       type: 'Favoritos',
       items: favorites
     }];
   }
 
-  deleteMovieToFavorites(id: string): void {
+  deleteMovieToFavorites(id: string | number): void {
     console.log('Eliminando de favoritos:', id);
-    const favorites = JSON.parse(localStorage.getItem('favoritos') || '[]');
-    const newFavoriteList = favorites.filter((item: any) => item.id !== id);
+    const favorites: DataMovies[] = JSON.parse(localStorage.getItem('favoritos') || '[]');
+    const newFavoriteList = favorites.filter((item) => item.id !== id);
 
     localStorage.setItem('favoritos', JSON.stringify(newFavoriteList));
     console.log(newFavoriteList);
 
-    if(this.category === 'favorites'){
-    this.loadFavorites();
+    if (this.category === 'favorites') {
+      this.loadFavorites();
     }
   }
 
-  loadMovieDetails(item: object): void {
-  this.movieDetails.emit(item);
-}
+  loadMovieDetails(item: DataMovies): void {
+    this.movieDetails.emit(item);
+  }
 }
