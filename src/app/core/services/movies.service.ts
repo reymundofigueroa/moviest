@@ -6,7 +6,7 @@ import { MoviesData } from '../../shared/models/data-movies';
 @Injectable({
   providedIn: 'root'
 })
-export class PeliculasService {
+export class MoviesService {
   private jsonUrl = 'assets/data/movies.json';
 
   constructor(private http: HttpClient) { }

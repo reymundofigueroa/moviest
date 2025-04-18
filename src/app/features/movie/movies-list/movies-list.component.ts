@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnChanges } from "@angular/core";
-import { PeliculasService } from "../../../core/services/peliculas.service";
+import { MoviesService } from "../../../core/services/movies.service";
 import { CommonModule } from "@angular/common";
 import { DataMovies, ContentGroup, GroupedContent, MoviesData } from "../../../shared/models/data-movies";
 
@@ -16,30 +16,53 @@ export class MoviesListComponent implements OnChanges {
   contentByGenreGroup: GroupedContent = {}; // Agrupado por género
   contentByTypeGroup: ContentGroup[] = []; // Agrupado por tipo
 
-  constructor(private peliculasService: PeliculasService) {}
+  constructor(private moviesService: MoviesService) {}
 
   ngOnChanges() {
     console.log("tipo recibido", this.category);
-    this.peliculasService.getMovies().subscribe((data: MoviesData) => {
-      let items: DataMovies[] = [];
+    this.moviesService.getMovies().subscribe((data: MoviesData) => {
+      console.log("🔍🔍data movies", data);
+      const items: DataMovies[] = [];
+      console.log("🔍🔍🔍items", items);
 
-      if (this.category === "movies") {
-        this.contentByTypeGroup = [{ type: "Películas", items: data.movies }];
-      } else if (this.category === "series") {
-        this.contentByTypeGroup = [{ type: "Series", items: data.series }];
-      } else if (this.category === "categories") {
-        items = [...data.movies, ...data.series];
-        this.groupByGenre(items);
-      } else if (this.category === "home") {
-        this.contentByTypeGroup = [
-          { type: "Películas", items: data.movies },
-          { type: "Series", items: data.series },
-        ];
-      } else if (this.category === "favorites") {
-        this.loadFavorites();
-      }
+      this.renderMoviesLists(data, items);
+
     });
   }
+
+  renderMoviesLists(data: MoviesData, items: DataMovies[]): void{
+    switch (this.category) {
+      case "movies":
+        this.handleCategorySelected(["movies"], data);
+        break;
+      case "series":
+        this.handleCategorySelected(["series"], data);
+        break;
+      case "categories":
+        items = [...data.movies, ...data.series];
+        this.groupByGenre(items);
+        break;
+      case "home":
+        this.handleCategorySelected(['movies', 'series'], data);
+        break;
+      case "favorites":
+        this.loadFavorites();
+        break;
+      default:
+        console.error("Categoría no válida");
+        break;
+    }
+  }
+
+  handleCategorySelected(categories: (keyof MoviesData)[], data: MoviesData): void {
+    this.contentByTypeGroup = [];
+    categories.forEach((category,) => {
+      this.contentByTypeGroup.push({ type: category, items: data[category] });
+    });
+  }
+
+
+
 
   groupByGenre(lista: DataMovies[]) {
     this.contentByGenreGroup = {};
