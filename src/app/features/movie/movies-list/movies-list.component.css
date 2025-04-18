@@ -34,6 +34,12 @@
   justify-content: space-between;
   padding: 1.2rem;
 }
+.card .top_icons-card-container button{
+  width: 3.2rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
 .card img{
   width: 3.2rem;
   transition: transform 0.3s ease-in-out;
@@ -48,6 +54,12 @@
 }
 .card .play_button-card-container:hover{
   transform: scale(1.2);
+}
+.card .play_button-card-container button{
+  width: 4.5rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 .card .play_button-card-container img{
   width: 4rem;

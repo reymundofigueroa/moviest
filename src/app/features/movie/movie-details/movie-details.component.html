@@ -7,10 +7,10 @@
     <div class="cardAndDetails-container">
       <div style="background-image: url('/assets/images/{{movie.coverImage}}')" id="detailsCard-container" class="card">
         <div class="top_icons-card-container">
-          <img class="heart-icon" src="/assets/svg/heart.svg" alt="Me gusta">
+          <button><img class="heart-icon" src="/assets/svg/heart.svg" alt="Me gusta"></button>
         </div>
         <div class="play_button-card-container">
-          <img (click)="showVideo()" id="play-movie" class="play-button" src="/assets/svg/play.svg" alt="Play" />
+          <button (click)="showVideo()"><img  id="play-movie" class="play-button" src="/assets/svg/play.svg" alt="Play" /></button>
         </div>
         <div class="bottom_tittle-card-container">
           <h4 class="title" >{{movie.title}}</h4>
