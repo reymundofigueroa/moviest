@@ -27,11 +27,9 @@
   transform: scale(1.08);
 }
 
-
-
 .card .top_icons-card-container{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 1.2rem;
 }
 .card .top_icons-card-container button{
@@ -40,11 +38,15 @@
   border: none;
   cursor: pointer;
 }
-.card img{
+.card .top_icons-card-container .hide-button{
+  width: 100%;
+  justify-self: start;
+}
+.card svg{
   width: 3.2rem;
   transition: transform 0.3s ease-in-out;
 }
-.card img:hover{
+.card svg:hover{
   transform: scale(1.2);
 }
 .card .play_button-card-container{

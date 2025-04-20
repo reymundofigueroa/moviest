@@ -1,6 +1,7 @@
 import { Component, Input, SimpleChanges, ViewChild, ElementRef, OnChanges, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataMovies } from '../../../shared/models/data-movies';
+import { FavoritesService } from '../services/favorites.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -13,6 +14,10 @@ export class MovieDetailsComponent implements OnChanges, OnDestroy {
   @Input() movie: DataMovies = {} as DataMovies;
   @ViewChild('videoPlayer') videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('videoContainer') videoContainerElement!: ElementRef<HTMLDivElement>;
+
+  constructor(private favoritesService: FavoritesService) {
+    // Constructor vacío
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['movie']) {
@@ -45,4 +50,12 @@ export class MovieDetailsComponent implements OnChanges, OnDestroy {
       videoContainer.style.display = 'none';
     }
   }
+
+  addToFavorites(movie: DataMovies) {
+    this.favoritesService.saveMovieIntoFavorites(movie);
+  }
+  removeFromFavorites(id: string | number) {
+    this.favoritesService.deleteMovieToFavorites(id)
+  }
+
 }
