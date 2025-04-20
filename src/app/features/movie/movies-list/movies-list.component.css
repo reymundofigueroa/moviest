@@ -1,6 +1,6 @@
 .movies-section{
   padding: var(--section-padding);
-  margin-top: 8rem;
+  margin-top: 4rem;
   width: 100%;
   height: auto;
 }
@@ -83,10 +83,11 @@
     height: 40rem;
   }
 
-  .card img{
+  .card svg{
     width: 4rem;
+    padding-right: 1rem;
   }
-  .card .play_button-card-container img{
+  .card .play_button-card-container svg{
     width: 4.4rem;
   }
   .card .title{

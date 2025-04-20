@@ -57,5 +57,8 @@ export class MovieDetailsComponent implements OnChanges, OnDestroy {
   removeFromFavorites(id: string | number) {
     this.favoritesService.deleteMovieToFavorites(id)
   }
+  isFavorite(id: string | number): boolean {
+    return this.favoritesService.isFavorite(id);
+  }
 
 }

@@ -18,7 +18,7 @@ export class MoviesListComponent implements OnChanges {
   contentByGenreGroup: GroupedContent = {}; // Agrupado por género
   contentByTypeGroup: ContentGroup[] = []; // Agrupado por tipo
 
-  constructor(private moviesService: MoviesService, private favoritesService: FavoritesService) {}
+  constructor(private moviesService: MoviesService, private favoritesService: FavoritesService) { }
 
   ngOnChanges() {
     console.log("tipo recibido", this.category);
@@ -32,7 +32,7 @@ export class MoviesListComponent implements OnChanges {
     });
   }
 
-  renderMoviesLists(data: MoviesData, items: DataMovies[]): void{
+  renderMoviesLists(data: MoviesData, items: DataMovies[]): void {
     switch (this.category) {
       case "movies":
         this.handleCategorySelected(["movies"], data);
@@ -94,6 +94,7 @@ export class MoviesListComponent implements OnChanges {
   isFavorite(id: string | number): boolean {
     return this.favoritesService.isFavorite(id);
   }
+
   loadMovieDetails(item: DataMovies): void {
     this.movieDetails.emit(item);
   }
