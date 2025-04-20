@@ -21,9 +21,10 @@
   transition: transform 0.2s ease-in-out;
 }
 .icon-container button{
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(4px);
-  border-radius: var(--border-radius)
+  border-radius: var(--border-radius);
+  transition: transform 0.2s ease-in-out;
 }
 .icon-container button:hover{
   transform: scale(1.12);
