@@ -18,7 +18,7 @@ También incluye una sección de detalles de cada película.
 
 - HTML  
 - CSS  
-- JavaScript Vanilla
+- Angular y TypeScript
 
 ---
 
@@ -26,7 +26,8 @@ También incluye una sección de detalles de cada película.
 
 1. Clona este repositorio por HTTPS.
 2. Abre la carpeta del repositorio clonado.
-3. Ejecuta el archivo `index.html` ubicado en la raíz del proyecto con tu navegador.
+3. Ejecuta el comando npm install.
+4. Ejecuta en comando ng serve para ejecutar el proyecto
 
 ---
 
@@ -35,6 +36,9 @@ También incluye una sección de detalles de cada película.
 ![Mockup 1](./public/assets/images/mockup1.jpg)
 ![Mockup 2](./public/assets/images/mockup2.jpg)
 ![Mockup 3](./public/assets/images/mockup3.jpg)
+![Mockup 4](./public/assets/images/Login-responsive.jpg)
+![Mockup 5](./public/assets/images/peliculas-responsive.jpg)
+![Mockup 6](./public/assets/images/detalles-responsive.jpg)
 
 ---
 
@@ -53,7 +57,7 @@ El home consta de las secciones principales:
   - menú de navegación, este funciona como sistema de navegación para clasificar el contenido en distintas categorías predefinidas
   - Sección de películas, esta sección muestra una lista de películas en las cuales puedes ver detalles agregar o quitar de favoritos en base a los iconos    dispuestos en cada tarjeta
 ![Vista previa del Home](./public/assets/images/Captura-home.png)
-
+![Vista previa home responsive](./public/assets/images/captura-peliculas-responsive.png)
 - Favoritos
 se accede dando click en el icono de favoritos en el menu de la web, esta muestra películas o series que el usuario haya agregado previamente dando click en el icono del corazón de su respectiva tarjeta, también es posible eliminarlas dando click en el icono de ocultar en la misma tarjeta
 
@@ -77,35 +81,29 @@ Esta sección muestra los detalles de la película seleccionada, para poder acce
 
 ---
 
-## 🛠️ Proceso de creación
+## 🛠️ Proceso de Migración
 
-1. Se creó un mockup básico de las interfaces.
-2. Se maquetaron y estilizaron las páginas con HTML y CSS.
-3. Se construyó un objeto con datos de películas y series.
-4. Se generó HTML dinámico a partir de los datos con funciones específicas.
-5. Se dividió la lógica en:
-   - Funciones para renderizar contenido.
-   - Funciones manejadoras que reaccionan a eventos y llaman a las funciones de renderizado.
-6. Se agregaron funciones para:
-   - Detectar clics en íconos de favoritos (añadir/quitar).
-   - Detectar clic en el ícono de play (mostrar detalles).
-7. Se aplicaron estilos dinámicos a las secciones interactivas.
+1. Se creo un proyecto nuevo en Angular
+2. Se crearon los componentes de las secciones de la app
+3. Se clono el HTML y el CSS a sus respectivos componentes
+4. Se fue implementando la lógica de los componentes uno por uno
+5. Una vez el proyecto fue funcional se iniciaron las iteraciones de este para implementar cada vez las mejores prácticas y aprender más sobre la arquitectura de proyectos escalables
+6. Después de haber implementado una arquitectura escalable se le añadió dinamismo a diferentes estructuras que ayudan a mejorar la UX
 
 ---
 
 ## 🐞 Errores conocidos
 
 1. La barra de búsqueda no funciona.
-2. No toda la tarjeta de película es clickeable (solo el ícono de play).
-3. No hay indicación visual clara para saber si una película está en favoritos.
+2. Solo existe un video hardcodeado para todas las películas
+3. Se tuvieron que crear dos estructuras de interfaces para las películas, una para categorías y otra para las demás, lo cual no obedece las mejores practicas
 
 ---
 
 ## 🔁 Sprint Review
 
-| ¿Qué salió bien?                                      | ¿Qué puedo hacer diferente?                                         | ¿Qué no salió bien?                                                                 |
-|--------------------------------------------------------|-----------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| ✅ Maquetación y estilos rápidos con pocos errores técnicos. | ✅ Crear lista de subrequerimientos para más organización.            | ❌ La estructura HTML para imágenes no fue óptima y complicó el CSS en la última etapa. |
-| ✅ División clara entre funciones generales y específicas. | ✅ No hacer refactor antes de terminar requerimientos mínimos.        | ❌ Refactor prematuro impidió completar la función de búsqueda.                     |
-| ✅ Buenas puntuaciones en auditoría de Lighthouse (versión escritorio). | ✅ Usar estructura HTML que facilite manipulación de imágenes con CSS. | ❌ Las funciones que renderizan los detalles de la película no siguen las mejores prácticas. |
-| ✅ Comentarios útiles explicando el **por qué** del código. |                                                                       |                                                                                      |
+| ¿Qué salió bien?                                                                                     | ¿Qué puedo hacer diferente?                                                                                      | ¿Qué no salió bien?                                                                                                                                  |
+|-------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ✅ Debido a que ya se tenía la maquetación, fue rápido migrarla a Angular.                            | ✅ Investigar más a fondo cómo se trabaja la arquitectura de los proyectos con diferentes tecnologías.            | ❌ Tuve que hacer un refactor grande en la estructura de carpetas por no entender bien la arquitectura de Angular.                                   |
+| ✅ Se logró identificar la división de componentes gracias a que el proyecto ya era una SPA.          | ✅ Implementar un *linter* desde el principio.                                                                   | ❌ Las interfaces que usan la lista de películas se pudieron abstraer mejor, para evitar tener que usar dos.                                         |
+| ✅ No hubo muchos problemas al aplicar los estilos responsivos.                                       |                                                                                                                  | ❌ Me fui al mar el domingo y no alcancé a darle funcionalidad a la barra de búsqueda.                                                              |
