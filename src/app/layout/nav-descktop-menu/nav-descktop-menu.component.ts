@@ -8,8 +8,9 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrl: './nav-descktop-menu.component.css'
 })
 export class NavDescktopMenuComponent {
-  @Output() categorySelected = new EventEmitter<string>();
+  @Output() categorySelected = new EventEmitter<string>(); // Decorador Output para enviar la categoría a la que se hizo click
 
+  // enviamos los datos de la categoría
   selectCategory(category: string) {
     this.categorySelected.emit(category);
   }

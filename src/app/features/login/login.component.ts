@@ -12,6 +12,7 @@ import { HeaderComponent } from '../../layout/header/header.component';
 export class LoginComponent {
   constructor(private router: Router) {}
 
+  // Método para redirigir al Home
   goHome(event: Event) {
     event.preventDefault();
     this.router.navigate(['/home']);

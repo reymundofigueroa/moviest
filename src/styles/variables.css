@@ -1,7 +1,7 @@
 :root {
   /* Colors */
-  --primary-color: #7236c7;      /* Rojo estilo Netflix */
-  --primary-hover: #4c098e;      /* Rojo oscuro al pasar el mouse */
+  --primary-color: #7236c7;      /* Morado principal */
+  --primary-hover: #4c098e;      /* Morado oscuro al pasar el mouse */
   --text-color: #e9e9f3;            /* Color principal del texto */
   --border-color: #ccc;          /* Borde sutil */
 
@@ -41,7 +41,4 @@ body::before {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
-}
-svg{
-  fill: white;
 }

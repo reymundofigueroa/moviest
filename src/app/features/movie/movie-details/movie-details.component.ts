@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, ViewChild, ElementRef, OnChanges, OnDestroy } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, OnChanges, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataMovies } from '../../../shared/models/data-movies';
 import { FavoritesService } from '../services/favorites.service';
@@ -11,7 +11,9 @@ import { FavoritesService } from '../services/favorites.service';
   styleUrl: './movie-details.component.css'
 })
 export class MovieDetailsComponent implements OnChanges, OnDestroy {
-  @Input() movie: DataMovies = {} as DataMovies;
+  @Input() movie: DataMovies = {} as DataMovies; // Decorador input para recibir los datos a de la película a renderizar
+
+  //Decoradores ViewChild para controlar el comportamiento al reproducir el video
   @ViewChild('videoPlayer') videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('videoContainer') videoContainerElement!: ElementRef<HTMLDivElement>;
 
@@ -19,17 +21,19 @@ export class MovieDetailsComponent implements OnChanges, OnDestroy {
     // Constructor vacío
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['movie']) {
-      console.log('movie-details cambió:', this.movie);
-    }
+
+  // hook para detectar cuando se salga del video
+  ngOnChanges() {
     document.addEventListener('fullscreenchange', this.handleFullscreenExit.bind(this));
   }
 
+  // destruir el escuchador cundo no se use para mejorar el rendimiento
   ngOnDestroy() {
     document.removeEventListener('fullscreenchange', this.handleFullscreenExit.bind(this));
   }
 
+
+  // Método para mostrar el video
   showVideo() {
     if (this.videoContainerElement && this.videoElement) {
       const videoContainer = this.videoContainerElement.nativeElement;
@@ -42,15 +46,18 @@ export class MovieDetailsComponent implements OnChanges, OnDestroy {
     }
   }
 
+
+  // Método para manejar el comportamiento al salir del video
   handleFullscreenExit(): void {
     const videoContainer = this.videoContainerElement.nativeElement;
     const video = this.videoElement.nativeElement;
-    if (!document.fullscreenElement) {
-      video.pause();
-      videoContainer.style.display = 'none';
+    if (!document.fullscreenElement) { // detectamos si de verdad se esta en pantalla completa
+      video.pause(); // pausamos el video
+      videoContainer.style.display = 'none'; // desaparecemos la vista pequeña del video
     }
   }
 
+  // Métodos para manejar los favoritos
   addToFavorites(movie: DataMovies) {
     this.favoritesService.saveMovieIntoFavorites(movie);
   }

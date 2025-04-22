@@ -15,14 +15,16 @@ import { DataMovies } from '../../shared/models/data-movies';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  categoryContent = 'home';
+  categoryContent = 'home'; // Variable para manejar que categoría del movie list se tiene que renderizar
   movieToDetails: DataMovies | null = null;
 
+  // Método para cambiar la categoría de películas a renderizar
   changeMovieList(category: string) {
-    this.movieToDetails = null; // Reset movie details when changing category
+    this.movieToDetails = null;
     this.categoryContent = category;
   }
 
+  // Método para controlar y enviar los detalles de la película a su respectivo componente
   movieDetailsHandler(item: DataMovies) {
     console.log('HomeComponent recibió:', item);
     this.movieToDetails = item; // Cambia a los detalles de la película

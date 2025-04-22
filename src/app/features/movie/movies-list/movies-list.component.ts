@@ -13,25 +13,23 @@ import { FavoritesService } from "../services/favorites.service";
 })
 
 export class MoviesListComponent implements OnChanges {
-  @Input() category = "";
-  @Output() movieDetails = new EventEmitter<DataMovies>();
+  @Input() category = ""; // DEcorador input para recibir indicaciones de que data renderizar
+  @Output() movieDetails = new EventEmitter<DataMovies>(); // Decorador output para enviar data de la película que se quieren saber detalles
   contentByGenreGroup: GroupedContent = {}; // Agrupado por género
   contentByTypeGroup: ContentGroup[] = []; // Agrupado por tipo
 
   constructor(private moviesService: MoviesService, private favoritesService: FavoritesService) { }
 
+  // Hook para manejar listas de películas cuando se detecten cambios
   ngOnChanges() {
-    console.log("tipo recibido", this.category);
     this.moviesService.getMovies().subscribe((data: MoviesData) => {
-      console.log("🔍🔍data movies", data);
       const items: DataMovies[] = [];
-      console.log("🔍🔍🔍items", items);
 
       this.renderMoviesLists(data, items);
-
     });
   }
 
+  // Método selector de data a renderizar en vase a la categoría que se indico en nav-menu
   renderMoviesLists(data: MoviesData, items: DataMovies[]): void {
     switch (this.category) {
       case "movies":
@@ -57,6 +55,7 @@ export class MoviesListComponent implements OnChanges {
     }
   }
 
+  // Método manejador de la data a inyectar en la interfaz de las listas de películas
   handleCategorySelected(categories: (keyof MoviesData)[], data: MoviesData): void {
     this.contentByTypeGroup = [];
     categories.forEach((category,) => {
@@ -64,18 +63,19 @@ export class MoviesListComponent implements OnChanges {
     });
   }
 
+  // Método que agrupa y divide por el genero de la película
   groupByGenre(lista: DataMovies[]) {
     this.contentByGenreGroup = {};
-    lista.forEach((item) => {
+    lista.forEach((item) => { // Iteramos por la lista de datos
       const genero = item.genre;
-      if (!this.contentByGenreGroup[genero]) {
+      if (!this.contentByGenreGroup[genero]) { // Si el genero no existe lo creamos
         this.contentByGenreGroup[genero] = [];
       }
-      this.contentByGenreGroup[genero].push(item);
+      this.contentByGenreGroup[genero].push(item); // Si ya existe inyectamos la película o serie en ese genero
     });
-    console.log("contentByGenreGroup agrupado:", this.contentByGenreGroup);
   }
 
+  // Métodos para manejar los favoritos
   addToFavorites(item: DataMovies): void {
     this.favoritesService.saveMovieIntoFavorites(item);
   }
