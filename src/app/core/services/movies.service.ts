@@ -9,7 +9,7 @@ import { MoviesData } from '../../shared/models/data-movies';
 export class MoviesService {
   private jsonUrl = 'assets/data/movies.json';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getMovies(): Observable<MoviesData> {
     return this.http.get<MoviesData>(this.jsonUrl);
