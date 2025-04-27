@@ -98,4 +98,5 @@ export class MoviesListComponent implements OnChanges {
   loadMovieDetails(item: DataMovies): void {
     this.movieDetails.emit(item);
   }
+
 }

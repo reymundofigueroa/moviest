@@ -29,13 +29,23 @@ export class FavoritesService {
     }
 
     // Cargamos lista de favoritos
-    loadFavorites(): void {
-      const favorites: DataMovies[] = JSON.parse(localStorage.getItem('favoritos') || '[]');
-      console.log('Cargando favoritos:', favorites);
-      this.contentByTypeGroup = [{
-        type: 'Favoritos',
-        items: favorites
-      }];
+    loadFavorites(): ContentGroup[] {
+      try {
+        const favorites: DataMovies[] = JSON.parse(localStorage.getItem('favoritos') || '[]');
+        if (favorites.length > 0) {
+          console.log('Cargando favoritos:', favorites);
+          this.contentByTypeGroup = [{
+            type: 'Favoritos',
+            items: favorites
+          }];
+          return this.contentByTypeGroup;
+        } else {
+          return [];
+        }
+      } catch (error) {
+        console.error(error);
+        return [];
+      }
     }
 
     // Eliminamos de favoritos

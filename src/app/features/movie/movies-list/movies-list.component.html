@@ -6,7 +6,7 @@
     <div id="title-movies-container-section">
       <h2>{{ group.type }}</h2>
     </div>
-    <div class="cards-container">
+    <div class="cards-container"  >
       <div
         class="card"
         *ngFor="let item of group.items"
@@ -135,4 +135,8 @@
       </article>
     </ng-container>
   </section>
+</ng-template>
+
+<ng-template #favoritesEmptyBlock>
+  <h3>Aún no has agregado ningún favorito</h3>
 </ng-template>
