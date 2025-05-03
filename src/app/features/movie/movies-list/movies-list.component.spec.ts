@@ -6,6 +6,7 @@ import { MoviesService } from '../../../core/services/movies.service';
 import { FavoritesService } from '../services/favorites.service';
 import { ContentGroup, MoviesData } from '../../../shared/models/data-movies';
 import { of } from 'rxjs';
+import { SimpleChange } from '@angular/core';
 
 describe('MoviesListComponent', () => {
   let component: MoviesListComponent;
@@ -48,7 +49,9 @@ describe('MoviesListComponent', () => {
     spyOn(moviesService, 'getMovies').and.returnValue(of(mockMoviesData));
 
     // Act
-    component.ngOnChanges();
+    component.ngOnChanges({
+      category: new SimpleChange(null, 'favorites', true)
+    });
 
     // assert
     expect(component.contentByTypeGroup.length).toBe(1);
@@ -62,7 +65,9 @@ describe('MoviesListComponent', () => {
       spyOn(moviesService, 'getMovies').and.returnValue(of(mockMoviesData))
 
       // Act
-      component.ngOnChanges()
+      component.ngOnChanges({
+        category: new SimpleChange(null, 'favorites', true)
+      })
 
       // Assert
       expect(component.contentByTypeGroup.length).toBe(1)
@@ -76,7 +81,9 @@ describe('MoviesListComponent', () => {
       spyOn(moviesService, 'getMovies').and.returnValue(of(mockMoviesData))
 
       // Act
-      component.ngOnChanges()
+      component.ngOnChanges({
+        category: new SimpleChange(null, 'favorites', true)
+      })
 
       // Assert
       expect(Object.keys(component.contentByGenreGroup).length).toBe(3)
@@ -94,7 +101,9 @@ describe('MoviesListComponent', () => {
       spyOn(moviesService, 'getMovies').and.returnValue(of(mockMoviesData))
 
       // Act
-      component.ngOnChanges()
+      component.ngOnChanges({
+        category: new SimpleChange(null, 'favorites', true)
+      })
 
       // Assert
       expect(component.contentByTypeGroup.length).toBe(2)
@@ -112,7 +121,9 @@ describe('MoviesListComponent', () => {
       spyOn(favoritesService, 'loadFavorites').and.returnValue(mockToAFavoriteMovie)
       favoritesService.contentByTypeGroup = mockToAFavoriteMovie
       // Act
-      component.ngOnChanges()
+      component.ngOnChanges({
+        category: new SimpleChange(null, 'favorites', true)
+      })
 
       // Assert
       expect(component.contentByTypeGroup.length).toBe(1)
@@ -127,7 +138,9 @@ describe('MoviesListComponent', () => {
       spyOn(console, 'error')
 
       // Act
-      component.ngOnChanges()
+      component.ngOnChanges({
+        category: new SimpleChange(null, 'favorites', true)
+      })
 
       // assert
       expect(console.error).toHaveBeenCalled()
