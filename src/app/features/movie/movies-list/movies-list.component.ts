@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from "@angular/core";
 import { MoviesService } from "../../../core/services/movies.service";
 import { CommonModule } from "@angular/common";
 import { DataMovies, ContentGroup, GroupedContent, MoviesData } from "../../../shared/models/data-movies";
@@ -14,19 +14,23 @@ import { FavoritesService } from "../services/favorites.service";
 
 export class MoviesListComponent implements OnChanges {
   @Input() category = ""; // DEcorador input para recibir indicaciones de que data renderizar
+  @Input() dataFromSearch:DataMovies[] = []
   @Output() movieDetails = new EventEmitter<DataMovies>(); // Decorador output para enviar data de la película que se quieren saber detalles
   contentByGenreGroup: GroupedContent = {}; // Agrupado por género
   contentByTypeGroup: ContentGroup[] = []; // Agrupado por tipo
+  isMoviesListEmpty = false
 
   constructor(private moviesService: MoviesService, private favoritesService: FavoritesService) { }
 
   // Hook para manejar listas de películas cuando se detecten cambios
-  ngOnChanges() {
-    this.moviesService.getMovies().subscribe((data: MoviesData) => {
-      const items: DataMovies[] = [];
-
-      this.renderMoviesLists(data, items);
-    });
+  ngOnChanges(changes: SimpleChanges) {
+    // Detectar cambios en category (tu lógica existente)
+    if (changes['category'] || changes['dataFromSearch']) {
+      this.moviesService.getMovies().subscribe((data: MoviesData) => {
+        const items: DataMovies[] = [];
+        this.renderMoviesLists(data, items);
+      });
+    }
   }
 
   // Método selector de data a renderizar en vase a la categoría que se indico en nav-menu
@@ -49,6 +53,9 @@ export class MoviesListComponent implements OnChanges {
       case "favorites":
         this.loadFavorites();
         break;
+        case 'buscador':
+        this.handleSearchData();
+        break;
       default:
         console.error("Categoría no válida");
         break;
@@ -61,6 +68,19 @@ export class MoviesListComponent implements OnChanges {
     categories.forEach((category,) => {
       this.contentByTypeGroup.push({ type: category, items: data[category] });
     });
+  }
+
+  handleSearchData(): void {
+    this.contentByTypeGroup = [];
+
+    if (this.dataFromSearch && this.dataFromSearch.length > 0) {
+      this.contentByTypeGroup.push({
+        type: 'búsqueda',
+        items: this.dataFromSearch
+      });
+    }else if (this.dataFromSearch.length !== 0){
+      this.isMoviesListEmpty = true
+    }
   }
 
   // Método que agrupa y divide por el genero de la película

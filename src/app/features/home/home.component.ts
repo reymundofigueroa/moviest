@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, } from '@angular/core';
 import { HeaderComponent } from '../../layout/header/header.component';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { NavDescktopMenuComponent } from '../../layout/nav-descktop-menu/nav-descktop-menu.component';
@@ -17,6 +17,7 @@ import { DataMovies } from '../../shared/models/data-movies';
 export class HomeComponent {
   categoryContent = 'home'; // Variable para manejar que categoría del movie list se tiene que renderizar
   movieToDetails: DataMovies | null = null;
+  dataFromSearch: DataMovies[] = []
 
   // Método para cambiar la categoría de películas a renderizar
   changeMovieList(category: string) {
@@ -28,5 +29,9 @@ export class HomeComponent {
   movieDetailsHandler(item: DataMovies) {
     console.log('HomeComponent recibió:', item);
     this.movieToDetails = item; // Cambia a los detalles de la película
+  }
+
+  moviesBySearchHandler(data:DataMovies[]){
+    this.dataFromSearch = data
   }
 }

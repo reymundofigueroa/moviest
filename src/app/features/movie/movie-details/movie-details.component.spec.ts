@@ -61,6 +61,7 @@ describe('MovieDetailsComponent', () => {
         requestFullscreen: jasmine.createSpy('requestFullscreen')
       } as unknown as HTMLVideoElement
     } as ElementRef<HTMLVideoElement>;
+
   // Act
   component.showVideo();
 
