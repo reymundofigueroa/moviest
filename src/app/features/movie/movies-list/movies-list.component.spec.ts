@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MoviesListComponent } from './movies-list.component'; // Asegúrate de importar el componente standalone
-import { provideHttpClientTesting } from '@angular/common/http/testing'; // Proveedor de HttpClient
+import { MoviesListComponent } from './movies-list.component';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { MoviesService } from '../../../core/services/movies.service';
 import { FavoritesService } from '../services/favorites.service';
@@ -11,8 +11,9 @@ import { SimpleChange } from '@angular/core';
 describe('MoviesListComponent', () => {
   let component: MoviesListComponent;
   let fixture: ComponentFixture<MoviesListComponent>;
-  let moviesService: MoviesService
-  let favoritesService: FavoritesService
+  let moviesService: MoviesService;
+  let favoritesService: FavoritesService;
+
   const mockMoviesData: MoviesData = {
     movies: [
       {id: 'm1', title: 'Test Movie 1', description: 'First movie test', genre: 'acción', coverImage: 'url/test1' },
@@ -21,116 +22,144 @@ describe('MoviesListComponent', () => {
     series: [
       {id: 's1', title: 'Test serie 1', description: 'First serie test', genre: 'terror', coverImage: 'url/test1'},
       {id: 's2', title: 'Test serie 2', description: 'Second serie test', genre: 'comedia', coverImage: 'url/test'}
-    ]}
-    const mockToAFavoriteMovie: ContentGroup[] = [{type: 'favoritos', items: [{id: 'm1', title: 'Test favorite movie', description: 'A movie to load favorites test', genre: 'acción', coverImage: 'url/test'}]}]
+    ]
+  };
+
+  const mockToAFavoriteMovie: ContentGroup[] = [{
+    type: 'favoritos',
+    items: [{
+      id: 'm1',
+      title: 'Test favorite movie',
+      description: 'A movie to load favorites test',
+      genre: 'acción',
+      coverImage: 'url/test'
+    }]
+  }];
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MoviesListComponent, HttpClientModule],  // Importa el componente standalone aquí
+      imports: [MoviesListComponent, HttpClientModule],
       providers: [
-        provideHttpClientTesting(),  // Esto provee HttpClient para las pruebas
+        provideHttpClientTesting(),
         MoviesService,
         FavoritesService
       ]
     }).compileComponents();
+
     fixture = TestBed.createComponent(MoviesListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     moviesService = TestBed.inject(MoviesService);
-    favoritesService = TestBed.inject(FavoritesService)
+    favoritesService = TestBed.inject(FavoritesService);
   });
 
-  it('Debería crear el componente', () => {
-    expect(component).toBeTruthy();
+  describe('Creación básica', () => {
+    it('Debería crear el componente', () => {
+      expect(component).toBeTruthy();
+    });
   });
 
-  it('Debería llenar correctamente contentByTypeGroup si la categoría es "movies"', () => {
-    // Arrange
-    component.category = 'movies'
-    spyOn(moviesService, 'getMovies').and.returnValue(of(mockMoviesData));
+  describe('Pruebas por categoría', () => {
+    describe('Categoría "movies"', () => {
+      it('Debería llenar correctamente contentByTypeGroup si la categoría es "movies"', () => {
+        // Arrange
+        component.category = 'movies'
+        spyOn(moviesService, 'getMovies').and.returnValue(of(mockMoviesData));
 
-    // Act
-    component.ngOnChanges({
-      category: new SimpleChange(null, 'favorites', true)
+        // Act
+        component.ngOnChanges({
+          category: new SimpleChange(null, 'favorites', true)
+        });
+
+        // Assert
+        expect(component.contentByTypeGroup.length).toBe(1);
+        expect(component.contentByTypeGroup[0].type).toBe('movies');
+        expect(component.contentByTypeGroup[0].items).toEqual(mockMoviesData.movies);
+      });
     });
 
-    // assert
-    expect(component.contentByTypeGroup.length).toBe(1);
-    expect(component.contentByTypeGroup[0].type).toBe('movies');
-    expect(component.contentByTypeGroup[0].items).toEqual(mockMoviesData.movies);
-    })
+    describe('Categoría "series"', () => {
+      it('Debería llenar contentByTypeGroup con solo series cuando el type sea "series"', () => {
+        // Arrange
+        component.category = 'series'
+        spyOn(moviesService, 'getMovies').and.returnValue(of(mockMoviesData))
 
-    it('Debería llenar contentByTypeGroup con solo series cuando el type sea "series"', () => {
-      // Arrange
-      component.category = 'series'
-      spyOn(moviesService, 'getMovies').and.returnValue(of(mockMoviesData))
+        // Act
+        component.ngOnChanges({
+          category: new SimpleChange(null, 'favorites', true)
+        })
 
-      // Act
-      component.ngOnChanges({
-        category: new SimpleChange(null, 'favorites', true)
+        // Assert
+        expect(component.contentByTypeGroup.length).toBe(1)
+        expect(component.contentByTypeGroup[0].type).toBe('series')
+        expect(component.contentByTypeGroup[0].items).toEqual(mockMoviesData.series)
       })
+    });
 
-      // Assert
-      expect(component.contentByTypeGroup.length).toBe(1)
-      expect(component.contentByTypeGroup[0].type).toBe('series')
-      expect(component.contentByTypeGroup[0].items).toEqual(mockMoviesData.series)
-    })
+    describe('Categoría "categories"', () => {
+      it('Debería llenar contentByGenre con las películas o series ordenadas por genero', () => {
+        // Arrange
+        component.category = 'categories'
+        spyOn(moviesService, 'getMovies').and.returnValue(of(mockMoviesData))
 
-    it('Debería llenar contentByGenre con las películas o series ordenadas por genero', () => {
-      // Arrange
-      component.category = 'categories'
-      spyOn(moviesService, 'getMovies').and.returnValue(of(mockMoviesData))
+        // Act
+        component.ngOnChanges({
+          category: new SimpleChange(null, 'favorites', true)
+        })
 
-      // Act
-      component.ngOnChanges({
-        category: new SimpleChange(null, 'favorites', true)
+        // Assert
+        expect(Object.keys(component.contentByGenreGroup).length).toBe(3)
+        expect(Object.keys(component.contentByGenreGroup)[0]).toBe('acción')
+        expect(component.contentByGenreGroup['acción'].length).toBe(1)
+        expect(Object.keys(component.contentByGenreGroup)[1]).toBe('comedia')
+        expect(component.contentByGenreGroup['comedia'].length).toBe(2)
+        expect(Object.keys(component.contentByGenreGroup)[2]).toBe('terror')
+        expect(component.contentByGenreGroup['terror'].length).toBe(1)
       })
+    });
 
-      // Assert
-      expect(Object.keys(component.contentByGenreGroup).length).toBe(3)
-      expect(Object.keys(component.contentByGenreGroup)[0]).toBe('acción')
-      expect(component.contentByGenreGroup['acción'].length).toBe(1)
-      expect(Object.keys(component.contentByGenreGroup)[1]).toBe('comedia')
-      expect(component.contentByGenreGroup['comedia'].length).toBe(2)
-      expect(Object.keys(component.contentByGenreGroup)[2]).toBe('terror')
-      expect(component.contentByGenreGroup['terror'].length).toBe(1)
-    })
+    describe('Categoría "home"', () => {
+      it('Debería cargar la lista completa de los datos segmentados en "películas" y en "series"', () => {
+        // Arrange
+        component.category = 'home'
+        spyOn(moviesService, 'getMovies').and.returnValue(of(mockMoviesData))
 
-    it('Debería cargar la lista completa de los datos segmentados en "películas" y en "series"', () => {
-      // Arrange
-      component.category = 'home'
-      spyOn(moviesService, 'getMovies').and.returnValue(of(mockMoviesData))
+        // Act
+        component.ngOnChanges({
+          category: new SimpleChange(null, 'favorites', true)
+        })
 
-      // Act
-      component.ngOnChanges({
-        category: new SimpleChange(null, 'favorites', true)
+        // Assert
+        expect(component.contentByTypeGroup.length).toBe(2)
+        expect(component.contentByTypeGroup[0].items).toEqual(mockMoviesData.movies)
+        expect(component.contentByTypeGroup[1].items).toEqual(mockMoviesData.series)
+        expect(component.contentByTypeGroup[0].type).toBe('movies')
+        expect(component.contentByTypeGroup[1].type).toBe('series')
       })
+    });
 
-      // Assert
-      expect(component.contentByTypeGroup.length).toBe(2)
-      expect(component.contentByTypeGroup[0].items).toEqual(mockMoviesData.movies)
-      expect(component.contentByTypeGroup[1].items).toEqual(mockMoviesData.series)
-      expect(component.contentByTypeGroup[0].type).toBe('movies')
-      expect(component.contentByTypeGroup[1].type).toBe('series')
-    })
+    describe('Categoría "favorites"', () => {
+      it('Debería cargar los favoritos', () => {
+        // Arrange
+        component.category = 'favorites'
+        // Implementamos un espía de MoviesService con data vacía para que el flujo de enOnChanges no se corte
+        spyOn(moviesService, 'getMovies').and.returnValue(of({movies: [], series: []}))
+        spyOn(favoritesService, 'loadFavorites').and.returnValue(mockToAFavoriteMovie)
+        favoritesService.contentByTypeGroup = mockToAFavoriteMovie
+        // Act
+        component.ngOnChanges({
+          category: new SimpleChange(null, 'favorites', true)
+        })
 
-    it('Debería cargar los favoritos', () => {
-      // Arrange
-      component.category = 'favorites'
-      // Implementamos un espía de MoviesService con data vacía para que el flujo de enOnChanges no se corte
-      spyOn(moviesService, 'getMovies').and.returnValue(of({movies: [], series: []}))
-      spyOn(favoritesService, 'loadFavorites').and.returnValue(mockToAFavoriteMovie)
-      favoritesService.contentByTypeGroup = mockToAFavoriteMovie
-      // Act
-      component.ngOnChanges({
-        category: new SimpleChange(null, 'favorites', true)
+        // Assert
+        expect(component.contentByTypeGroup.length).toBe(1)
+        expect(component.contentByTypeGroup[0].items.length).toBe(1)
+        expect(component.contentByTypeGroup[0].items[0].id).toBe('m1')
       })
+    });
+  });
 
-      // Assert
-      expect(component.contentByTypeGroup.length).toBe(1)
-      expect(component.contentByTypeGroup[0].items.length).toBe(1)
-      expect(component.contentByTypeGroup[0].items[0].id).toBe('m1')
-    })
-
+  describe('Manejo de errores', () => {
     it('Debería lanzar el error "Categoría no válida" si la categoría no es correcta', () => {
       // Arrange
       component.category = 'categoría invalida'
@@ -142,8 +171,9 @@ describe('MoviesListComponent', () => {
         category: new SimpleChange(null, 'favorites', true)
       })
 
-      // assert
+      // Assert
       expect(console.error).toHaveBeenCalled()
       expect(console.error).toHaveBeenCalledOnceWith('Categoría no válida')
     })
+  });
 });
