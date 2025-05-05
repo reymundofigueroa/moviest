@@ -26,7 +26,7 @@ export class SearchBarComponent implements OnInit  {
   ngOnInit(): void {
     console.log('cambios')
     this.searchControl.valueChanges.pipe(
-      debounceTime(250), // Espera 300ms después de cada tecleo
+      debounceTime(250), // Espera 250ms después de cada tecleo
       distinctUntilChanged(), // Solo emite si el valor cambió
       tap(() => this.isLoading = true),
       switchMap(query => this.moviesService.searchMovies(query!)),

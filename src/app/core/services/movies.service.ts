@@ -10,7 +10,7 @@ import { map, catchError, } from 'rxjs/operators';
 })
 export class MoviesService {
   private jsonUrl = 'assets/data/movies.json';
-  private moviesData: DataMovies[]= []
+  public moviesData: DataMovies[]= []
 
   constructor(private http: HttpClient) {}
 
