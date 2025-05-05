@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MovieDetailsComponent } from './movie-details.component';
-import { FavoritesService } from '../services/favorites.service';
 import { ElementRef } from '@angular/core';
 
 
@@ -23,73 +22,80 @@ describe('MovieDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Debería crear un addEventListener', () => {
-    // Arrange
-    spyOn(document, 'addEventListener')
+  describe('Tests de los hocks del ciclo de vida de Angular', () => {
+    it('Debería crear un addEventListener', () => {
+      // Arrange
+      spyOn(document, 'addEventListener')
 
-    // Act
-    component.ngOnChanges()
+      // Act
+      component.ngOnChanges()
 
-    // Assert
-    expect(document.addEventListener).toHaveBeenCalled()
-    expect(document.addEventListener).toHaveBeenCalledWith('fullscreenchange', jasmine.any(Function));
+      // Assert
+      expect(document.addEventListener).toHaveBeenCalled()
+      expect(document.addEventListener).toHaveBeenCalledWith('fullscreenchange', jasmine.any(Function));
+    })
+
+    it('Debería eliminar el addEventListener', () => {
+      // arrange
+      spyOn(document, 'removeEventListener')
+
+      // Act
+      component.ngOnDestroy()
+
+      // Assert
+      expect(document.removeEventListener).toHaveBeenCalled()
+      expect(document.removeEventListener).toHaveBeenCalledWith('fullscreenchange', jasmine.any(Function))
+    })
   })
 
-  it('Debería eliminar el addEventListener', () => {
-    // arrange
-    spyOn(document, 'removeEventListener')
+  describe('Tests del método showVideo()', () => {
+    it('Debería mostrar el video', () => {
+      // Arrange
+      component.videoContainerElement = {
+        nativeElement: {
+          style: { display: '' }
+        }
+      } as ElementRef<HTMLDivElement>;
+
+      component.videoElement = {
+        nativeElement: {
+          play: jasmine.createSpy('play'),
+          requestFullscreen: jasmine.createSpy('requestFullscreen')
+        } as unknown as HTMLVideoElement
+      } as ElementRef<HTMLVideoElement>;
 
     // Act
-    component.ngOnDestroy()
+    component.showVideo();
 
     // Assert
-    expect(document.removeEventListener).toHaveBeenCalled()
-    expect(document.removeEventListener).toHaveBeenCalledWith('fullscreenchange', jasmine.any(Function))
+    expect(component.videoContainerElement.nativeElement.style.display).toBe('block')
+    expect(component.videoElement.nativeElement.play).toHaveBeenCalled()
+    expect(component.videoElement.nativeElement.requestFullscreen).toHaveBeenCalled()
+  });
   })
 
-  it('Debería mostrar el video', () => {
-    // Arrange
-    component.videoContainerElement = {
-      nativeElement: {
-        style: { display: '' }
-      }
-    } as ElementRef<HTMLDivElement>;
+  describe('Tests del método handleFullScreenExit', () => {
+    it('Debería pausar y ocultar la película', () => {
+      // Arrange
+      component.videoContainerElement = {
+        nativeElement: {
+          style: { display: '' }
+        }
+      } as ElementRef<HTMLDivElement>;
 
-    component.videoElement = {
-      nativeElement: {
-        play: jasmine.createSpy('play'),
-        requestFullscreen: jasmine.createSpy('requestFullscreen')
-      } as unknown as HTMLVideoElement
-    } as ElementRef<HTMLVideoElement>;
+      component.videoElement = {
+        nativeElement: {
+          pause: jasmine.createSpy('pause'),
+        } as unknown as HTMLVideoElement
+      } as ElementRef<HTMLVideoElement>;
 
-  // Act
-  component.showVideo();
+      // Act
+      component.handleFullscreenExit()
 
-  // Assert
-  expect(component.videoContainerElement.nativeElement.style.display).toBe('block')
-  expect(component.videoElement.nativeElement.play).toHaveBeenCalled()
-  expect(component.videoElement.nativeElement.requestFullscreen).toHaveBeenCalled()
-});
+      // Assert
+      expect(component.videoElement.nativeElement.pause).toHaveBeenCalled()
+      expect(component.videoContainerElement.nativeElement.style.display).toBe('none')
+    })
+  })
 
-it('Debería pausar y ocultar la película', () => {
-  // Arrange
-  component.videoContainerElement = {
-    nativeElement: {
-      style: { display: '' }
-    }
-  } as ElementRef<HTMLDivElement>;
-
-  component.videoElement = {
-    nativeElement: {
-      pause: jasmine.createSpy('pause'),
-    } as unknown as HTMLVideoElement
-  } as ElementRef<HTMLVideoElement>;
-
-  // Act
-  component.handleFullscreenExit()
-
-  // Assert
-  expect(component.videoElement.nativeElement.pause).toHaveBeenCalled()
-  expect(component.videoContainerElement.nativeElement.style.display).toBe('none')
-})
 })
