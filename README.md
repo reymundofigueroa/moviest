@@ -132,6 +132,12 @@ Esta sección muestra los resultados de una búsqueda con coincidencias ya sea p
 ![Imagen del reporte de code coverage](./public/assets/images/code-covearge.png)
 ![Imagen del reporte de test con karma](./public/assets/images/code-covearge-karma.png)
 
+ Coverage summary <br>
+- Statements   : 80.24% ( 130/162 ) <br>
+- Branches     : 64.1% ( 25/39 ) <br>
+- Functions    : 70.9% ( 39/55 ) <br>
+- Lines        : 79.61% ( 125/157 ) <br>
+
 ---
 
 ## 🔁 Sprint Review
