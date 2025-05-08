@@ -56,14 +56,6 @@ input {
   border-radius: var(--border-radius);
 }
 
-/*  ENLACE OLVIDAR CONTRASEÑA  */
-.forgot-link {
-  display: block;
-  margin-top: 1rem;
-  text-align: right;
-  font-size: var(--text-size);
-}
-
 /*  BOTÓN DE ENVÍO  */
 button {
   width: 100%;
@@ -80,23 +72,6 @@ button {
 button:hover {
   background-color: var(--primary-hover);
 }
-
-/*  ALTERNATIVA DE REGISTRO  */
-.alternative {
-  margin-top: var(--element-gap);
-  text-align: center;
-  font-size: var(--text-size);
-}
-
-.alternative a {
-  color: var(--text-color);
-  text-decoration: none;
-}
-
-.alternative a:hover {
-  text-decoration: underline;
-}
-
 
 @media screen and (max-width: 768px) {
   .main-section {
@@ -134,7 +109,7 @@ button:hover {
   }
 
   .login-container {
-    
+
     padding: 1.2rem;
     margin: 3.6rem;
   }

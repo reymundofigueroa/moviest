@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HeaderComponent } from '../../layout/header/header.component';
+import { HeaderComponent } from '../../../layout/header/header.component';
 
 @Component({
   selector: 'app-login',
@@ -16,5 +16,9 @@ export class LoginComponent {
   goHome(event: Event) {
     event.preventDefault();
     this.router.navigate(['/home']);
+  }
+
+  goToCreateAccount() {
+    this.router.navigate(['/create-account']);
   }
 }
