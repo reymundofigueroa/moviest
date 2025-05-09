@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { HeaderComponent } from "../../../layout/header/header.component";
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [],
+  imports: [HeaderComponent],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css'
 })

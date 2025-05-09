@@ -21,4 +21,8 @@ export class LoginComponent {
   goToCreateAccount() {
     this.router.navigate(['/create-account']);
   }
+
+  goToRecoverPassword() {
+    this.router.navigate(['/forgot-password']);
+  }
 }
