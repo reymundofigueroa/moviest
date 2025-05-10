@@ -19,7 +19,7 @@ export class HeaderComponent {
   }
 
   // Determinamos si se esta en la pagina de login, esto para saber que contenido del header renderizar
-  isLoginPage(): boolean {
-    return this.currentPage === '/login';
+  isHomePage(): boolean {
+    return this.currentPage === '/home';
   }
 }
