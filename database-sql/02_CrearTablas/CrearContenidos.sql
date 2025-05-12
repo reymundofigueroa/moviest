@@ -21,7 +21,5 @@ CREATE TABLE dbo.Contenidos
   VideoUrl NVARCHAR(300) NULL,
 
   CONSTRAINT PK_Contents_Table PRIMARY KEY (id),
-  CONSTRAINT FK_Content_Genre FOREIGN KEY (id)
-    REFERENCES Categorias(id)
 )
 GO
