@@ -1,10 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\01_CreacionBaseDeDatos",
     "\\02_CrearTablas",
-    "\\03_Relaciones"
+    "\\03_Relaciones",
+    "\\04_Procedimientos"
   ],
-  "SelectedNode": "\\02_CrearTablas\\CrearContenidos.sql",
+  "SelectedNode": "\\04_Procedimientos\\IncertarUsuarioProc.sql",
   "PreviewInSolutionExplorer": false
 }
