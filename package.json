@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start:frontend": "cd apps/frontend && npm start",
+    "start:backend": "cd apps/backend && dotnet run --project MiApi/MiApi.csproj",
+    "start": "concurrently \"npm: start:frontend\" \"npm: start:backend\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0"
+  }
+}
