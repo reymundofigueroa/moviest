@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Luh2B9d26W0=",
+  "dgSpecHash": "4V/WQ0V11N4=",
   "success": true,
   "projectFilePath": "C:\\Users\\reymu\\OneDrive\\Documents\\liderly\\moviest\\apps\\backend\\Moviest-back\\Moviest-back.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\reymu\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\reymu\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
+    "C:\\Users\\reymu\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\reymu\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\reymu\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.5\\microsoft.aspnetcore.openapi.9.0.5.nupkg.sha512",
     "C:\\Users\\reymu\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
