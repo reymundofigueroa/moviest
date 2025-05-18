@@ -1,11 +1,11 @@
 USE Moviest_DB
 GO
 
-IF OBJECT_ID('dbo.InsertarContenidoPorc', 'P') IS NOT NULL
-    DROP PROCEDURE dbo.InsertarContenidoPorc
+IF OBJECT_ID('dbo.InsertContentPorc', 'P') IS NOT NULL
+    DROP PROCEDURE dbo.InsertContentPorc
 GO
 
-CREATE PROCEDURE dbo.InsertarContenidoPorc
+CREATE PROCEDURE dbo.InsertContentPorc
     @Title NVARCHAR(150),
     @ContentDescription NVARCHAR(MAX) = NULL,
     @Genre INT = NULL,
@@ -19,7 +19,7 @@ BEGIN
     -- Evitamos el mensaje de cuantas filas fueron afectadas
     SET NOCOUNT ON;
 
-    INSERT INTO Contenidos (Title, ContentDescription, Genre, ContentYear, Rating, Duration, CoverImage, VideoUrl)
+    INSERT INTO Contents (Title, ContentDescription, Genre, ContentYear, Rating, Duration, CoverImage, VideoUrl)
     VALUES (@Title, @ContentDescription, @Genre, @ContentYear, @Rating, @Duration, @CoverImage, @VideoUrl);
 END
 GO

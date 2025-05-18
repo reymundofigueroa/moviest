@@ -5,10 +5,10 @@ USE Moviest_DB
 GO
 
 IF OBJECT_ID('dbo.Contenidos', 'U') IS NOT NULL
-  DROP TABLE dbo.Contenidos
+  DROP TABLE dbo.Contents
 GO
 
-CREATE TABLE dbo.Contenidos
+CREATE TABLE dbo.Contents
 (
 	id INT IDENTITY(1,1) NOT NULL, 
 	Title NVARCHAR(150) NOT NULL, 

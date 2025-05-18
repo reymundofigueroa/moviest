@@ -4,31 +4,22 @@
 USE Moviest_DB;
 GO
 
-IF OBJECT_ID('FK_Contents_Categories', 'F') IS NOT NULL
+
+
+IF OBJECT_ID('dbo.Categories', 'U') IS NOT NULL
 BEGIN
-    ALTER TABLE Contenidos
-    DROP CONSTRAINT FK_Contents_Categories;
+    DROP TABLE dbo.Categories;
 END
 GO
 
-IF OBJECT_ID('dbo.Categorias', 'U') IS NOT NULL
-BEGIN
-    DROP TABLE dbo.Categorias;
-END
-GO
-
-CREATE TABLE dbo.Categorias
+CREATE TABLE dbo.Categories
 (
     id INT IDENTITY(1,1) NOT NULL,
     CategoryName NVARCHAR(50) NOT NULL,
 
-    CONSTRAINT PK_Categorias PRIMARY KEY (id),
-    CONSTRAINT UQ_Categorias_Nombre UNIQUE (CategoryName)
+    CONSTRAINT PK_Categories PRIMARY KEY (id),
+    CONSTRAINT UQ_Categories_Name UNIQUE (CategoryName)
 );
 GO
 
-ALTER TABLE Contenidos
-ADD CONSTRAINT FK_Contents_Categories
-    FOREIGN KEY (Genre)
-    REFERENCES Categorias(id);
-GO
+
