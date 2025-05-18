@@ -1,15 +1,39 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './features/user-access/login/login.component'
-import { HomeComponent } from './features/home/home.component'
-import { CreateAccountComponent } from './features/user-access/create-account/create-account.component';
-import { SendEmailToResetPasswordComponent } from './features/user-access/send-email-to-reset-password/send-email-to-reset-password.component';
-import { ResetPasswordComponent } from './features/user-access/reset-password/reset-password.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'create-account', component: CreateAccountComponent},
-  { path: 'forgot-password', component: SendEmailToResetPasswordComponent},
-  { path: 'change-password', component: ResetPasswordComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./features/user-access/login/login.component')
+        .then(m => m.LoginComponent)
+  },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./features/home/home.component')
+        .then(m => m.HomeComponent)
+  },
+  {
+    path: 'create-account',
+    loadComponent: () =>
+      import('./features/user-access/create-account/create-account.component')
+        .then(m => m.CreateAccountComponent)
+  },
+  {
+    path: 'forgot-password',
+    loadComponent: () =>
+      import('./features/user-access/send-email-to-reset-password/send-email-to-reset-password.component')
+        .then(m => m.SendEmailToResetPasswordComponent)
+  },
+  {
+    path: 'change-password',
+    loadComponent: () =>
+      import('./features/user-access/reset-password/reset-password.component')
+        .then(m => m.ResetPasswordComponent)
+  },
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  }
 ];
