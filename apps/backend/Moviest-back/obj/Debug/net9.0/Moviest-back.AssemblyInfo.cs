@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Moviest-back")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7705980b62024e38590c6847603dbba4dc22295c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6998e149a93455531d0ce28d5b368e190383cbd4")]
 [assembly: System.Reflection.AssemblyProductAttribute("Moviest-back")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Moviest-back")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
