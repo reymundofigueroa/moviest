@@ -5,24 +5,24 @@
 USE Moviest_DB
 GO
 
-ALTER TABLE Favoritos
+ALTER TABLE Favorites
 ADD CONSTRAINT FK_Favorites_Users
     FOREIGN KEY (UserId)
-    REFERENCES Usuarios(id);
+    REFERENCES Users(id);
 GO
 
-ALTER TABLE Favoritos
+ALTER TABLE Favorites
 ADD CONSTRAINT FK_Favorites_Contents
     FOREIGN KEY (ContentId)
-    REFERENCES Contenidos(id);
+    REFERENCES Contents(id);
 GO
 
 -- ==================================
 -- Create Foreign Key Contenidos
 -- ==================================
 
-ALTER TABLE Contenidos
+ALTER TABLE Contents
 ADD CONSTRAINT FK_Contents_Categories
     FOREIGN KEY (Genre)
-    REFERENCES Categorias(id);
+    REFERENCES Categories(id);
 GO

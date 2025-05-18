@@ -5,10 +5,10 @@ USE Moviest_DB
 GO
 
 IF OBJECT_ID('dbo.Usuarios', 'U') IS NOT NULL
-  DROP TABLE dbo.Usuarios
+  DROP TABLE dbo.Users
 GO
 
-CREATE TABLE dbo.Usuarios
+CREATE TABLE dbo.Users
 (
 	id INT IDENTITY(1,1) NOT NULL, 
 	UserName NVARCHAR(200) NOT NULL, 
@@ -17,7 +17,7 @@ CREATE TABLE dbo.Usuarios
   BirthDate DATE,
   RegistrationDate DATETIME2 DEFAULT SYSDATETIME(),
 
-  CONSTRAINT PK_Usuarios PRIMARY KEY (id),
+  CONSTRAINT PK_Users PRIMARY KEY (id),
   CONSTRAINT UQ_Email UNIQUE (Email),
 )
 GO
