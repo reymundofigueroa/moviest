@@ -15,6 +15,7 @@
             id="email"
             name="email"
             type="email"
+            [(ngModel)]="email"
             placeholder="Ingresa tu correo"
             required
           />
@@ -26,6 +27,7 @@
             id="password"
             name="password"
             type="password"
+            [(ngModel)]="password"
             placeholder="Ingresa tu contraseña"
             required
           />
@@ -36,7 +38,7 @@
         >
       </fieldset>
 
-      <button (click)="goHome($event)" type="submit">Ingresar</button>
+      <button (click)="login($event)" type="submit">Ingresar</button>
     </form>
 
     <div class="alternative">
