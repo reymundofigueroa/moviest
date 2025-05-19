@@ -2,8 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moviest_back.Data;
 using Moviest_back.Models;
-using System.Security.Cryptography;
-using System.Text;
+
 
 namespace Moviest_back.Controllers
 {

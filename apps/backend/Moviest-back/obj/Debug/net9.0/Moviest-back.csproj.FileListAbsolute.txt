@@ -166,3 +166,4 @@ C:\Users\reymu\OneDrive\Documents\liderly\moviest\apps\backend\Moviest-back\bin\
 C:\Users\reymu\OneDrive\Documents\liderly\moviest\apps\backend\Moviest-back\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\reymu\OneDrive\Documents\liderly\moviest\apps\backend\Moviest-back\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\reymu\OneDrive\Documents\liderly\moviest\apps\backend\Moviest-back\bin\Debug\net9.0\BCrypt.Net-Next.dll
+C:\Users\reymu\OneDrive\Documents\liderly\moviest\apps\backend\Moviest-back\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
