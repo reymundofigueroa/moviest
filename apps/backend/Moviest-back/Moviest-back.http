@@ -1,6 +1,0 @@
-@Moviest_back_HostAddress = http://localhost:5222
-
-GET {{Moviest_back_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
