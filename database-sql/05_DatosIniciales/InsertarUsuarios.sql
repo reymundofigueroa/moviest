@@ -1,7 +1,9 @@
+-- De momento no funciona el script debido a deferencias en el algoritmo de encriptación usados aquí y en la API
+
 USE Moviest_DB
 GO
 
-DECLARE @Password NVARCHAR(100);
+DECLARE @Password NVARCHAR(100) = '';
 
 DECLARE @HashedPassword VARBINARY(64);
 
