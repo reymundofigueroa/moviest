@@ -1,0 +1,168 @@
+.main-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: var(--section-padding);
+}
+
+/*  ESLOGAN  */
+.eslogan {
+  padding: 8rem 0 3.6rem 0;
+  margin-bottom: 3rem;
+  text-align: center;
+  font-size: var(--title-size);
+}
+
+/*  FORMULARIO DE LOGIN  */
+.login-container {
+  margin-top: 2rem;
+  padding: var(--element-gap);
+  background-color: rgba(43, 41, 41, 0.3); /* Fondo blanco semi-transparente */
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  max-width: 432px;
+  width: 100%;
+}
+
+/*  TÍTULO DEL FORMULARIO  */
+.login-container h3 {
+  font-size: var(--subtitle-size);
+  margin-bottom: var(--element-gap);
+  text-align: center;
+}
+
+/*  CAMPOS DEL FORMULARIO */
+fieldset {
+  border: none;
+  margin-bottom: var(--element-gap);
+}
+
+/* Estilo de las etiquetas y los campos de entrada */
+label {
+  font-size: var(--text-size);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.6rem;
+  font-size: var(--text-size);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+/*  ENLACE OLVIDAR CONTRASEÑA  */
+.forgot-link {
+  display: block;
+  margin-top: 1rem;
+  background: none;
+  text-align: right;
+  font-size: var(--text-size);
+  color: var(--text-color);
+}
+.forgot-link:hover {
+  text-decoration: underline;
+  background: none;
+}
+
+/*  BOTÓN DE ENVÍO  */
+button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: var(--text-size);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: var(--primary-hover);
+}
+
+/*  ALTERNATIVA DE REGISTRO  */
+.alternative {
+  margin-top: var(--element-gap);
+  text-align: center;
+  font-size: var(--text-size);
+}
+
+.alternative button {
+  background: none;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.alternative button:hover {
+  text-decoration: underline;
+}
+
+
+@media screen and (max-width: 768px) {
+  .main-section {
+    padding: 2rem;
+  }
+
+  .login-container {
+    padding: 1.6rem;
+  }
+
+  .eslogan {
+    font-size: var(--subtitle-size);
+    padding-bottom: 3.2rem;
+    margin: 0;
+  }
+
+  .login-container h3 {
+    font-size: 2rem;
+    margin-bottom: var(--element-gap);
+  }
+
+  input {
+    font-size: var(--text-size);
+  }
+
+  button {
+    font-size: var(--text-size);
+  }
+
+}
+
+@media screen and (max-width: 480px) {
+  .main-section {
+    padding: 3.2rem;
+  }
+
+  .login-container {
+
+    padding: 1.2rem;
+    margin: 3.6rem;
+  }
+
+  .eslogan {
+    font-size: 2rem;
+    padding-bottom: 2.4rem;
+    margin: 0;
+  }
+
+  .login-container h3 {
+    font-size: 1.8rem;
+    margin-bottom: var(--element-gap);
+  }
+
+  input {
+    font-size: var(--text-size);
+  }
+
+  button {
+    font-size: var(--text-size);
+  }
+
+}
