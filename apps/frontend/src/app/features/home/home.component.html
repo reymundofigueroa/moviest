@@ -1,0 +1,7 @@
+
+<app-header></app-header>
+<app-search-bar (categorySelected)="changeMovieList($event)" (searchResults)="moviesBySearchHandler($event)">  </app-search-bar>
+<app-nav-descktop-menu (categorySelected)="changeMovieList($event)" ></app-nav-descktop-menu>
+<app-movies-list *ngIf="!movieToDetails" [dataFromSearch]="dataFromSearch" (movieDetails)="movieDetailsHandler($event)" [category]="categoryContent"></app-movies-list>
+<app-movie-details *ngIf="movieToDetails" [movie]="movieToDetails"></app-movie-details>
+

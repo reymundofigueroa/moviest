@@ -1,0 +1,12 @@
+<section class="search-container">
+  <input
+    type="search"
+    placeholder="🔍 Buscar"
+    [formControl]="searchControl"
+    (keyup.enter)="triggerSearch()"
+  >
+  <button (click)="triggerSearch()">Vamos</button> <!-- Botón funcional -->
+
+ 
+  <span *ngIf="isLoading" class="loading">Buscando...</span>
+</section>

@@ -1,0 +1,46 @@
+header{
+  position: fixed;
+  width: 100%;
+  padding: var(--section-padding)
+}
+header .logo-img{
+  width: 22rem;
+}
+
+/* HEADER DEL HOME */
+header{
+  display: flex;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+header .header-right{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: auto;
+}
+.header-right img{
+  width: 3.2rem;
+  margin: 0 1.2rem;
+}
+.header-right p{
+  font-size: var(--text-size);
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    width: 100%;
+    padding: var(--mobile-section-padding);
+  }
+  header .header-right{
+    margin: 0;
+  }
+  header .header-right img{
+    width: 2.4rem;
+  }
+  header .logo-img{
+    width: 15rem;
+  }
+
+}

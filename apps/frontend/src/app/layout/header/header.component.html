@@ -1,0 +1,23 @@
+<ng-template #loginHeader>
+<header>
+  <figure class="logo-container">
+    <img class="logo-img" src="/assets/images/logo.png" alt="logo de Moviest">
+  </figure>
+</header>
+</ng-template>
+
+<header *ngIf="isHomePage(); else loginHeader" >
+  <figure class="header-left">
+    <img class="logo-img" src="../assets/images/logo.png" alt="logo de Moviest">
+  </figure>
+  <div class="header-right">
+    <figure>
+      <img src="../assets/svg/lupa.svg" alt="buscar">
+    </figure>
+    <p>Bienvenido</p>
+    <figure>
+      <img src="../assets/svg/perfil.svg" alt="imagen de perfil">
+    </figure>
+  </div>
+</header>
+

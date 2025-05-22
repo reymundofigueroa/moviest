@@ -1,0 +1,96 @@
+.movies-section{
+  padding: var(--section-padding);
+  margin-top: 4rem;
+  width: 100%;
+  height: auto;
+}
+
+.cards-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+.card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 2rem 0.8rem;
+  width: 24rem;
+  height: 32rem;
+  border-radius: var(--border-radius);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease-in-out;
+}
+.card:hover{
+  transform: scale(1.08);
+}
+
+.card .top_icons-card-container{
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.2rem;
+}
+.card .top_icons-card-container button{
+  width: 3.2rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.card .top_icons-card-container .hide-button{
+  width: 100%;
+  justify-self: start;
+}
+.card svg{
+  width: 3.2rem;
+  transition: transform 0.3s ease-in-out;
+}
+.card svg:hover{
+  transform: scale(1.2);
+}
+.card .play_button-card-container{
+  display: flex;
+  justify-content: center;
+  transition: transform 0.3s ease-in-out;
+}
+.card .play_button-card-container:hover{
+  transform: scale(1.2);
+}
+.card .play_button-card-container button{
+  width: 4.5rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.card .play_button-card-container img{
+  width: 4rem;
+}
+.card .bottom_tittle-card-container .title{
+  padding: 1.2rem;
+  font-size: var(--subtitle-size);
+}
+
+@media screen and (max-width: 768px) {
+  .movies-section {
+    padding: var(--mobile-section-padding);
+  }
+  .movies-section #title-movies-container-section {
+    font-size: var(--subtitle-size);
+  }
+  .card{
+    width: 32rem;
+    height: 40rem;
+  }
+
+  .card svg{
+    width: 4rem;
+    padding-right: 1rem;
+  }
+  .card .play_button-card-container svg{
+    width: 4.4rem;
+  }
+  .card .title{
+    font-size: var(--title-size);
+  }
+}
