@@ -19,9 +19,7 @@ export class LoginComponent {
 
   constructor(private authService: UserAccessService, private router: Router) {}
 
-  login(event: Event) {
-    event.preventDefault();
-
+  login() {
     this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: (response) => {
         console.log('Login exitoso:', response);
