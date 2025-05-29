@@ -13,7 +13,7 @@ CREATE TABLE dbo.Contents
 	id INT IDENTITY(1,1) NOT NULL, 
 	Title NVARCHAR(150) NOT NULL, 
 	ContentDescription NVARCHAR(MAX) NULL,
-  Genre INT NULL,
+  Genre NVARCHAR(100) NULL,
   ContentYear DATE NULL,
   Rating DECIMAL(2,1) NULL,
   Duration TIME NULL,
