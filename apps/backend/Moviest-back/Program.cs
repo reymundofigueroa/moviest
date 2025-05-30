@@ -50,7 +50,8 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var MyAllowSpecificOrigins = builder.Configuration["Cors:AllowedOrigin"]
+  ?? "http://localhost:4200";
 
 builder.Services.AddCors(options =>
 {
