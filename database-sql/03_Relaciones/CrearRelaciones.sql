@@ -23,6 +23,6 @@ GO
 
 ALTER TABLE Contents
 ADD CONSTRAINT FK_Contents_Categories
-    FOREIGN KEY (Genre)
-    REFERENCES Categories(id);
+FOREIGN KEY (CategoryId)
+REFERENCES Categories(id)
 GO

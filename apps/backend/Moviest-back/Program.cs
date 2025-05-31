@@ -51,7 +51,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 var MyAllowSpecificOrigins = builder.Configuration["Cors:AllowedOrigin"]
-  ?? "http://localhost:4200";
+    ?? "http://localhost:4200";
 
 builder.Services.AddCors(options =>
 {
@@ -59,8 +59,8 @@ builder.Services.AddCors(options =>
         builder =>
         {
             builder.WithOrigins("http://localhost:4200") // frontend
-                   .AllowAnyHeader()
-                   .AllowAnyMethod();
+                .AllowAnyHeader()
+                .AllowAnyMethod();
         });
 });
 
