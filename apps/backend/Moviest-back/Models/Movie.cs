@@ -10,7 +10,8 @@ namespace Moviest_back.Models
 
     public string? ContentDescription { get; set; }
 
-    public int Genre { get; set; }
+    public int CategoryId { get; set; }
+    public Category Category { get; set; } = null!;
 
     public DateTime? ContentYear { get; set; }
 
