@@ -19,28 +19,78 @@ namespace Moviest_back.Controllers
 
     // GET: api/movies
     [HttpGet]
-public async Task<IActionResult> GetMovies()
+    public async Task<IActionResult> GetMovies()
+    {
+      var movies = await _context.Contents
+          .Include(c => c.Category)
+          .ToListAsync();
+
+      var movieDtos = movies.Select(m => new MovieDto
+      {
+        Id = $"m{m.id}",
+        Title = m.Title,
+        Description = m.ContentDescription!,
+        Genre = m.Category.CategoryName,
+        Year = m.ContentYear.HasValue ? m.ContentYear.Value.Year : 0,
+        Rating = (decimal)m.Rating!,
+        Duration = m.Duration.HasValue ? (int)m.Duration.Value.TotalMinutes : 0,
+        CoverImage = m.CoverImage!,
+        VideoUrl = m.VideoUrl!
+      }).ToList();
+
+      return Ok(new { movies = movieDtos });
+    }
+
+[HttpGet("home")]
+public async Task<IActionResult> GetGroupedContent()
 {
-    var movies = await _context.Contents
-        .Include(c => c.Category)
+    var contents = await _context.Contents
+        .Include(m => m.Category)
         .ToListAsync();
 
-    var movieDtos = movies.Select(m => new MovieDto {
-    Id = $"m{m.id}",
-    Title = m.Title,
-    Description = m.ContentDescription!,
-    Genre = m.Category.CategoryName,
-    Year = m.ContentYear.HasValue ? m.ContentYear.Value.Year : 0,
-    Rating = (decimal)m.Rating!,
-    Duration = m.Duration.HasValue ? (int)m.Duration.Value.TotalMinutes : 0,
-    CoverImage = m.CoverImage!,
-    VideoUrl = m.VideoUrl!
-}).ToList();
+    var movies = contents
+        .Where(m => m.ContentType == 'M')
+        .Select(m => new
+        {
+            id = $"m{m.id}",
+            title = m.Title,
+            description = m.ContentDescription,
+            genre = m.Category.CategoryName,
+            year = m.ContentYear?.Year ?? 0,
+            rating = m.Rating,
+            Duration = m.Duration.HasValue ? (int)m.Duration.Value.TotalMinutes : 0,
+            coverImage = m.CoverImage,
+            videoUrl = m.VideoUrl
+        })
+        .ToList();
 
-    return Ok(new { movies = movieDtos });
+    var series = contents
+        .Where(m => m.ContentType == 'S')
+        .Select(m => new
+        {
+            id = $"s{m.id}",
+            title = m.Title,
+            description = m.ContentDescription,
+            genre = m.Category.CategoryName,
+            year = m.ContentYear?.Year ?? 0,
+            rating = m.Rating,
+            Duration = m.Duration.HasValue ? (int)m.Duration.Value.TotalMinutes : 0,
+            coverImage = m.CoverImage,
+            videoUrl = m.VideoUrl
+        })
+        .ToList();
+
+    var response = new
+    {
+        movies,
+        series
+    };
+
+    return Ok(response);
 }
 
-    // GET: api/movies/5
+
+    // GET: api/movies/details/5
     [HttpGet("{id}")]
     public async Task<ActionResult<Movie>> GetMovie(int id)
     {
@@ -62,6 +112,7 @@ public async Task<IActionResult> Post([FromBody] CreateMovieDto dto)
     {
         Title = dto.Title,
         ContentDescription = dto.ContentDescription,
+        ContentType = dto.ContentType,
         CategoryId = dto.CategoryId,
         ContentYear = dto.ContentYear,
         Rating = dto.Rating,

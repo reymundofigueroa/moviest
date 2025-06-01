@@ -10,7 +10,7 @@
       <div
         class="card"
         *ngFor="let item of group.items"
-        [style.backgroundImage]="'url(assets/images/' + item.coverImage + ')'"
+        [style.backgroundImage]="'url(' + item.coverImage + ')'"
       >
         <div class="top_icons-card-container">
           <div class="hide-button">
@@ -76,7 +76,7 @@
             class="card"
             *ngFor="let item of genero.value"
             [style.backgroundImage]="
-              'url(assets/images/' + item.coverImage + ')'
+              'url(' + item.coverImage + ')'
             "
           >
           <div class="top_icons-card-container">
