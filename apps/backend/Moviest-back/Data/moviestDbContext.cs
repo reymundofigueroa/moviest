@@ -9,5 +9,6 @@ namespace Moviest_back.Data
     public DbSet<User> Users { get; set; }
     public DbSet<Movie> Contents { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<Favorites> Favorites { get; set; }
   }
 }
