@@ -9,20 +9,20 @@ import { map, catchError, } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class MoviesService {
-  private jsonUrl = 'assets/data/movies.json';
+  private apiUrl = 'http://localhost:5222/api/movies/home';
   public moviesData: DataMovies[]= []
 
   constructor(private http: HttpClient) {}
 
   // Método para obtener las películas
   getMovies(): Observable<MoviesData> {
-    return this.http.get<MoviesData>(this.jsonUrl);
+    return this.http.get<MoviesData>(this.apiUrl);
   }
 
 
   // Método para cargar la data y usarla cuando el buscador la necesite
   loadData(): Observable<MoviesData> {
-    return this.http.get<MoviesData>(this.jsonUrl).pipe(
+    return this.http.get<MoviesData>(this.apiUrl).pipe(
       map(data => {
         this.moviesData = [...data.movies, ...data.series];
         return { movies: data.movies, series: data.series };
