@@ -11,7 +11,7 @@ export class FavoritesService {
   private apiUrl = 'http://localhost:5222/api'
   contentByTypeGroup: ContentGroup[] = []; // Agrupado por tipo
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Detectamos si esta en favoritos
   isFavorites(id: string | number): boolean {
@@ -19,16 +19,19 @@ export class FavoritesService {
     return favorites.some((fav) => fav.id === id);
   }
 
+  // Hacemos la petición GET de favoritos a la API
   getFavorites(userId: number): Observable<MoviesData> {
     return this.http.get<MoviesData>(`${this.apiUrl}/Favorites/user/${userId}`);
-}
+  }
 
-saveMovieIntoFavorites(contentId: number): Observable<FavoritesModel> {
-    const userId = localStorage.getItem('UserId'); // o desde AuthService si ya lo usas
-    if (!userId) {
+  // Hacemos la petición POST para guardar elemento en favoritos
+  saveMovieIntoFavorites(contentId: number): Observable<FavoritesModel> {
+    const userId = localStorage.getItem('UserId'); // obtenemos el 'userId'
+    if (!userId) { // Evaluamos si en verdad existe un userId
       throw new Error('User ID not found in localStorage');
     }
 
+    // Estructuramos el body
     const body = {
       userId: parseInt(userId),
       contentId: contentId
@@ -38,27 +41,27 @@ saveMovieIntoFavorites(contentId: number): Observable<FavoritesModel> {
     return this.http.post<FavoritesModel>(this.apiUrl + '/Favorites', body);
   }
 
-   deleteMovieToFavorites(contentId: number): Observable<FavoritesModel> {
-  const userId = localStorage.getItem('UserId');
-  if (!userId) {
-    throw new Error('User ID not found in localStorage');
+  // Hacemos la petición POST de eliminar elemento de favoritos
+  deleteMovieToFavorites(contentId: number): Observable<FavoritesModel> {
+    const userId = localStorage.getItem('UserId'); // Obtenemos 'UserId'
+    if (!userId) { // Evaluamos si de verdad existe el UserId
+      throw new Error('User ID not found in localStorage');
+    }
+
+    // Estructuramos el body
+    const body = {
+      userId: parseInt(userId),
+      contentId: contentId
+    };
+
+    return this.http.delete<FavoritesModel>(this.apiUrl + '/Favorites', { body });
   }
 
-  const body = {
-    userId: parseInt(userId),
-    contentId: contentId
-  };
-
-  return this.http.delete<FavoritesModel>(this.apiUrl + '/Favorites', { body });
-}
-
-
-
-getFavoriteIds(userId: number): Observable<number[]> {
-  return this.http.get<{ favoriteIds: number[] }>(`${this.apiUrl}/Favorites/ids/${userId}`)
-    .pipe(
-      map(response => response.favoriteIds)
-    );
-}
-
+  // Hacemos la petición GET de la lista de Ids de elementos en favoritos
+  getFavoriteIds(userId: number): Observable<number[]> {
+    return this.http.get<{ favoriteIds: number[] }>(`${this.apiUrl}/Favorites/ids/${userId}`)
+      .pipe(
+        map(response => response.favoriteIds)
+      );
+  }
 }
