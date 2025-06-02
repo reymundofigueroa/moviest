@@ -25,7 +25,9 @@ namespace Moviest_back.Controllers
           .Include(c => c.Category)
           .ToListAsync();
 
-      var movieDtos = movies.Select(m => new MovieDto
+      var movieDtos = movies
+      .Where(m => m.ContentType == 'M')
+      .Select(m => new MovieDto
       {
         Id = $"m{m.id}",
         Title = m.Title,
@@ -41,7 +43,32 @@ namespace Moviest_back.Controllers
       return Ok(new { movies = movieDtos });
     }
 
-[HttpGet("home")]
+[HttpGet("series")]
+    public async Task<IActionResult> GetSeries()
+    {
+      var movies = await _context.Contents
+          .Include(c => c.Category)
+          .ToListAsync();
+
+      var movieDtos = movies
+      .Where(m => m.ContentType == 'S')
+      .Select(m => new MovieDto
+      {
+        Id = $"m{m.id}",
+        Title = m.Title,
+        Description = m.ContentDescription!,
+        Genre = m.Category.CategoryName,
+        Year = m.ContentYear.HasValue ? m.ContentYear.Value.Year : 0,
+        Rating = (decimal)m.Rating!,
+        Duration = m.Duration.HasValue ? (int)m.Duration.Value.TotalMinutes : 0,
+        CoverImage = m.CoverImage!,
+        VideoUrl = m.VideoUrl!
+      }).ToList();
+
+      return Ok(new { movies = movieDtos });
+    }
+
+    [HttpGet("home")]
 public async Task<IActionResult> GetGroupedContent()
 {
     var contents = await _context.Contents
@@ -73,7 +100,7 @@ public async Task<IActionResult> GetGroupedContent()
             description = m.ContentDescription,
             genre = m.Category.CategoryName,
             year = m.ContentYear?.Year ?? 0,
-            rating = m.Rating,
+            Rating = (decimal)m.Rating!,
             Duration = m.Duration.HasValue ? (int)m.Duration.Value.TotalMinutes : 0,
             coverImage = m.CoverImage,
             videoUrl = m.VideoUrl
@@ -88,6 +115,36 @@ public async Task<IActionResult> GetGroupedContent()
 
     return Ok(response);
 }
+
+[HttpGet("categories")]
+public async Task<IActionResult> GetGroupedByCategory()
+{
+    var contents = await _context.Contents
+        .Include(m => m.Category)
+        .ToListAsync();
+
+    var grouped = contents
+        .Where(m => m.Category != null)
+        .GroupBy(m => m.Category!.CategoryName)
+        .ToDictionary(
+            g => g.Key,
+            g => g.Select(m => new MovieDto
+            {
+                Id = $"m{m.id}",
+                Title = m.Title,
+                Description = m.ContentDescription ?? "",
+                Genre = g.Key,
+                Year = m.ContentYear?.Year ?? 0,
+                Rating = (m.Rating ?? 0),
+                Duration = m.Duration.HasValue ? (int)m.Duration.Value.TotalMinutes : 0,
+                CoverImage = m.CoverImage ?? "",
+                VideoUrl = m.VideoUrl ?? ""
+            }).ToList()
+        );
+
+    return Ok(grouped);
+}
+
 
 
     // GET: api/movies/details/5
