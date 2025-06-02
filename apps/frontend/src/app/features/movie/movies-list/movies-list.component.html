@@ -1,11 +1,9 @@
-<section
-  class="movies-section"
->
+<section class="movies-section">
   <article *ngFor="let group of contentByTypeGroup">
     <div id="title-movies-container-section">
       <h2>{{ group.type }}</h2>
     </div>
-    <div class="cards-container"  >
+    <div class="cards-container">
       <div
         class="card"
         *ngFor="let item of group.items"
