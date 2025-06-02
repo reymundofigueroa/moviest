@@ -11,16 +11,16 @@ namespace Moviest_back.Data
     public DbSet<Category> Categories { get; set; }
     public DbSet<Favorites> Favorites { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-{
-    modelBuilder.Entity<Favorites>()
-        .HasKey(f => new { f.UserId, f.ContentId });
+    {
+      modelBuilder.Entity<Favorites>()
+          .HasKey(f => new { f.UserId, f.ContentId });
 
-    modelBuilder.Entity<Favorites>()
-        .HasOne(f => f.Movie)
-        .WithMany()
-        .HasForeignKey(f => f.ContentId);
+      modelBuilder.Entity<Favorites>()
+          .HasOne(f => f.Movie)
+          .WithMany()
+          .HasForeignKey(f => f.ContentId);
 
-    base.OnModelCreating(modelBuilder);
-}
+      base.OnModelCreating(modelBuilder);
+    }
   }
 }

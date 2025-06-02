@@ -21,50 +21,51 @@ namespace Moviest_back.Controllers
     }
 
     [HttpPost("login")]
-public async Task<IActionResult> Login([FromBody] LoginRequest request)
-{
-    var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
-    if (user == null)
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
+      var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+      if (user == null)
+      {
         return Unauthorized("Invalid credentials");
-    }
+      }
 
-    if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-    {
+      if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+      {
         return Unauthorized("Invalid credentials");
-    }
+      }
 
-    // Aquí empieza la generación del token
-    var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
-    if (string.IsNullOrEmpty(secretKey))
-    {
+      // Aquí empieza la generación del token
+      var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
+      if (string.IsNullOrEmpty(secretKey))
+      {
         return StatusCode(500, "JWT_SECRET_KEY no está definido.");
-    }
+      }
 
-    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-    var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+      var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+      var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-    var claims = new[]
-    {
+      var claims = new[]
+      {
         new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
         new Claim(JwtRegisteredClaimNames.Email, user.Email),
         new Claim("name", user.UserName)
     };
 
-    var token = new JwtSecurityToken(
-        claims: claims,
-        expires: DateTime.UtcNow.AddHours(2),
-        signingCredentials: credentials
-    );
+      var token = new JwtSecurityToken(
+          claims: claims,
+          expires: DateTime.UtcNow.AddHours(2),
+          signingCredentials: credentials
+      );
 
-    var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+      var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-    return Ok(new
-    {
+      return Ok(new
+      {
         message = "Login successful",
+        userId = user.Id,
         token = tokenString
-    });
-}
+      });
+    }
 
 
     [HttpPost("register")]

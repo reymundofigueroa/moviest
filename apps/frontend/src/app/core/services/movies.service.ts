@@ -1,57 +1,54 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { MoviesData, DataMovies } from '../../shared/models/data-movies';
 import { Observable, of } from 'rxjs';
-import { map, catchError, } from 'rxjs/operators';
+import { catchError, map} from 'rxjs/operators';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class MoviesService {
-  private apiUrl = 'http://localhost:5222/api/movies/home';
+  private apiUrl = 'http://localhost:5222/';
   public moviesData: DataMovies[]= []
 
   constructor(private http: HttpClient) {}
 
   // Método para obtener las películas
-  getMovies(): Observable<MoviesData> {
-    return this.http.get<MoviesData>(this.apiUrl);
+  getHomeMovies(): Observable<MoviesData> {
+    return this.http.get<MoviesData>(this.apiUrl + 'api/movies/home');
   }
 
+  getFavoritesMovies(): Observable<MoviesData> {
+    return this.http.get<MoviesData>(this.apiUrl + 'api/movies/home');
+  }
 
-  // Método para cargar la data y usarla cuando el buscador la necesite
-  loadData(): Observable<MoviesData> {
-    return this.http.get<MoviesData>(this.apiUrl).pipe(
-      map(data => {
-        this.moviesData = [...data.movies, ...data.series];
-        return { movies: data.movies, series: data.series };
-      }),
-      catchError(error => {
-        console.error('Error loading data:', error);
-        return of({ movies: [], series: [] } as MoviesData);
-      })
-    );
+  getMoviesSortedByCategory(): Observable<MoviesData> {
+    return this.http.get<MoviesData>(this.apiUrl + 'api/movies/categories');
+  }
+
+  getSeries(): Observable<MoviesData> {
+    return this.http.get<MoviesData>(this.apiUrl + 'api/Movies/series');
+  }
+
+  getMovies(): Observable<MoviesData> {
+    return this.http.get<MoviesData>(this.apiUrl + 'api/Movies');
   }
 
   // Método para buscar las coincidencias de películas
-  searchMovies(query: string): Observable<DataMovies[]> {
-    console.log('buscando')
-    if (!query.trim()) {
-    console.warn('La consulta esta vacía')
-      return of([]);
-    }
+searchMovies(query: string): Observable<DataMovies[]> {
+  const params = new HttpParams().set('query', query);
 
-    const lowerCaseQuery = query.toLowerCase();
-    return of(this.moviesData).pipe(
-      map(movies => {
-        const results:DataMovies[] = movies.filter(movie =>
-          movie.title.toLowerCase().includes(lowerCaseQuery) ||
-          (movie.description && movie.description.toLowerCase().includes(lowerCaseQuery))
-        );
-        console.log('Resultados encontrados:', results);
-        return results;
-      })
-    );
-  }
+  return this.http.get<MoviesData>(`${this.apiUrl}Search`, { params }).pipe(
+    map(data => {
+      this.moviesData = data.movies;
+      return data.movies;
+    }),
+    catchError(error => {
+      console.error('Error during search:', error);
+      return of([] as DataMovies[]); // Devolvemos un array vacío en caso de error
+    })
+  );
+}
+
 }

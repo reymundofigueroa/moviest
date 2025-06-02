@@ -1,6 +1,5 @@
 <section
   class="movies-section"
-  *ngIf="category !== 'categories'; else elseBlock"
 >
   <article *ngFor="let group of contentByTypeGroup">
     <div id="title-movies-container-section">
@@ -15,7 +14,7 @@
         <div class="top_icons-card-container">
           <div class="hide-button">
             <button
-              *ngIf="isFavorite(item.id)"
+              *ngIf="isFavorite(item.id) "
               (click)="removeFromFavorites(item.id)"
             >
               <svg
@@ -45,7 +44,7 @@
               >
                 <path
                   d="M1.24264 8.24264L8 15L14.7574 8.24264C15.553 7.44699 16 6.36786 16 5.24264V5.05234C16 2.8143 14.1857 1 11.9477 1C10.7166 1 9.55233 1.55959 8.78331 2.52086L8 3.5L7.21669 2.52086C6.44767 1.55959 5.28338 1 4.05234 1C1.8143 1 0 2.8143 0 5.05234V5.24264C0 6.36786 0.44699 7.44699 1.24264 8.24264Z"
-                  [attr.fill]="isFavorite(item.id) ? 'red' : 'white'"
+                  [attr.fill]="isFavorite(item.id)"
                 />
               </svg>
             </button>
@@ -63,79 +62,6 @@
     </div>
   </article>
 </section>
-
-<ng-template #elseBlock>
-  <section class="movies-section">
-    <ng-container *ngFor="let genero of contentByGenreGroup | keyvalue">
-      <article>
-        <div id="title-movies-container-section">
-          <h2>{{ genero.key }}</h2>
-        </div>
-        <div class="cards-container">
-          <div
-            class="card"
-            *ngFor="let item of genero.value"
-            [style.backgroundImage]="
-              'url(' + item.coverImage + ')'
-            "
-          >
-          <div class="top_icons-card-container">
-            <div class="hide-button">
-              <button
-                *ngIf="isFavorite(item.id)"
-                (click)="removeFromFavorites(item.id)"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g id="Edit / Hide">
-                    <path
-                      id="Vector"
-                      d="M3.99989 4L19.9999 20M16.4999 16.7559C15.1473 17.4845 13.6185 17.9999 11.9999 17.9999C8.46924 17.9999 5.36624 15.5478 3.5868 13.7788C3.1171 13.3119 2.88229 13.0784 2.7328 12.6201C2.62619 12.2933 2.62616 11.7066 2.7328 11.3797C2.88233 10.9215 3.11763 10.6875 3.58827 10.2197C4.48515 9.32821 5.71801 8.26359 7.17219 7.42676M19.4999 14.6335C19.8329 14.3405 20.138 14.0523 20.4117 13.7803L20.4146 13.7772C20.8832 13.3114 21.1182 13.0779 21.2674 12.6206C21.374 12.2938 21.3738 11.7068 21.2672 11.38C21.1178 10.9219 20.8827 10.6877 20.4133 10.2211C18.6338 8.45208 15.5305 6 11.9999 6C11.6624 6 11.3288 6.02241 10.9999 6.06448M13.3228 13.5C12.9702 13.8112 12.5071 14 11.9999 14C10.8953 14 9.99989 13.1046 9.99989 12C9.99989 11.4605 10.2135 10.9711 10.5608 10.6113"
-                      stroke="#FFFFFF"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </g>
-                </svg>
-              </button>
-            </div>
-            <div>
-              <button (click)="addToFavorites(item)">
-                <svg
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.24264 8.24264L8 15L14.7574 8.24264C15.553 7.44699 16 6.36786 16 5.24264V5.05234C16 2.8143 14.1857 1 11.9477 1C10.7166 1 9.55233 1.55959 8.78331 2.52086L8 3.5L7.21669 2.52086C6.44767 1.55959 5.28338 1 4.05234 1C1.8143 1 0 2.8143 0 5.05234V5.24264C0 6.36786 0.44699 7.44699 1.24264 8.24264Z"
-                    [attr.fill]="isFavorite(item.id) ? 'red' : 'white'"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-            <div class="play_button-card-container">
-              <button (click)="loadMovieDetails(item)">
-                <img
-                  class="play-button"
-                  src="/assets/svg/play.svg"
-                  alt="Play"
-                />
-              </button>
-            </div>
-            <div class="bottom_tittle-card-container">
-              <h2 class="title">{{ item.title }}</h2>
-            </div>
-          </div>
-        </div>
-      </article>
-    </ng-container>
-  </section>
-</ng-template>
 
 <ng-template #favoritesEmptyBlock>
   <h3>Aún no has agregado ningún favorito</h3>

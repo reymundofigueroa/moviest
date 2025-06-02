@@ -6,24 +6,24 @@ using Moviest_back.Models.Dtos;
 namespace Moviest_back.Controllers
 {
 
-[ApiController]
-[Route("[controller]")]
-public class SearchController : ControllerBase
-{
-    private readonly MoviestDbContext _context;
-
-    public SearchController(MoviestDbContext context)
+    [ApiController]
+    [Route("[controller]")]
+    public class SearchController : ControllerBase
     {
-        _context = context;
-    }
+        private readonly MoviestDbContext _context;
 
-    [HttpGet("search")]
-    public async Task<IActionResult> SearchContent([FromQuery] string query)
-    {
-        if (string.IsNullOrWhiteSpace(query))
+        public SearchController(MoviestDbContext context)
         {
-            return BadRequest(new { message = "Query is required." });
+            _context = context;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchContent([FromQuery] string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return BadRequest(new { message = "Query is required." });
+            }
 
             var results = await _context.Contents
                 .Include(m => m.Category)
@@ -42,7 +42,7 @@ public class SearchController : ControllerBase
             })
             .ToListAsync();
 
-        return Ok(new { movies = results });
+            return Ok(new { movies = results });
+        }
     }
-}
 }

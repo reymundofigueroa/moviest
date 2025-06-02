@@ -1,32 +1,26 @@
 import { Injectable } from '@angular/core';
-import { DataMovies, ContentGroup } from "../../../shared/models/data-movies";
-
+import { DataMovies, ContentGroup, MoviesData } from "../../../shared/models/data-movies";
+import { map, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FavoritesService {
+  private apiUrl = 'http://localhost:5222/api'
   contentByTypeGroup: ContentGroup[] = []; // Agrupado por tipo
 
+  constructor(private http: HttpClient) {}
+
   // Detectamos si esta en favoritos
-  isFavorite(id: string | number): boolean {
+  isFavorites(id: string | number): boolean {
     const favorites: DataMovies[] = JSON.parse(localStorage.getItem('favoritos') || '[]');
     return favorites.some((fav) => fav.id === id);
   }
 
 
   // Guardamos en favoritos
-  saveMovieIntoFavorites(item: DataMovies): void {
-    const favorites: DataMovies[] = JSON.parse(localStorage.getItem('favoritos') || '[]');
 
-    if (!this.isFavorite(item.id)) {
-      favorites.push(item); // Agregamos el nuevo favorito
-      localStorage.setItem('favoritos', JSON.stringify(favorites));
-      console.log('Agregado a favoritos:', item);
-    } else {
-      console.log('Este elemento ya está en favoritos.');
-    }
-    }
 
     // Cargamos lista de favoritos
     loadFavorites(): ContentGroup[] {
@@ -48,12 +42,43 @@ export class FavoritesService {
       }
     }
 
-    // Eliminamos de favoritos
-    deleteMovieToFavorites(id: string | number): void {
-      console.log('Eliminando de favoritos:', id);
-      const favorites: DataMovies[] = JSON.parse(localStorage.getItem('favoritos') || '[]');
-      const newFavoriteList = favorites.filter((item) => item.id !== id);
+  getFavorites(userId: number): Observable<MoviesData> {
+    return this.http.get<MoviesData>(`${this.apiUrl}/Favorites/user/${userId}`);
+}
 
-      localStorage.setItem('favoritos', JSON.stringify(newFavoriteList));
+saveMovieIntoFavorites(contentId: number): Observable<any> {
+    const userId = localStorage.getItem('UserId'); // o desde AuthService si ya lo usas
+    if (!userId) {
+      throw new Error('User ID not found in localStorage');
     }
+
+    const body = {
+      userId: parseInt(userId),
+      contentId: contentId
+    };
+
+    console.log(body)
+    return this.http.post(this.apiUrl + '/Favorites', body);
+  }
+
+    deleteMovieToFavorites(contentId: number): Observable<any> {
+    const userId = localStorage.getItem('UserId'); // o desde AuthService si ya lo usas
+    if (!userId) {
+      throw new Error('User ID not found in localStorage');
+    }
+
+    const body = {
+      userId: parseInt(userId),
+      contentId: contentId
+    };
+
+    console.log(body)
+    return this.http.delete(this.apiUrl + '/Favorites', { body });
+  }
+
+  isFavorite(userId: number, contentId: number): Observable<boolean> {
+  return this.http.get<{ isFavorite: boolean }>(`${this.apiUrl}/exists/${userId}/${contentId}`)
+    .pipe(map(response => response.isFavorite));
+}
+
 }
