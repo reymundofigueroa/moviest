@@ -1,9 +1,8 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnInit } from "@angular/core";
 import { MoviesService } from "../../../core/services/movies.service";
 import { CommonModule } from "@angular/common";
 import { DataMovies, ContentGroup, GroupedContent, MoviesData } from "../../../shared/models/data-movies";
 import { FavoritesService } from "../services/favorites.service";
-import { Observable } from "rxjs";
 
 @Component({
   selector: "app-movies-list",
@@ -13,13 +12,14 @@ import { Observable } from "rxjs";
   styleUrl: "./movies-list.component.css",
 })
 
-export class MoviesListComponent implements OnChanges {
+export class MoviesListComponent implements OnChanges, OnInit {
   @Input() category = ""; // DEcorador input para recibir indicaciones de que data renderizar
   @Input() dataFromSearch:DataMovies[] = []
   @Output() movieDetails = new EventEmitter<DataMovies>(); // Decorador output para enviar data de la película que se quieren saber detalles
   contentByGenreGroup: GroupedContent = {}; // Agrupado por género
   contentByTypeGroup: ContentGroup[] = []; // Agrupado por tipo
   isMoviesListEmpty = false
+  favoriteIdsSet = new Set<number>();
 
   constructor(private moviesService: MoviesService, private favoritesService: FavoritesService) { }
 
@@ -27,10 +27,12 @@ export class MoviesListComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     // Detectar cambios en category (tu lógica existente)
     if (changes['category'] || changes['dataFromSearch']) {
-
         this.renderMoviesLists();
-
     }
+  }
+
+  ngOnInit(): void {
+     this.getFavoritesIds()
   }
 
   // Método selector de data a renderizar en vase a la categoría que se indico en nav-menu
@@ -59,15 +61,7 @@ export class MoviesListComponent implements OnChanges {
         })
         break;
       case "favorites": {
-        const userIdStr = localStorage.getItem('UserId');
-        if (userIdStr !== null) {
-          const userId = Number(userIdStr);
-          this.favoritesService.getFavorites(userId).subscribe((data: MoviesData) => {
-            this.handleCategorySelected(['movies'], data)
-          });
-        } else {
-          console.error("No userId found in localStorage.");
-        }
+        this.loadFavorites()
         break;
       }
         case 'buscador':
@@ -95,7 +89,7 @@ export class MoviesListComponent implements OnChanges {
         type: 'búsqueda',
         items: this.dataFromSearch
       });
-    }else if (this.dataFromSearch.length !== 0){
+    }else{
       this.isMoviesListEmpty = true
     }
   }
@@ -117,8 +111,8 @@ export class MoviesListComponent implements OnChanges {
     this.favoritesService.saveMovieIntoFavorites(Number(item.id)).subscribe({
       next: () => {
         console.log('Agregado a favoritos')
+        this.getFavoritesIds()
       },
-
     });
 
   }
@@ -126,6 +120,7 @@ export class MoviesListComponent implements OnChanges {
     this.favoritesService.deleteMovieToFavorites(Number(id)).subscribe({
       next: () => {
         console.log('eliminado de favoritos')
+        this.getFavoritesIds()
       }
     });
     if (this.category === "favorites") {
@@ -139,12 +134,21 @@ export class MoviesListComponent implements OnChanges {
           const userId = Number(userIdStr);
           this.favoritesService.getFavorites(userId).subscribe((data: MoviesData) => {
             this.handleCategorySelected(['movies'], data)
+            this.getFavoritesIds();
           });
   }}
 
-isFavorite(id: string | number): Observable<boolean> {
-  const userIdStr = localStorage.getItem('UserId');
-  return this.favoritesService.isFavorite(Number(userIdStr), Number(id));
+isFavorite(id: number): boolean {
+  console.log(this.favoriteIdsSet)
+  console.log(this.favoriteIdsSet.has(id))
+  return this.favoriteIdsSet.has(id);
+}
+
+getFavoritesIds(){
+const userId = Number(localStorage.getItem('UserId'));
+  this.favoritesService.getFavoriteIds(userId).subscribe(ids => {
+    this.favoriteIdsSet = new Set(ids);
+  });
 }
 
   loadMovieDetails(item: DataMovies): void {

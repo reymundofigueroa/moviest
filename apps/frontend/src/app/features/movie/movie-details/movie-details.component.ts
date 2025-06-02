@@ -1,8 +1,7 @@
-import { Component, Input, ViewChild, ElementRef, OnChanges, OnDestroy } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataMovies } from '../../../shared/models/data-movies';
 import { FavoritesService } from '../services/favorites.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-movie-details',
@@ -11,17 +10,21 @@ import { Observable } from 'rxjs';
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.css'
 })
-export class MovieDetailsComponent implements OnChanges, OnDestroy {
+export class MovieDetailsComponent implements OnChanges, OnDestroy, OnInit {
   @Input() movie: DataMovies = {} as DataMovies; // Decorador input para recibir los datos a de la película a renderizar
 
   //Decoradores ViewChild para controlar el comportamiento al reproducir el video
   @ViewChild('videoPlayer') videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('videoContainer') videoContainerElement!: ElementRef<HTMLDivElement>;
+  favoriteIdsSet = new Set<number>();
 
   constructor(private favoritesService: FavoritesService) {
     // Constructor vacío
   }
 
+  ngOnInit(): void {
+    this.getFavoritesIds()
+  }
 
   // hook para detectar cuando se salga del video
   ngOnChanges() {
@@ -60,18 +63,33 @@ export class MovieDetailsComponent implements OnChanges, OnDestroy {
 
   // Métodos para manejar los favoritos
   addToFavorites(movie: DataMovies) {
-    this.favoritesService.saveMovieIntoFavorites(Number(movie.id));
-  }
+   this.favoritesService.saveMovieIntoFavorites(Number(movie.id)).subscribe({
+      next: () => {
+        console.log('Agregado a favoritos')
+        this.getFavoritesIds()
+      },
+  })}
+
   removeFromFavorites(id: string | number) {
-    this.favoritesService.deleteMovieToFavorites(Number(id))
+   this.favoritesService.deleteMovieToFavorites(Number(id)).subscribe({
+      next: () => {
+        console.log('eliminado de favoritos')
+        this.getFavoritesIds()
+      }
+    });
   }
-  // Si quieres usar la versión local (localStorage) que espera solo un id:
 
+  isFavorite(id: number): boolean {
+  console.log(this.favoriteIdsSet)
+  console.log(this.favoriteIdsSet.has(id))
+  return this.favoriteIdsSet.has(id);
+}
 
-// Si quieres usar la versión que espera userId y contentId (por ejemplo, desde backend):
-isFavorite(id: string | number): Observable<boolean> {
-  const userIdStr = localStorage.getItem('UserId');
-  return this.favoritesService.isFavorite(Number(userIdStr), Number(id));
+getFavoritesIds(){
+const userId = Number(localStorage.getItem('UserId'));
+  this.favoritesService.getFavoriteIds(userId).subscribe(ids => {
+    this.favoriteIdsSet = new Set(ids);
+  });
 }
 
 }

@@ -43,7 +43,7 @@ namespace Moviest_back.Controllers
             _context.Favorites.Add(favorite);
             await _context.SaveChangesAsync();
 
-            return Ok("Favorite added successfully.");
+            return Ok(new { message = "Favorite added successfully." });
         }
 
 
@@ -70,7 +70,7 @@ namespace Moviest_back.Controllers
                 .Include(f => f.Movie) // Incluye la película asociada
                 .Select(f => new MovieDto
                 {
-                    Id = $"m{f.Movie.id}",
+                    Id = $"{f.Movie.id}",
                     Title = f.Movie.Title,
                     Description = f.Movie.ContentDescription ?? "",
                     Genre = f.Movie.Category != null ? f.Movie.Category.CategoryName : "",
@@ -86,13 +86,15 @@ namespace Moviest_back.Controllers
         }
 
 
-        [HttpGet("exists/{userId}/{contentId}")]
-        public async Task<IActionResult> IsFavorite(int userId, int contentId)
-        {
-            var exists = await _context.Favorites
-                .AnyAsync(f => f.UserId == userId && f.ContentId == contentId);
+     [HttpGet("ids/{userId}")]
+public async Task<ActionResult<FavoritesIdsResponseDto>> GetFavoriteIds(int userId)
+{
+    var ids = await _context.Favorites
+        .Where(f => f.UserId == userId)
+        .Select(f => f.ContentId)
+        .ToListAsync();
 
-            return Ok(new { isFavorite = exists });
-        }
+    return Ok(new FavoritesIdsResponseDto { FavoriteIds = ids });
+}
     }
 }
