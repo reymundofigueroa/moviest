@@ -30,7 +30,7 @@ namespace Moviest_back.Controllers
                 .Where(m => (m.Title != null && m.Title.Contains(query)) || (m.ContentDescription != null && m.ContentDescription.Contains(query)))
             .Select(m => new MovieDto
             {
-                Id = $"m{m.id}",
+                Id = $"{m.id}",
                 Title = m.Title,
                 Description = m.ContentDescription ?? "",
                 Genre = m.Category != null ? m.Category.CategoryName : "",
