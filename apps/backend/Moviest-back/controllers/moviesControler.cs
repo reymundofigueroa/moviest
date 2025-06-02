@@ -29,7 +29,7 @@ namespace Moviest_back.Controllers
       .Where(m => m.ContentType == 'M')
       .Select(m => new MovieDto
       {
-        Id = $"m{m.id}",
+        Id = $"{m.id}",
         Title = m.Title,
         Description = m.ContentDescription!,
         Genre = m.Category.CategoryName,
@@ -43,18 +43,18 @@ namespace Moviest_back.Controllers
       return Ok(new { movies = movieDtos });
     }
 
-[HttpGet("series")]
+    [HttpGet("series")]
     public async Task<IActionResult> GetSeries()
     {
-      var movies = await _context.Contents
+      var series = await _context.Contents
           .Include(c => c.Category)
           .ToListAsync();
 
-      var movieDtos = movies
+      var movieDtos = series
       .Where(m => m.ContentType == 'S')
       .Select(m => new MovieDto
       {
-        Id = $"m{m.id}",
+        Id = $"{m.id}",
         Title = m.Title,
         Description = m.ContentDescription!,
         Genre = m.Category.CategoryName,
@@ -65,21 +65,21 @@ namespace Moviest_back.Controllers
         VideoUrl = m.VideoUrl!
       }).ToList();
 
-      return Ok(new { movies = movieDtos });
+      return Ok(new { series = movieDtos });
     }
 
     [HttpGet("home")]
-public async Task<IActionResult> GetGroupedContent()
-{
-    var contents = await _context.Contents
-        .Include(m => m.Category)
-        .ToListAsync();
+    public async Task<IActionResult> GetGroupedContent()
+    {
+      var contents = await _context.Contents
+          .Include(m => m.Category)
+          .ToListAsync();
 
-    var movies = contents
-        .Where(m => m.ContentType == 'M')
-        .Select(m => new
-        {
-            id = $"m{m.id}",
+      var movies = contents
+          .Where(m => m.ContentType == 'M')
+          .Select(m => new
+          {
+            id = $"{m.id}",
             title = m.Title,
             description = m.ContentDescription,
             genre = m.Category.CategoryName,
@@ -88,14 +88,14 @@ public async Task<IActionResult> GetGroupedContent()
             Duration = m.Duration.HasValue ? (int)m.Duration.Value.TotalMinutes : 0,
             coverImage = m.CoverImage,
             videoUrl = m.VideoUrl
-        })
-        .ToList();
+          })
+          .ToList();
 
-    var series = contents
-        .Where(m => m.ContentType == 'S')
-        .Select(m => new
-        {
-            id = $"s{m.id}",
+      var series = contents
+          .Where(m => m.ContentType == 'S')
+          .Select(m => new
+          {
+            id = $"{m.id}",
             title = m.Title,
             description = m.ContentDescription,
             genre = m.Category.CategoryName,
@@ -104,33 +104,33 @@ public async Task<IActionResult> GetGroupedContent()
             Duration = m.Duration.HasValue ? (int)m.Duration.Value.TotalMinutes : 0,
             coverImage = m.CoverImage,
             videoUrl = m.VideoUrl
-        })
-        .ToList();
+          })
+          .ToList();
 
-    var response = new
-    {
+      var response = new
+      {
         movies,
         series
-    };
+      };
 
-    return Ok(response);
-}
+      return Ok(response);
+    }
 
-[HttpGet("categories")]
-public async Task<IActionResult> GetGroupedByCategory()
-{
-    var contents = await _context.Contents
-        .Include(m => m.Category)
-        .ToListAsync();
+    [HttpGet("categories")]
+    public async Task<IActionResult> GetGroupedByCategory()
+    {
+      var contents = await _context.Contents
+          .Include(m => m.Category)
+          .ToListAsync();
 
-    var grouped = contents
-        .Where(m => m.Category != null)
-        .GroupBy(m => m.Category!.CategoryName)
-        .ToDictionary(
-            g => g.Key,
-            g => g.Select(m => new MovieDto
-            {
-                Id = $"m{m.id}",
+      var grouped = contents
+          .Where(m => m.Category != null)
+          .GroupBy(m => m.Category!.CategoryName)
+          .ToDictionary(
+              g => g.Key,
+              g => g.Select(m => new MovieDto
+              {
+                Id = $"{m.id}",
                 Title = m.Title,
                 Description = m.ContentDescription ?? "",
                 Genre = g.Key,
@@ -139,11 +139,11 @@ public async Task<IActionResult> GetGroupedByCategory()
                 Duration = m.Duration.HasValue ? (int)m.Duration.Value.TotalMinutes : 0,
                 CoverImage = m.CoverImage ?? "",
                 VideoUrl = m.VideoUrl ?? ""
-            }).ToList()
-        );
+              }).ToList()
+          );
 
-    return Ok(grouped);
-}
+      return Ok(grouped);
+    }
 
 
 
@@ -162,11 +162,11 @@ public async Task<IActionResult> GetGroupedByCategory()
     }
 
     // POST: api/movies
-     [HttpPost]
-public async Task<IActionResult> Post([FromBody] CreateMovieDto dto)
-{
-    var movie = new Movie
+    [HttpPost]
+    public async Task<IActionResult> Post([FromBody] CreateMovieDto dto)
     {
+      var movie = new Movie
+      {
         Title = dto.Title,
         ContentDescription = dto.ContentDescription,
         ContentType = dto.ContentType,
@@ -176,13 +176,13 @@ public async Task<IActionResult> Post([FromBody] CreateMovieDto dto)
         Duration = dto.Duration,
         CoverImage = dto.CoverImage,
         VideoUrl = dto.VideoUrl
-    };
+      };
 
-    _context.Contents.Add(movie);
-    await _context.SaveChangesAsync();
+      _context.Contents.Add(movie);
+      await _context.SaveChangesAsync();
 
-    return CreatedAtAction(nameof(GetMovie), new { id = movie.id }, movie);
-}
+      return CreatedAtAction(nameof(GetMovie), new { id = movie.id }, movie);
+    }
 
     // PUT: api/movies/5
     [HttpPut("{id}")]
@@ -221,5 +221,5 @@ public async Task<IActionResult> Post([FromBody] CreateMovieDto dto)
 
       return NoContent();
     }
-    }
+  }
 }

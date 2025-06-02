@@ -2,6 +2,7 @@ import { Component, Input, ViewChild, ElementRef, OnChanges, OnDestroy } from '@
 import { CommonModule } from '@angular/common';
 import { DataMovies } from '../../../shared/models/data-movies';
 import { FavoritesService } from '../services/favorites.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-movie-details',
@@ -59,13 +60,18 @@ export class MovieDetailsComponent implements OnChanges, OnDestroy {
 
   // Métodos para manejar los favoritos
   addToFavorites(movie: DataMovies) {
-    this.favoritesService.saveMovieIntoFavorites(movie);
+    this.favoritesService.saveMovieIntoFavorites(Number(movie.id));
   }
   removeFromFavorites(id: string | number) {
-    this.favoritesService.deleteMovieToFavorites(id)
+    this.favoritesService.deleteMovieToFavorites(Number(id))
   }
-  isFavorite(id: string | number): boolean {
-    return this.favoritesService.isFavorite(id);
-  }
+  // Si quieres usar la versión local (localStorage) que espera solo un id:
+
+
+// Si quieres usar la versión que espera userId y contentId (por ejemplo, desde backend):
+isFavorite(id: string | number): Observable<boolean> {
+  const userIdStr = localStorage.getItem('UserId');
+  return this.favoritesService.isFavorite(Number(userIdStr), Number(id));
+}
 
 }
