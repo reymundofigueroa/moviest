@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MoviesService } from './core/services/movies.service';
 
@@ -10,11 +10,9 @@ import { MoviesService } from './core/services/movies.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor(private moviesService: MoviesService){}
   title = 'moviest';
 
-  ngOnInit(): void {
-    this.moviesService.loadData().subscribe();
-  }
+
 }

@@ -36,6 +36,10 @@
   height: auto;
 }
 
+.card{
+  background-size: cover;
+}
+
 .card .top_icons-card-container{
   display: flex;
   justify-content: flex-end;

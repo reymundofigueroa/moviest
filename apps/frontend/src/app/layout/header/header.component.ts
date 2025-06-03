@@ -18,6 +18,12 @@ export class HeaderComponent {
     });
   }
 
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+
   // Determinamos si se esta en la pagina de login, esto para saber que contenido del header renderizar
   isHomePage(): boolean {
     return this.currentPage === '/home';
