@@ -57,7 +57,7 @@ Puedes ajustarla según tu configuración local, pero se recomienda usar Windows
 
 ---
 
-## Endpoints de autenticación y registro de usuarios
+## Endpoints del proyecto
 
 ### Base URL
 
@@ -93,6 +93,7 @@ Inicia sesión de un usuario registrado.
 ```json
 {
   "message": "Login successful",
+  "userId": 1,
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzIiwiZW1haWwiOiJtaWd1ZWxAZWplbXBsby5jb20iLCJuYW1lIjoiSnVhbiBQw6lyZXoiLCJleHAiOjE3NDc5MDA0Nzl9.n2vhv9SCgJdfR518PeBLRsa3FweCC7MTGcPH5Us3_Oc"
 }
 ```
@@ -130,6 +131,543 @@ Registra un nuevo usuario en el sistema
 }
 ```
 
+### Favoritos
+
+#### POST `/api/Favorites`
+
+Agrega un elemento a favoritos
+
+- **URL**: `/api/Favorites`
+- **Método**: `POST`
+- **Body (JSON)**:
+
+```json
+{
+  "userId": 1,
+  "contentId": 1,
+}
+```
+
+##### Respuesta
+
+200 OK:
+
+```json
+{
+  "message": "Favorite added successfully."
+}
+```
+
+409 Conflict:
+
+```json
+{
+  "message": "Favorite already exists."
+}
+```
+
+404 Not found:
+
+```json
+{
+  "message": "No content found with ID 91"
+}
+```
+
+#### DELETE `/api/Favorites`
+
+Agrega un elemento a favoritos
+
+- **URL**: `/api/Favorites`
+- **Método**: `DELETE`
+- **Body (JSON)**:
+
+```json
+{
+  "userId": 1,
+  "contentId": 1,
+}
+```
+
+##### Respuesta
+
+200 OK:
+
+```json
+{
+  "message": "Favorito eliminado correctamente."
+}
+```
+
+404 Not found:
+
+```json
+{
+  "message": "No se encontró el favorito."
+}
+```
+
+#### GET `/api/Favorites/user/{userId}`
+
+Agrega un elemento a favoritos
+
+- **URL**: `/api/Favorites/user/{userId}`
+- **Método**: `GET`
+- **Body (JSON)**:
+
+```json
+{
+  "userId": 1
+}
+```
+
+##### Respuesta
+
+200 OK:
+
+```json
+{
+  "movies": [
+    {
+      "id": "4",
+      "title": "Theory of Everithing",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "https://example.com/inception.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    },
+    {
+      "id": "8",
+      "title": "Dragon ball evolution",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "http://www.freemovieposters.net/posters/dragonball_evolution_2009_3760_poster.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    }
+  ]
+}
+```
+
+#### GET `/api/Favorites/ids/{userId}`
+
+Agrega un elemento a favoritos
+
+- **URL**: `/api/Favorites/user/{userId}`
+- **Método**: `GET`
+- **Body (JSON)**:
+
+```json
+{
+  "userId": 1
+}
+```
+
+##### Respuesta
+
+200 OK:
+
+```json
+{
+  "favoriteIds": [
+    4,
+    8
+  ]
+}
+```
+
+### Películas
+
+#### GET `/api/Movies`
+
+Agrega un elemento a favoritos
+
+- **URL**: `/api/Movies`
+- **Método**: `GET`
+- **Body NONE**:
+
+##### Respuesta
+
+200 OK:
+
+```json
+{
+  "movies": [
+    {
+      "id": "4",
+      "title": "Theory of Everithing",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "https://example.com/inception.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    },
+    {
+      "id": "8",
+      "title": "Dragon ball evolution",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "http://www.freemovieposters.net/posters/dragonball_evolution_2009_3760_poster.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    }
+  ]
+}
+```
+
+#### GET `/api/Movies`
+
+Agrega un elemento a favoritos
+
+- **URL**: `/api/series`
+- **Método**: `GET`
+- **Body NONE**:
+
+##### Respuesta
+
+200 OK:
+
+```json
+{
+  "series": [
+    {
+      "id": "5",
+      "title": "Suits",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "https://example.com/inception.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    },
+    {
+      "id": "9",
+      "title": "Death note",
+      "description": "the best movie to the every time",
+      "genre": "Comedia",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "https://image.tmdb.org/t/p/original/qDhbGqjZ7yFwa7FMIzuiQTQMfEQ.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    }
+  ]
+}
+```
+
+#### GET `/api/Movies/home`
+
+Agrega un elemento a favoritos
+
+- **URL**: `/api/Movies/home`
+- **Método**: `GET`
+- **Body NONE**:
+
+##### Respuesta
+
+200 OK:
+
+```json
+{
+  "movies": [
+    {
+      "id": "4",
+      "title": "Theory of Everithing",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "https://example.com/inception.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    },
+    {
+      "id": "8",
+      "title": "Dragon ball evolution",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "http://www.freemovieposters.net/posters/dragonball_evolution_2009_3760_poster.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    }
+  ],
+  "series": [
+    {
+      "id": "5",
+      "title": "Suits",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "https://example.com/inception.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    },
+    {
+      "id": "9",
+      "title": "Death note",
+      "description": "the best movie to the every time",
+      "genre": "Comedia",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "https://image.tmdb.org/t/p/original/qDhbGqjZ7yFwa7FMIzuiQTQMfEQ.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    }
+  ]
+}
+```
+
+#### GET `/api/Movies/categories`
+
+Agrega un elemento a favoritos
+
+- **URL**: `/api/Favorites/user/{userId}`
+- **Método**: `GET`
+- **Body NONE**:
+
+##### Respuesta
+
+200 OK:
+
+```json
+{
+  "Drama": [
+    {
+      "id": "4",
+      "title": "Theory of Everithing",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "https://example.com/inception.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    },
+    {
+      "id": "5",
+      "title": "Suits",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "https://example.com/inception.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    },
+    {
+      "id": "8",
+      "title": "Dragon ball evolution",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "http://www.freemovieposters.net/posters/dragonball_evolution_2009_3760_poster.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    }
+  ],
+  "Comedia": [
+    {
+      "id": "9",
+      "title": "Death note",
+      "description": "the best movie to the every time",
+      "genre": "Comedia",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "https://image.tmdb.org/t/p/original/qDhbGqjZ7yFwa7FMIzuiQTQMfEQ.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    }
+  ]
+}
+```
+
+#### GET `/api/Movies/{id}`
+
+Agrega un elemento a favoritos
+
+- **URL**: `/api/Favorites/user/{userId}`
+- **Método**: `GET`
+- **Body JSON**:
+
+```json
+"id": 8
+```
+
+##### Respuesta
+
+200 OK:
+
+```json
+{
+  "id": 8,
+  "title": "Dragon ball evolution",
+  "contentDescription": "the best movie to the every time",
+  "contentType": "M",
+  "categoryId": 4,
+  "category": null,
+  "contentYear": "2010-07-16T00:00:00",
+  "rating": 8.8,
+  "duration": "02:28:00",
+  "coverImage": "http://www.freemovieposters.net/posters/dragonball_evolution_2009_3760_poster.jpg",
+  "videoUrl": "https://example.com/inception.mp4"
+}
+```
+
+404 Not found:
+
+```json
+{
+  "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+  "title": "Not Found",
+  "status": 404,
+  "traceId": "00-fbf284d14a8e5fec084db2a2328356f4-1f99da3317680824-00"
+}
+```
+
+#### POST `/api/Movies`
+
+Agrega un elemento a favoritos
+
+- **URL**: `/api/Movies`
+- **Método**: `GET`
+- **Body JSON**:
+
+```json
+{
+  "title": "Dragon ball evolution",
+  "contentDescription": "the best movie to the every time",
+  "contentType": "M",
+  "categoryId": 4,
+  "category": null,
+  "contentYear": "2010-07-16T00:00:00",
+  "rating": 8.8,
+  "duration": "02:28:00",
+  "coverImage": "http://www.freemovieposters.net/posters/dragonball_evolution_2009_3760_poster.jpg",
+  "videoUrl": "https://example.com/inception.mp4"
+}
+```
+
+##### Respuesta
+
+200 OK:
+
+```json
+{
+  "id": 8,
+  "title": "Dragon ball evolution",
+  "contentDescription": "the best movie to the every time",
+  "contentType": "M",
+  "categoryId": 4,
+  "category": null,
+  "contentYear": "2010-07-16T00:00:00",
+  "rating": 8.8,
+  "duration": "02:28:00",
+  "coverImage": "http://www.freemovieposters.net/posters/dragonball_evolution_2009_3760_poster.jpg",
+  "videoUrl": "https://example.com/inception.mp4"
+}
+```
+
+ ### Búsqueda
+
+#### GET `/search`
+
+Agrega un elemento a favoritos
+
+- **URL**: `/Search?query={searchContent}`
+- **Método**: `GET`
+- **Body QueryParams**:
+
+##### Respuesta
+
+200 OK:
+
+```json
+{
+  "movies": [
+    {
+      "id": "4",
+      "title": "Theory of Everithing",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "https://example.com/inception.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    },
+    {
+      "id": "5",
+      "title": "Suits",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "https://example.com/inception.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    },
+    {
+      "id": "8",
+      "title": "Dragon ball evolution",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "http://www.freemovieposters.net/posters/dragonball_evolution_2009_3760_poster.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    },
+    {
+      "id": "9",
+      "title": "Death note",
+      "description": "the best movie to the every time",
+      "genre": "Comedia",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "https://image.tmdb.org/t/p/original/qDhbGqjZ7yFwa7FMIzuiQTQMfEQ.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    },
+    {
+      "id": "10",
+      "title": "Dragon ball evolution",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "http://www.freemovieposters.net/posters/dragonball_evolution_2009_3760_poster.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    },
+    {
+      "id": "11",
+      "title": "Dragon baddddddll evolution",
+      "description": "the best movie to the every time",
+      "genre": "Drama",
+      "year": 2010,
+      "rating": 8.8,
+      "duration": 148,
+      "coverImage": "http://www.freemovieposters.net/posters/dragonball_evolution_2009_3760_poster.jpg",
+      "videoUrl": "https://example.com/inception.mp4"
+    }
+  ]
+}
+```
+
 ---
 
 ## Seguridad
@@ -155,19 +693,18 @@ Importante que la clave tenga 32 caracteres
 
 ### Cómo lo hice
 
-1. Cree un nuevo proyecto de tipo webapi en `C#`
-2. Definí la estructura de carpetas para usar modelo vista controlador
-3. Cree controlador `AuthController.cs` para manejar los registros y el login de usuarios
-4. Cree el modelo `user.cs` para manejar la estructura de la tabla `users` de mi base de datos
-5. Cree el `moviestDBContext.cs` para manejar el contexto de mis diferentes tablas en mi base de datos
-6. ajuste el archivo `appSettings.json` para configurar la conexión a la base de datos (utilice la autenticación de windows para mantener seguras las credenciales)
+1. Cree los modelos de las bases de datos para cada tabla que consumí
+2. cree los DTOS para ajustar el formato de envío para el frontend
+3. Agregué el contexto de los modelos de mis tablas en el MoviestDbContext
+4. Cree los controladores divididos por lógica de las secciones que usarían, es decir uno para favoritos, otro para búsquedas, etc.
+5. dentro de los controladores agregué la lógica para cada endpoint
 
 ---
 
 ### Errores conocidos
 
-- solo sirve al frontend para crear usuarios e iniciar sesión
-- no maneja un tiempo para que caduquen los JWT
+- No sirven los endpoints de delete y put para las películas
+- No todos los endpoints devuelven una repuesta de mensaje JSON sino texto plano. Lo cual no obedece un orden en las respuestas
 
 ---
 
@@ -184,4 +721,4 @@ El proyecto "Moviest-back" tiene las referencias de paquete siguientes <br>
    6. Microsoft.EntityFrameworkCore.Tools                9.0.5        9.0.5 <br>
    7. Swashbuckle.AspNetCore                             8.1.1        8.1.1
 
-### Ultima modificación 21/02/2025
+### Ultima modificación 02/06/2025

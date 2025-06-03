@@ -76,10 +76,10 @@ npm run start:backend
 
 | Categoría               | Descripción                                                                                                                                              |
 |-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ¿Qué salió bien?        | - La estructura básica de la API en 'C#' fue comprendida rápido debido a las explicaciones del challenger. <br> - La base de datos se maqueto sin mayores inconvenientes. <br> - El consumo de la API desde el frontend se incorporo sin mayores inconvenientes. |
-| ¿Qué puedo hacer diferente? | - Enviar el proyecto aun sin completar la documentación (se podrá añadir la documentación en commits subsecuentes).<br> - estudiar mas a fondo la estructura del archivo Program.cs para entender mejor el orden de las lineas que se tienen que ejecutar en dicho archivo                                                                                 |
-| ¿Qué no salió bien?     | - No entregué el proyecto en tiempo y forma debido a temas de Salud y estar internado en las fechas de entrega. <br> No alcanse a usar Guards en el frontend debido a temas de tiempo                                                  |
+| ¿Qué salió bien?        | - Las conexiones a la API desde el frontend fueron sencillas <br> - LA implementación de CORS se logró sin mayor inconveniente gracias a las explicaciones del challenger <br> - La creación de los diferentes endpoints fue rápida |
+| ¿Qué puedo hacer diferente? | - Asignar mejores nombres a la tabla contents por películas o un nombre mejor <br> - Crear una estructura de la base de datos adecuada para manejar las series y películas, muy posiblemente en distintas tablas. <br> -Evaluar alguna estrategia para aplicar el principio DRY al momento de hacer las peticiones en el moviesLis.component.ts en lugar de usar un switch |
+| ¿Qué no salió bien?     | - No alcance a actualizar los test de los métodos usados en el frontend. <br> -La lógica para manejar favoritos es muy extensa y me causo muchas dudas al momento de implementar una solución que tenga buen performance y haga las menores peticiones posibles junto con el menor tamaño de datos a transferir. <br> -No alcance a dockerizar mis proyectos debido a que no leí con la suficiente atención los requisitos del entregable del Readme.md (Anotado poner la máxima atención para que no vuelva a pasar) |
 
 ---
 
-### Ultima actualización el 21/05/2025
+### Ultima actualización el 02/06/2025
