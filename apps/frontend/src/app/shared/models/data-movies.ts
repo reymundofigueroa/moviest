@@ -19,4 +19,11 @@ export type GroupedContent = Record<string, DataMovies[]>; // Clave: género, Va
 export interface MoviesData {
   movies: DataMovies[];
   series: DataMovies[];
+  Favoritos: DataMovies[]
+  Acción: DataMovies[];
+  Misterio: DataMovies[];
+  Comedia: DataMovies[];
+  Drama: DataMovies[];
+  Suspenso: DataMovies[];
+  'Sci-Fi': DataMovies[];
 }

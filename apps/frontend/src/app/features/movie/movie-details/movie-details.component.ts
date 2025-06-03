@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, OnChanges, OnDestroy } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataMovies } from '../../../shared/models/data-movies';
 import { FavoritesService } from '../services/favorites.service';
@@ -10,17 +10,21 @@ import { FavoritesService } from '../services/favorites.service';
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.css'
 })
-export class MovieDetailsComponent implements OnChanges, OnDestroy {
+export class MovieDetailsComponent implements OnChanges, OnDestroy, OnInit {
   @Input() movie: DataMovies = {} as DataMovies; // Decorador input para recibir los datos a de la película a renderizar
 
   //Decoradores ViewChild para controlar el comportamiento al reproducir el video
   @ViewChild('videoPlayer') videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('videoContainer') videoContainerElement!: ElementRef<HTMLDivElement>;
+  favoriteIdsSet = new Set<number>();
 
   constructor(private favoritesService: FavoritesService) {
     // Constructor vacío
   }
-
+  // Hook para saber si el elemento es favorito al iniciar
+  ngOnInit(): void {
+    this.getFavoritesIds()
+  }
 
   // hook para detectar cuando se salga del video
   ngOnChanges() {
@@ -31,7 +35,6 @@ export class MovieDetailsComponent implements OnChanges, OnDestroy {
   ngOnDestroy() {
     document.removeEventListener('fullscreenchange', this.handleFullscreenExit.bind(this));
   }
-
 
   // Método para mostrar el video
   showVideo() {
@@ -46,7 +49,6 @@ export class MovieDetailsComponent implements OnChanges, OnDestroy {
     }
   }
 
-
   // Método para manejar el comportamiento al salir del video
   handleFullscreenExit(): void {
     const videoContainer = this.videoContainerElement.nativeElement;
@@ -57,15 +59,36 @@ export class MovieDetailsComponent implements OnChanges, OnDestroy {
     }
   }
 
-  // Métodos para manejar los favoritos
+  // Métodos para solicitar añadir a favoritos
   addToFavorites(movie: DataMovies) {
-    this.favoritesService.saveMovieIntoFavorites(movie);
-  }
-  removeFromFavorites(id: string | number) {
-    this.favoritesService.deleteMovieToFavorites(id)
-  }
-  isFavorite(id: string | number): boolean {
-    return this.favoritesService.isFavorite(id);
+    this.favoritesService.saveMovieIntoFavorites(Number(movie.id)).subscribe({ // Hacemos la petición a nuestro favorites.service.ts
+      next: () => {
+        console.log('Agregado a favoritos')
+        this.getFavoritesIds() // Actualizamos la lista de favoritos
+      },
+    })
   }
 
+  // método para solicitar eliminar elemento de favoritos
+  removeFromFavorites(id: string | number) {
+    this.favoritesService.deleteMovieToFavorites(Number(id)).subscribe({ // Hacemos la petición a nuestro favorites.service.ts
+      next: () => {
+        console.log('eliminado de favoritos')
+        this.getFavoritesIds() // Actualizamos la lista de favoritos
+      }
+    });
+  }
+
+  // Método para identificar favoritos
+  isFavorite(id: number): boolean {
+    return this.favoriteIdsSet.has(id); // Retorna el booleano de contener el id de la película en el array favoritesIdSet
+  }
+
+  // Método para solicitar los ids de los elementos que están en favoritos
+  getFavoritesIds() {
+    const userId = Number(localStorage.getItem('UserId')); // Obtenemos el 'UserId' del usuario
+    this.favoritesService.getFavoriteIds(userId).subscribe(ids => { // Hacemos la petición del array con los ids
+      this.favoriteIdsSet = new Set(ids); // actualizamos el favoritesIdsSet con la lista de ids favoritos
+    });
+  }
 }

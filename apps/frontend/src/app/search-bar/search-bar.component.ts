@@ -42,7 +42,7 @@ export class SearchBarComponent implements OnInit  {
   // método para iniciar la búsqueda
   triggerSearch() {
     const query = this.searchControl.value;
-    this.moviesService.searchMovies(query || '').subscribe(results => {
+    this.moviesService.searchMovies(query || '').subscribe(results => { // Hacemos la petición de los resultados a la API
       this.categorySelected.emit('buscador')
       this.searchResults.emit(results);
     });

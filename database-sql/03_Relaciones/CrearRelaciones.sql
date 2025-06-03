@@ -23,6 +23,14 @@ GO
 
 ALTER TABLE Contents
 ADD CONSTRAINT FK_Contents_Categories
-    FOREIGN KEY (Genre)
-    REFERENCES Categories(id);
+FOREIGN KEY (CategoryId)
+REFERENCES Categories(id)
 GO
+
+-- ===========================================
+-- Create Constraint Check to Contents table
+-- ===========================================
+
+ALTER TABLE Contents
+ADD CONSTRAINT CHK_Content_type
+CHECK (ContentType IN ('S', 'M'));

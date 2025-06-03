@@ -43,7 +43,7 @@ Elaborar un Hub de entretenimiento funcional para aprender y sobre todo demostra
 ## 👀 Vista del proyecto
 
 - Login
-Una ventana de login sencilla en la que, para entrar, hay que tener un usuario ya creado e introducir las credenciales. El esquema de estilos esta inspirado en el Glassmorphism.
+Una ventana de login sencilla en la que, para entrar, hay que tener un usuario ya creado e introducir las credenciales. El esquema de estilos esta inspirado en el Glassmorphism. Para cerrar sesión es necesario dar click en el ícono de usuario en la esquina superior derecha
 
 ![Vista previa del Login](./public/assets/images/Captura-login.png)
 
@@ -96,10 +96,12 @@ Esta sección muestra los resultados de una búsqueda con coincidencias ya sea p
 
 ## 🛠️ ¿Como lo hice?
 
-1. Realice las conexiones a la API para manejar el flujo de login implementando servicios
-2. En el servicio 'user-access.service.ts' cree los métodos que se conectaran a la API para las peticiones post segmentadas por crear usuarios y hacer login
-3. Implemente los métodos que consumían el servicio 'user-access.service.ts' en cada uno de los componentes del flujo de login
-4. Implemente el uso de JWT para mejorar la seguridad en el inicio de sesión
+1. Cree un guard para manejar los inicios de sesión.
+3. Modifique la lógica de los métodos que consumían el JSON hardcodeado para usar la API
+4. Para la lógica de favoritos evalué distintas opciones para manejar los recursos, opte por hacer una solo una petición de los Ids de las películas guardadas en favoritos para compararla con los Ids de las películas cargadas y asi darle dinamismo a los iconos que manejan la UX de favoritos
+5. ajuste las llamadas a los métodos modificados en el HTML
+6. Cree una interface para el obserbable de favoritos para no usar el tipo 'any'
+7. agregue un método para cerrar sesión y borrar el token, puedes hacerlo al hacer click en el icono de usuario a la derecha del header (se espera agregar un menu desplegable para mejorar la UX)
 
 ---
 
@@ -108,7 +110,7 @@ Esta sección muestra los resultados de una búsqueda con coincidencias ya sea p
 1. No hay algún elemento de UX para retroceder las listas de películas una vez realizada una búsqueda (se tiene que dar click en algún icono del nav-menu)
 2. Solo existe un video hardcodeado para todas las películas
 3. Se tuvieron que crear dos estructuras de interfaces para las películas, una para categorías y otra para las demás, lo cual no obedece las mejores practicas
-4. No se alcanzaron a corregir las propuestas de UX propuestas por el Challenger debido a que la retroalimentación llego apenas
+4. no hay test para los nuevos métodos modificados
 
 ---
 
@@ -126,6 +128,7 @@ Esta sección muestra los resultados de una búsqueda con coincidencias ya sea p
 ![Imagen del reporte de test con karma](./public/assets/images/code-covearge-karma.png)
 
  Coverage summary <br>
+
 - Statements   : 80.24% ( 130/162 ) <br>
 - Branches     : 64.1% ( 25/39 ) <br>
 - Functions    : 70.9% ( 39/55 ) <br>

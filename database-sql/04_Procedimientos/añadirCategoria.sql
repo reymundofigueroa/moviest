@@ -20,6 +20,6 @@ BEGIN
 
     -- Insertar la categoría
     INSERT INTO Categories (CategoryName)
-    VALUES (@CategoryName);
+    VALUES ('ciencia ficción');
 END
 GO
