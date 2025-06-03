@@ -1,3 +1,4 @@
+// Modelo de la tabla Contents
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Moviest_back.Models

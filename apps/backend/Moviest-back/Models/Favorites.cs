@@ -1,3 +1,4 @@
+// Modelo de la tabla Favorites
 namespace Moviest_back.Models
 {
   public class Favorites

@@ -1,3 +1,4 @@
+// Modelo de la tabla Users
 namespace Moviest_back.Models
 {
   public class User
