@@ -1,3 +1,4 @@
+// Modelo de la tabla Categories
 namespace Moviest_back.Models
 {
   public class Category

@@ -22,6 +22,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 DotNetEnv.Env.Load();
+
+// Configuración de la key de JWT
 var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
 
 if (string.IsNullOrEmpty(secretKey))
@@ -30,7 +32,6 @@ if (string.IsNullOrEmpty(secretKey))
 }
 
 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -50,6 +51,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Configuración de CORS
 var MyAllowSpecificOrigins = builder.Configuration["Cors:AllowedOrigin"]
     ?? "http://localhost:4200";
 
@@ -58,7 +60,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
         builder =>
         {
-            builder.WithOrigins("http://localhost:4200") // frontend
+            builder.WithOrigins("http://localhost:4200") // Puerto del frontend permitido
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });

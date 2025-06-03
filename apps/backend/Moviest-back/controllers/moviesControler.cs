@@ -1,3 +1,4 @@
+// Controlador PAra las peticiones de contenido de películas o series
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moviest_back.Data;
@@ -6,18 +7,21 @@ using Moviest_back.Models.Dtos;
 
 namespace Moviest_back.Controllers
 {
+  // Especifica que este controlador es una API y la ruta será api/movies
   [ApiController]
   [Route("api/[controller]")]
   public class MoviesController : ControllerBase
   {
     private readonly MoviestDbContext _context;
 
+    // Inyección del contexto de base de datos
     public MoviesController(MoviestDbContext context)
     {
       _context = context;
     }
 
     // GET: api/movies
+    // Devuelve solo las películas (ContentType == 'M')
     [HttpGet]
     public async Task<IActionResult> GetMovies()
     {
@@ -25,6 +29,7 @@ namespace Moviest_back.Controllers
           .Include(c => c.Category)
           .ToListAsync();
 
+      // Filtra solo las películas y las transforma en DTOs
       var movieDtos = movies
       .Where(m => m.ContentType == 'M')
       .Select(m => new MovieDto
@@ -43,6 +48,8 @@ namespace Moviest_back.Controllers
       return Ok(new { movies = movieDtos });
     }
 
+    // GET: api/movies/series
+    // Devuelve solo las series (ContentType == 'S')
     [HttpGet("series")]
     public async Task<IActionResult> GetSeries()
     {
@@ -68,6 +75,8 @@ namespace Moviest_back.Controllers
       return Ok(new { series = movieDtos });
     }
 
+    // GET: api/movies/home
+    // Devuelve todas las películas y series, agrupadas por tipo
     [HttpGet("home")]
     public async Task<IActionResult> GetGroupedContent()
     {
@@ -75,6 +84,7 @@ namespace Moviest_back.Controllers
           .Include(m => m.Category)
           .ToListAsync();
 
+      // Arma la lista de películas
       var movies = contents
           .Where(m => m.ContentType == 'M')
           .Select(m => new
@@ -91,6 +101,7 @@ namespace Moviest_back.Controllers
           })
           .ToList();
 
+      // Arma la lista de series
       var series = contents
           .Where(m => m.ContentType == 'S')
           .Select(m => new
@@ -116,6 +127,8 @@ namespace Moviest_back.Controllers
       return Ok(response);
     }
 
+    // GET: api/movies/categories
+    // Agrupa el contenido (películas/series) por nombre de categoría
     [HttpGet("categories")]
     public async Task<IActionResult> GetGroupedByCategory()
     {
@@ -145,9 +158,8 @@ namespace Moviest_back.Controllers
       return Ok(grouped);
     }
 
-
-
-    // GET: api/movies/details/5
+    // GET: api/movies/5
+    // Devuelve los datos crudos del contenido por su ID
     [HttpGet("{id}")]
     public async Task<ActionResult<Movie>> GetMovie(int id)
     {
@@ -162,6 +174,7 @@ namespace Moviest_back.Controllers
     }
 
     // POST: api/movies
+    // Crea una nueva película o serie
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateMovieDto dto)
     {
@@ -181,16 +194,19 @@ namespace Moviest_back.Controllers
       _context.Contents.Add(movie);
       await _context.SaveChangesAsync();
 
+      // Devuelve el recurso recién creado con su ruta
       return CreatedAtAction(nameof(GetMovie), new { id = movie.id }, movie);
     }
 
     // PUT: api/movies/5
+    // Actualiza los datos de un contenido existente
     [HttpPut("{id}")]
     public async Task<IActionResult> PutMovie(int id, Movie movie)
     {
       if (id != movie.id)
         return BadRequest();
 
+      // Marca el estado como modificado
       _context.Entry(movie).State = EntityState.Modified;
 
       try
@@ -209,6 +225,7 @@ namespace Moviest_back.Controllers
     }
 
     // DELETE: api/movies/5
+    // Elimina un contenido por su ID
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteMovie(int id)
     {

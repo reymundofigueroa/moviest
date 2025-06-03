@@ -1,3 +1,4 @@
+// DTO Para enviar el JSON de películas
 namespace Moviest_back.Models.Dtos
 {
   public class MovieDto

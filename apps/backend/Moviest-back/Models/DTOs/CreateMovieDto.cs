@@ -1,3 +1,4 @@
+// DTO para crear una película nueva
 public class CreateMovieDto
 {
   public string Title { get; set; } = null!;
