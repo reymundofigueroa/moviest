@@ -583,3 +583,9 @@ FodyWeavers.xsd
 # variables de entorno
 
 .env*
+
+# archivos innecesarios para el despliegue a producción o dockerización
+
+/k8s/
+
+**dist/
