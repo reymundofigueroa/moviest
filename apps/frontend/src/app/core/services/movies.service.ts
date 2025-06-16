@@ -9,7 +9,7 @@ import { catchError, map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class MoviesService {
-  private apiUrl = 'http://localhost:5222/';
+  private apiUrl = 'http://localhost:8081/';
   public moviesData: DataMovies[]= []
 
   constructor(private http: HttpClient) {}

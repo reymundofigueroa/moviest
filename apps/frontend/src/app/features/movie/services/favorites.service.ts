@@ -8,7 +8,7 @@ import { FavoritesModel } from '../../../shared/models/favoritesHandlerModel';
   providedIn: 'root'
 })
 export class FavoritesService {
-  private apiUrl = 'http://localhost:5222/api'
+  private apiUrl = 'http://localhost:8081/api'
   contentByTypeGroup: ContentGroup[] = []; // Agrupado por tipo
 
   constructor(private http: HttpClient) { }

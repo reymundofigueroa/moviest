@@ -8,7 +8,7 @@ import { LoginResponse, LoginRequest, RegisterRequest } from '../../../shared/mo
   providedIn: 'root'
 })
 export class UserAccessService {
-  private apiUrl = 'http://localhost:5222/api/auth';
+  private apiUrl = 'http://localhost:8081/api/auth';
 
   constructor(private http: HttpClient) {}
 
