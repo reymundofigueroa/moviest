@@ -6,6 +6,10 @@ Este repositorio contiene el sistema completo dividido en tres módulos principa
 - 🗃️ [Base de Datos](./database-sql/00_Documentacion/DataBase.md)
 - 🎨 [Frontend](./apps/frontend/Frontend.md)
 
+Puedes revisar como levantar el proyecto con docker desde:
+
+- 🐋 [Levantar Con Docker](./LevantarConDocker.md)
+
 ---
 
 ## Creado por
@@ -76,10 +80,10 @@ npm run start:backend
 
 | Categoría               | Descripción                                                                                                                                              |
 |-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ¿Qué salió bien?        | - Las conexiones a la API desde el frontend fueron sencillas <br> - LA implementación de CORS se logró sin mayor inconveniente gracias a las explicaciones del challenger <br> - La creación de los diferentes endpoints fue rápida |
-| ¿Qué puedo hacer diferente? | - Asignar mejores nombres a la tabla contents por películas o un nombre mejor <br> - Crear una estructura de la base de datos adecuada para manejar las series y películas, muy posiblemente en distintas tablas. <br> -Evaluar alguna estrategia para aplicar el principio DRY al momento de hacer las peticiones en el moviesLis.component.ts en lugar de usar un switch |
-| ¿Qué no salió bien?     | - No alcance a actualizar los test de los métodos usados en el frontend. <br> -La lógica para manejar favoritos es muy extensa y me causo muchas dudas al momento de implementar una solución que tenga buen performance y haga las menores peticiones posibles junto con el menor tamaño de datos a transferir. <br> -No alcance a dockerizar mis proyectos debido a que no leí con la suficiente atención los requisitos del entregable del Readme.md (Anotado poner la máxima atención para que no vuelva a pasar) |
+| ¿Qué salió bien?        | - logre crear los dockerfile rápido debido a los ejemplos del challenger <br> - La configuración de la conexión a la base de datos fue rápida y sencilla debido a las explicaciones del challenger |
+| ¿Qué puedo hacer diferente? | - Revisar bien la configuración de Docker cuando use WSL para evitar conflictos |
+| ¿Qué no salió bien?     | - Se recortaron los tiempos de entrega y no pude hacer mejoras o actualizaciones en cuanto a test o implementar mejoras a la UI <br> - la configuración de las variables de entorno se complico debido a que no las terminaba de recibir docker cuando levantaba la imagen del backend |
 
 ---
 
-### Ultima actualización el 02/06/2025
+### Ultima actualización el 21/06/2025
